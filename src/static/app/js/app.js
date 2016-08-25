@@ -11,7 +11,7 @@ angular.module('mol.indicators', [
   'ngCookies',
   'ngAnimate',
   'ui.bootstrap',
-  'nvd3',
+  //'nvd3',
   'mol.api',
   'mol.services',
   'mol.loading-indicator',
