@@ -1,0 +1,21 @@
+<div class="container-fluid datasets-map-container">
+  <leaflet ng-if="showMap"
+    width="100%"
+    layers="map.layers"
+    bounds="map.bounds"
+    defaults="map.defaults"
+    legend="map.legend"
+    controls="map.controls"
+    event-broadcast="map.events">
+  </leaflet>
+  <span class="btn-group pull-right">
+    <label ng-repeat="overlay in visibleOverlays()"
+        ng-bind="overlay"
+        uib-btn-radio="'{{overlay}}'"
+        ng-change="showOverlay('{{overlay}}')"
+        ng-model="map.visible"
+        class="btn btn-primary btn-xs">
+    </label>
+  </span>
+  {{interactivity}}
+</div>

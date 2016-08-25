@@ -1,0 +1,134 @@
+html {
+  height: auto;
+}
+
+body {
+  min-height: 100vh;
+  height: 100vh;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+.navigation.dataset-navigation .nav {
+  margin: 0;
+}
+.navigation.dataset-navigation .nav > li {
+  display: inline;
+  float: left;
+  margin-right: 8px;
+}
+.navigation.dataset-navigation .navbar-nav .dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  min-width: 160px;
+  float: left;
+  z-index: 1500;
+}
+
+.layouts-base {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.main {
+  display: -webkit-flex;
+  display: flex;
+  flex: 1;
+  -webkit-flex: 1;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+.display-toggle {
+  padding-top: 8px;
+}
+
+.navbar-nav .display-toggle li {
+  background-color: #fff;
+}
+
+.layouts-sidebar {
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  padding-bottom: 20px;
+}
+
+.sidebar-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.sidebar-scroll-container {
+  position: relative;
+  max-width: 90%;
+  width: 90%;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.7s ease;
+}
+
+.sidebar-scroll-container.closed {
+  min-width: 0;
+  max-width: 0;
+  padding: 0;
+  transition: all 0.7s ease;
+  overflow: hidden;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: 50vh;
+  left: 278px;
+  z-index:  1000;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  padding:10px;
+  color: #555555;
+  background-color: white;
+  border-bottom: 1pt solid grey;
+  border-top: 1pt solid grey;
+  border-right: 1pt solid grey;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  transition: all 0.7s ease;
+}
+
+.sidebar-toggle.toggle-closed {
+  left: 0;
+  transition: all 0.7s ease;
+}
+
+.sidebar {
+  position: relative;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right:0px;
+  background-color: white;
+  font-size: 10pt;
+  padding: 15px;
+  max-width: 100%;
+  max-width: 280px;
+  min-width: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 2pt solid gray;
+}
+
+.layouts-sidebar .map-container {
+  display: flex;
+  display: -webkit-flex;
+  flex: 1;
+  -webkit-flex: 1;
+}

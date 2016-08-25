@@ -1,0 +1,34 @@
+{
+  "name": "inventory",
+  "description": "Map of Life Dataset Inventory",
+  "version": "0.0.1",
+  "homepage": "https://github.com/MapofLife/ng-mol",
+  "license": "MIT",
+  "devDependencies": {
+    "angular": "~1.5.5",
+    "angular-ui-select3": "ui-select#*",
+    "angular-cookies": "~1.5.5",
+    "angular-sanitize": "~1.5.5",
+    "angular-loading-bar": "~0.8.0",
+    "angular-resource": "~1.5.5",
+    "angular-bootstrap": "1.0",
+    "angular-ui-router": "~0.2.18",
+    "angular-nvd3": "~1.0.5",
+    "bootstrap": "~3.3.6",
+    "angular-filter": "~0.5.8",
+    "angular-animate": "~1.5.1"
+  },
+  "authors": [
+    "Jeremy Malczyk <jmalczyk@@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "angular": "~1.5.5"
+  }
+}
