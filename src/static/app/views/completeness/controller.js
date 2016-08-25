@@ -1,14 +1,10 @@
 angular.module('mol.controllers')
-  .controller('molIndicatorsCompletenessCtrl', ['$scope', 'molApi','countries',
-    function($scope,  molApi,countries) {
+  .controller('molIndicatorsCompletenessCtrl', ['$scope', 'molApi',
+    function($scope,  molApi) {
 
-      $scope.model = {
-        countries : countries,
-        country : countries[0]};
       $scope.$watch('model.country',function(n,o){
           if(n){$scope.data = generateData(n)}
       });
-
 /* placeholder models for multiChart */
       $scope.options = {
        chart: {
@@ -41,7 +37,7 @@ angular.module('mol.controllers')
        }
    };
 
-   $scope.data = generateData($scope.country); //ideally country would be resolved with all metrics in stateProvider config
+   $scope.data = generateData($scope.model.country); //ideally country would be resolved with all metrics in stateProvider config
 
    function generateData(country){
        var testdata = stream_layers(7,10+Math.random()*100,.1).map(function(data, i) {

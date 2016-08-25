@@ -60,9 +60,15 @@ angular.module('mol.indicators', [
             }).then(function(result) {
                 return result.data.filter(function(r){return !r.attributes.parent_id});
             })
+          },
+          country: function(countries, $stateParams) {
+            return $stateParams.country || countries[Math.round(Math.random()*255)];
+          },
+          chartData: function(country) {
+            return country
           }
         },
-        url : "/"
+        url : ":country/"
       }
     )
     .state(
@@ -81,5 +87,38 @@ angular.module('mol.indicators', [
         url: 'completeness'
       }
     )
+    .state(
+      'indicators.reserves', {
+        title: 'Reserve Coverage',
+        views: {
+          '@indicators': {
+            templateUrl: 'static/app/layouts/basic.html'
+          },
+          'content@indicators.reserves': {
+            templateUrl: 'static/app/views/reserves/main.html',
+            controller: 'molIndicatorsReservesCtrl'
+          }
+        },
+
+        url: 'reserves'
+      }
+    )
+    .state(
+      'indicators.habitat', {
+        title: 'Habitat Change',
+        views: {
+          '@indicators': {
+            templateUrl: 'static/app/layouts/basic.html'
+          },
+          'content@indicators.habitat': {
+            templateUrl: 'static/app/views/habitat/main.html',
+            controller: 'molIndicatorsHabitatCtrl'
+          }
+        },
+
+        url: 'habitat'
+      }
+    )
+
     $locationProvider.html5Mode(true);
 }])
