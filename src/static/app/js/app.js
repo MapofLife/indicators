@@ -39,6 +39,7 @@ angular.module('mol.indicators', [
   $stateProvider
     .state(
       'indicators', {
+        title: "Biodiversity Indicators",
         views: {
           '': {
             templateUrl: 'static/app/layouts/base.html',
