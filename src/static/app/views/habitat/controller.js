@@ -3,7 +3,7 @@ angular.module('mol.controllers')
     function($scope,  molApi) {
 
       $scope.$watch('model.country',function(n,o){
-          if(n){$scope.data = generateData(n)}
+          if(n){shuffle($scope.data[0].values);}
       });
 
 /* placeholder models for multiChart */
@@ -19,7 +19,7 @@ chart: {
   },
   x: function(d){ return d['date']; },
   y: function(d){ return d['close']; },
-  duration: 100,
+  duration: 1200,
 
   xAxis: {
       axisLabel: 'Dates',
@@ -30,9 +30,9 @@ chart: {
   },
 
   yAxis: {
-      axisLabel: 'Stock Price',
+      axisLabel: 'Hectares Suitable Habitat',
       tickFormat: function(d){
-          return '$' + d3.format(',.1f')(d);
+          return d3.format(',.1f')(d);
       },
       showMaxMin: false
   },
@@ -48,6 +48,18 @@ chart: {
 }
 };
 
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length-2; i; i--) {
+        a[i]["open"] =   a[i-1]["open"]+Math.round(Math.random()*(15))-Math.round(Math.random()*(8));
+        a[i]["close"] = a[i]["open"] - Math.round(Math.random()*(15)) + Math.round(Math.random()*(20));
+        a[i]["low"] = a[i]["open"] - Math.round(Math.random()*(30));
+        a[i]["high"] = a[i]["open"] + Math.round(Math.random()*(25));
+
+
+    }
+
+}
 $scope.data = [{values: [
 {"date": 15854, "open": 165.42, "high": 165.8, "low": 164.34, "close": 165.22, "volume": 160363400, "adjusted": 164.35},
 {"date": 15855, "open": 165.35, "high": 166.59, "low": 165.22, "close": 165.83, "volume": 107793800, "adjusted": 164.96},
