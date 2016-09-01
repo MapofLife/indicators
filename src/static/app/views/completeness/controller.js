@@ -1,93 +1,111 @@
 angular.module('mol.controllers')
-  .controller('molIndicatorsCompletenessCtrl', ['$scope', 'molApi',
-    function($scope,  molApi) {
+    .controller('molIndicatorsCompletenessCtrl', ['$scope', '$filter', 'molApi', 'completenessData',
+        function($scope, $filter, molApi, completenessData) {
 
-      $scope.$watch('model.country',function(n,o){
-          if(n){$scope.data = generateData(n)}
-      });
-/* placeholder models for multiChart */
-      $scope.options = {
-       chart: {
-           type: 'multiChart',
-           height: 450,
-           margin : {
-               top: 30,
-               right: 60,
-               bottom: 50,
-               left: 70
-           },
-           color: d3.scale.category10().range(),
-           //useInteractiveGuideline: true,
-           duration: 500,
-           xAxis: {
-               tickFormat: function(d){
-                   return d3.format(',f')(d);
-               }
-           },
-           yAxis1: {
-               tickFormat: function(d){
-                   return d3.format(',.1f')(d);
-               }
-           },
-           yAxis2: {
-               tickFormat: function(d){
-                   return d3.format(',.1f')(d);
-               }
-           }
-       }
-   };
+            $scope.$watch('model.country', function(n, o) {
+                if (n) {
+                    $scope.data = processDataForCountry(n)
+                }
+            });
+            /* placeholder models for multiChart */
+            $scope.options = {
+                chart: {
+                    type: 'multiChart',
+                    height: 450,
+                    margin: {
+                        top: 30,
+                        right: 60,
+                        bottom: 50,
+                        left: 70
+                    },
+                    color: d3.scale.category10().range(),
+                    useInteractiveGuideline: true,
+                    duration: 500,
+                    xAxis: {
+                        tickFormat: function(d) {
+                            return d3.format('f')(d);
+                        }
+                    },
+                    yAxis1: {
+                        tickFormat: function(d) {
+                            return d3.format(',.1f')(d);
+                        }
+                    },
+                    yAxis2: {
+                        tickFormat: function(d) {
+                            return d3.format(',.1f')(d);
+                        }
+                    },
+                    yAxis2: {
+                        tickFormat: function(d) {
+                            return d3.format(',.1f')(d);
+                        }
+                    }
+                }
+            };
 
-   $scope.data = generateData($scope.model.country); //ideally country would be resolved with all metrics in stateProvider config
+            $scope.data = processDataForCountry($scope.model.country);
 
-   function generateData(country){
-       var testdata = stream_layers(7,10+Math.random()*100,.1).map(function(data, i) {
-           return {
-               key: 'Some metric ' + i,
-               values: data.map(function(a){a.y = a.y * (i <= 1 ? -1 : 1); return a})
-           };
-       });
+            function processDataForCountry(country) {
+                console.log("Display data for country: " + country.name);
+                var region = completenessData.filter(function(r) {
+                    return (r.region == country.name);
+                });
+                if (region.length > 0) {
+                    return processStatistics(region[0].statistics);
+                }
+            }
 
-       testdata[0].type = "area"
-       testdata[0].yAxis = 1
-       testdata[1].type = "area"
-       testdata[1].yAxis = 1
-       testdata[2].type = "line"
-       testdata[2].yAxis = 1
-       testdata[3].type = "line"
-       testdata[3].yAxis = 2
-       testdata[4].type = "bar"
-       testdata[4].yAxis = 2
-       testdata[5].type = "bar"
-       testdata[5].yAxis = 2
-       testdata[6].type = "bar"
-       testdata[6].yAxis = 2
+            function processStatistics(stats) {
+                var nrc_data = [],
+                    ngc_data = [],
+                    avg_data = [],
+                    std_data = [];
+                angular.forEach(stats, function(values, key) {
+                    nrc_data.push({
+                        x: values.year,
+                        y: values.no_rangemap_cells
+                    });
+                    ngc_data.push({
+                        x: values.year,
+                        y: values.no_gbif_cells
+                    });
+                    avg_data.push({
+                        x: values.year,
+                        y: values.average
+                    });
+                    std_data.push({
+                        x: values.year,
+                        y: values.stddev
+                    });
+                });
 
-       return testdata;
-   }
+                return [{
+                    key: 'Rangemap',
+                    values: nrc_data,
+                    color: '#2ecc71',
+                    type: 'line',
+                    yAxis: 1
+                }, {
+                    key: 'GBIF',
+                    values: ngc_data,
+                    color: '#3498db',
+                    type: 'bar',
+                    yAxis: 1
+                }, {
+                    key: 'Average',
+                    values: avg_data,
+                    color: '#e67e22',
+                    type: 'line',
+                    yAxis: 2
+                }, {
+                    key: 'Standard Deviation',
+                    values: std_data,
+                    color: '#f1c40f',
+                    type: 'line',
+                    yAxis: 2
+                }];
+            }
 
-   /* Inspired by Lee Byron's test data generator. */
-   function stream_layers(n, m, o) {
-       if (arguments.length < 3) o = 0;
-       function bump(a) {
-           var x = 1 / (.1 + Math.random()),
-               y = 2 * Math.random() - .5,
-               z = 10 / (.1 + Math.random());
-           for (var i = 0; i < m; i++) {
-               var w = (i / m - y) * z;
-               a[i] += x * Math.exp(-w * w);
-           }
-       }
-       return d3.range(n).map(function() {
-           var a = [], i;
-           for (i = 0; i < m; i++) a[i] = o + o * Math.random();
-           for (i = 0; i < 5; i++) bump(a);
-           return a.map(stream_index);
-       });
-   }
-
-   function stream_index(d, i) {
-       return {x: i, y: Math.max(0, d)};
-   }
-
-    }
-  ]);
+        }
+    ]);

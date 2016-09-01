@@ -66,6 +66,14 @@ angular.module('mol.indicators', [
           },
           chartData: function(country) {
             return country
+          },
+          completenessData: function(molApi) {
+            return molApi({
+              service: "indicators/completeness",
+              params: {indicator: "gbif"}
+            }).then(function(result) {
+                return result.data.filter(function(r){return r});
+            })
           }
         },
         url : ":country/"
