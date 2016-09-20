@@ -1,9 +1,12 @@
 angular.module('mol.controllers')
-  .controller('molIndicatorsCtrl', ['$scope', 'molApi','countries','country',
-    function($scope, molApi, countries, country) {
-      $scope.model = {
-        countries : countries,
-        country : country };
-    
+  .controller('molIndicatorsCtrl', ['$scope', '$state', '$rootScope', '$q', 'molApi', 'molUiMap', 'molRegionOverlay',
+    function($scope, $state, $rootScope, $q, molApi, molUiMap, molRegionOverlay) {
+      	$scope.model = {
+      		map: new molUiMap(),
+        	regionHover: undefined
+		};
 
+		$rootScope = $scope; // important for map
+		$rootScope.$state = $state; // for view specific css targeting
+		$scope.infowindowPromise = $q.defer();
 }]);
