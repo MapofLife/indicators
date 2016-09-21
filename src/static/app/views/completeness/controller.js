@@ -1,13 +1,17 @@
 angular.module('mol.controllers')
     .controller('molIndicatorsCompletenessCtrl', [
-            '$scope','$state','molApi','molRegionOverlay','regionType',
-    function($scope,  $state,  molApi,  molRegionOverlay,  regionType) {
+            '$scope','$state','molApi','molRegionOverlay','regionType','availableTaxa','mapDisplayTypes',
+    function($scope,  $state,  molApi,  molRegionOverlay,  regionType, availableTaxa, mapDisplayTypes) {
 
             $scope.model.regionType = regionType;
-            $scope.model.selectedTaxa = undefined;
+
+            $scope.model.mapDisplayTypes = mapDisplayTypes;
+            $scope.model.selectedMapType = mapDisplayTypes[0];
+
+            $scope.model.availableTaxa = availableTaxa;
+            $scope.model.selectedMapTaxa = availableTaxa[0];
 
             $scope.$watch("model.regionType", function(n,o) {
-                console.log(n);
                 if (n.region_id) {
                     $scope.model.regionHover = n;
                 }
@@ -15,6 +19,33 @@ angular.module('mol.controllers')
                     $scope.setRegionType(n);
                 }
             },true);
+
+            $scope.$watch("model.selectedMapType", function(n,o) {
+                if(n && !angular.equals(n,o)) {
+                    return molApi({
+                      "service": "indicators/availabletaxa",
+                      "loading": true,
+                      "params": {
+                        "region_display": n.type
+                      }
+                    }).then(
+                      function(response) {
+                        $scope.model.availableTaxa = response.data;
+                        $scope.model.selectedMapTaxa = response.data[0];
+                        $scope.renderMapForTaxa();
+                    });
+                }
+            });
+            $scope.$watch("model.selectedMapTaxa", function(n,o) {
+                if(n && !angular.equals(n,o)) {
+                    $scope.renderMapForTaxa();
+                }
+            });
+
+            $scope.renderMapForTaxa = function() {
+                console.log('Rendering map for: ' + $scope.model.selectedMapType.title + ' - ' + $scope.model.selectedMapTaxa.title);
+
+            };
 
 
             $scope.setRegionType = function(r) {
@@ -43,7 +74,7 @@ angular.module('mol.controllers')
                                     case 'click':
                                         $state.transitionTo(
                                             'indicators.completeness.region',
-                                            {"region":data.name},{"inherit":true});
+                                            {"region":data.region_name},{"inherit":true});
                                         break;
                                     case 'mousemove':
                                         $scope.model.regionHover = data;

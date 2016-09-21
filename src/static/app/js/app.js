@@ -130,6 +130,24 @@ angular.module('mol.indicators', [
                   .find(function(type) {
                     return type.type.toLowerCase() === defaultType
                   });
+              },
+              availableTaxa: function(regionType, molApi, $stateParams) {
+                  return molApi({
+                    "service": "indicators/availabletaxa",
+                    "loading": true
+                  }).then(
+                    function(response) {
+                      return (response.data || regionType);
+                  });
+              },
+              mapDisplayTypes: function() {
+                  return[{
+                    "type": "countries",
+                    "title": "Countries"
+                  }, {
+                    "type": "geohash",
+                    "title": "Grid"
+                  }];
               }
             },
             url: 'completeness'

@@ -16,7 +16,7 @@ molServices.factory(
 						return $http({
 								"withCredentials":false,
 								"method":"POST",
-								"url":"https://mol.carto.com/api/v1/map/named/region-map-dev",
+								"url":"https://mol.carto.com/api/v1/map/named/completeness-region-taxa",
 								"data": region
 							 }).then(function(result, status, headers, config) {
 											return {
@@ -31,7 +31,7 @@ molServices.factory(
 																result.data.cdn_url.https,
 																result.data.layergroupid),
 													key: result.data.layergroupid,
-													attr: '©2014 Map of Life',
+													attr: '©2016 Map of Life',
 													name: 'region',
 													opacity: 1,
 													type: 'region'
