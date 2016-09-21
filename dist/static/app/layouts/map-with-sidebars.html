@@ -1,11 +1,64 @@
+<style>
+  .layouts-map-with-sidebars {
+      position: relative;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex: 1;
+      flex: 1;
+  }
+
+  .layouts-map-with-sidebars  .sidebar-scroll-container {
+        position: relative;
+        max-width: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-right: 2pt solid gray;
+      }
+
+
+  .layouts-map-with-sidebars   .content-scroll-container {
+      position: relative;
+      flex: 1;
+      display: flex;
+      overflow-y: auto;
+      overflow-x: auto;
+      border-right: 2pt solid gray;
+    }
+
+  .layouts-map-with-sidebars  .sidebar {
+      flex: 1;
+      -webkit-flex: 1;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      background-color: white;
+      font-size: 10pt;
+      padding: 5px;
+      width: 450px;
+    }
+
+    .layouts-map-with-sidebars  .map-container {
+      display: -webkit-flex;
+      display: flex;
+      flex: 1;
+      -webkit-flex: 1;
+    }
+
+    .layouts-map-with-sidebars  mol-loading-indicator {
+      position: absolute;
+      left:50%;
+      top:10px;
+    }
+</style>
 <div class="layouts-map-with-sidebars">
  <div ng-swipe-left="lc=true" ng-swipe-disable-mouse
       ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': lc}" class="sidebar-scroll-container left">
    <div ui-view="left-sidebar" class="left" ></div>
  </div>
-  <div class="map-container" ng-include="'static/app/partials/map.html'"></div><!--ui-view="map"></div>-->
-  <div ng-swipe-right="rc=true" ng-swipe-disable-mouse ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': rc}" class="sidebar-scroll-container right">
+  <div class="map-container" ui-view="map"></div><!--ui-view="map"></div>-->
+  <!--<div ng-swipe-right="rc=true" ng-swipe-disable-mouse ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': rc}" class="sidebar-scroll-container right">
     <div ui-view="right-sidebar"  class="right"></div>
-  </div>
+  </div>-->
   <mol-loading-indicator></mol-loading-indicator>
 </div>
