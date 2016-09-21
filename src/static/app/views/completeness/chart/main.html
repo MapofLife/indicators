@@ -3,9 +3,9 @@
     <div class="pull-right">
       <select
         class="form-control"
-        ng-model="selectedtaxa"
+        ng-model="model.selectedTaxa"
         ng-change="processDataForRegionTaxa()"
-        ng-options="taxa.title for taxa in taxaList track by taxa.taxa"></select>
+        ng-options="taxa.title for taxa in model.taxaList track by taxa.taxa"></select>
     </div>
     <h3 class="modal-title" id="modal-title">Statistics for {{model.region.name}}</h3>
   </div>

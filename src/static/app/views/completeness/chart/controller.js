@@ -9,7 +9,7 @@ angular.module('mol.controllers').controller(
                     $scope.model.taxaList = completenessData.groups;
                     $scope.model.selectedTaxa = $scope.model.taxaList[0];
 
-                    $scope.chartObject = {
+                    $scope.model.chartObject = {
                         type: "LineChart",
                         displayed: false,
                         options: {
@@ -25,7 +25,6 @@ angular.module('mol.controllers').controller(
                             },
                             hAxis: {
                                 title: 'Year',
-                                slantedText: 'false',
                                 gridlines: {
                                     color: '#333',
                                     count: 10
@@ -83,7 +82,7 @@ angular.module('mol.controllers').controller(
                         {v: getErrorValue(values.average, values.stddev, false)}
                     ]});
                 });
-                $scope.chartObject.data = the_data;
+                $scope.model.chartObject.data = the_data;
             }
 
             function getErrorValue(val, err, isMin) {
