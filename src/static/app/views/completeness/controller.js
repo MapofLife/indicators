@@ -1,7 +1,7 @@
 angular.module('mol.controllers')
     .controller('molIndicatorsCompletenessCtrl', [
-            '$scope','$state','molApi','molRegionOverlay','regionType','availableTaxa','mapDisplayTypes',
-    function($scope,  $state,  molApi,  molRegionOverlay,  regionType, availableTaxa, mapDisplayTypes) {
+            '$scope','$state','molApi','molCompletenessOverlay','regionType','availableTaxa','mapDisplayTypes',
+    function($scope,  $state,  molApi,  molCompletenessOverlay,  regionType, availableTaxa, mapDisplayTypes) {
 
             $scope.model.regionType = regionType;
 
@@ -30,9 +30,12 @@ angular.module('mol.controllers')
                       }
                     }).then(
                       function(response) {
+                        var refreshMap = ($scope.model.selectedMapTaxa != response.data[0]);
                         $scope.model.availableTaxa = response.data;
                         $scope.model.selectedMapTaxa = response.data[0];
-                        $scope.renderMapForTaxa();
+                        if (refreshMap) {
+                          $scope.renderMapForTaxa();
+                        }
                     });
                 }
             });
@@ -43,14 +46,17 @@ angular.module('mol.controllers')
             });
 
             $scope.renderMapForTaxa = function() {
-                console.log('Rendering map for: ' + $scope.model.selectedMapType.title + ' - ' + $scope.model.selectedMapTaxa.title);
-
+                var params = angular.extend(regionType, {
+                  "taxa": $scope.model.selectedMapTaxa.taxa,
+                  "display_type": $scope.model.selectedMapType.type
+                });
+                $scope.setRegionType(params);
             };
 
 
             $scope.setRegionType = function(r) {
                 if(r) {
-                    molRegionOverlay(r).then(
+                    molCompletenessOverlay(r).then(
                         function(overlay) {
                             if(overlay) {
                                 $scope.model.map.setOverlay(angular.extend(overlay,{index:0}),0);
@@ -72,9 +78,11 @@ angular.module('mol.controllers')
                             if(data) {
                                 switch(eventName) {
                                     case 'click':
-                                        $state.transitionTo(
-                                            'indicators.completeness.region',
-                                            {"region":data.region_name},{"inherit":true});
+                                        if ($scope.model.selectedMapType.type=='countries') {
+                                            $state.transitionTo(
+                                                'indicators.completeness.region',
+                                                {"region":data.region_name},{"inherit":true});
+                                        }
                                         break;
                                     case 'mousemove':
                                         $scope.model.regionHover = data;

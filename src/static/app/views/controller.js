@@ -1,6 +1,6 @@
 angular.module('mol.controllers')
-  .controller('molIndicatorsCtrl', ['$scope', '$state', '$rootScope', '$q', 'molApi', 'molUiMap', 'molRegionOverlay',
-    function($scope, $state, $rootScope, $q, molApi, molUiMap, molRegionOverlay) {
+  .controller('molIndicatorsCtrl', ['$scope', '$state', '$rootScope', '$q', 'molApi', 'molUiMap', 'molCompletenessOverlay',
+    function($scope, $state, $rootScope, $q, molApi, molUiMap, molCompletenessOverlay) {
       	$scope.model = {
       		map: new molUiMap(),
         	regionHover: undefined

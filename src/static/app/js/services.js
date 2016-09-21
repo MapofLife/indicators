@@ -8,16 +8,20 @@ molServices.factory(
   ]
 )
 .factory(
-	'molRegionOverlay',
+	'molCompletenessOverlay',
 	[ '$http','$q',
 		function($http,$q) {
-			return function(region) {
-					if(region) {
+			return function(params) {
+					if(params) {
+            mapurl = "https://mol.carto.com/api/v1/map/named/completeness-region-taxa";
+            if (params.display_type=='geohash') {
+              mapurl = "https://mol.carto.com/api/v1/map/named/completeness-grid-taxa";
+            }
 						return $http({
 								"withCredentials":false,
 								"method":"POST",
-								"url":"https://mol.carto.com/api/v1/map/named/completeness-region-taxa",
-								"data": region
+								"url":mapurl,
+								"data": params
 							 }).then(function(result, status, headers, config) {
 											return {
 													tile_url: ""+
@@ -38,7 +42,7 @@ molServices.factory(
 											};
 										});
 						} else {
-							return $q.when(null)
+							return $q.when(null);
 						}
 
 
