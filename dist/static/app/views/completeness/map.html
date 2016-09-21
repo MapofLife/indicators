@@ -1,0 +1,95 @@
+<style type="text/css">
+  .google-map {
+    display: flex;
+    display: -webkit-flex;
+    flex:1;
+    -webkit-flex:1;
+  }
+
+  .angular-google-map {
+    display: flex;
+    display: -webkit-flex;
+    flex:1;
+    -webkit-flex:1;
+  }
+
+  .angular-google-map-container {
+    display: flex;
+    display: -webkit-flex;
+    flex:1;
+    -webkit-flex:1;
+  }
+  .map-link {
+    margin: 5px;
+    background-color:none;
+  }
+  a.map-link:hover {background-color:inherit;}
+  .map-link img {height: 26px;}
+  .map-control-item {
+    margin: 5px 10px;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+    border-radius: 2px;
+    color: rgb(86, 86, 86);
+    background: white;
+  }
+  .chart-view {
+    position: relative;
+    padding: 10px;
+    height:300px;
+    min-width: 400px;
+    width:100%;
+  }
+  .modal-lg {
+    width: 80%;
+  }
+</style>
+<ui-gmap-google-map
+    class="google-map"
+    center="model.map.center"
+    zoom="model.map.zoom"
+    bounds="model.map.bounds"
+    events="model.map.events"
+    options="model.map.options"
+    control="model.map.control"
+    pan="true">
+      <ui-gmap-map-type
+        options="mt"
+        show="mt.show"
+        refresh="mt.refresh"
+        ng-repeat="mt in model.map.overlayMapTypes"></ui-gmap-map-type>
+      <ui-gmap-map-control position="bottom-left" index="10000">
+        <a class="map-link" href="https://mol.org/" target="_blank">
+          <img src="static/app/img/logo.png">
+        </a>
+      </ui-gmap-map-control>
+
+      <ui-gmap-map-control position="top-right" index="10000">
+       <div class="info-boxes">
+           <div class="region-info">
+             <h4>Country</h4>
+             <b>{{ model.regionHover.region_name || 'Hover over the map' }}</b>
+             <br />
+             <b>{{ model.regionHover.inventory_completeness }}</b>
+           </div>
+           <hr />
+           <div class="layer-info">
+               <h4>Select a view:</h4>
+               <select
+                  class="form-control selectpicker"
+                  ng-model="model.selectedMapType"
+                  ng-options="dtype.title for dtype in model.mapDisplayTypes track by dtype.type">
+                </select>
+           </div>
+           <hr />
+           <div class="taxa-info">
+               <h4>Select a taxa:</h4>
+               <select
+                  class="form-control selectpicker"
+                  ng-model="model.selectedMapTaxa"
+                  ng-options="taxa.title for taxa in model.availableTaxa track by taxa.taxa">
+                </select>
+           </div>
+       </div>
+     </ui-gmap-map-control>
+</ui-gmap-google-map>

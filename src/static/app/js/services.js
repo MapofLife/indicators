@@ -13,7 +13,7 @@ molServices.factory(
 		function($http,$q) {
 			return function(params) {
 					if(params) {
-            mapurl = "https://mol.carto.com/api/v1/map/named/completeness-region-taxa";
+            var mapurl = "https://mol.carto.com/api/v1/map/named/completeness-region-taxa";
             if (params.display_type=='geohash') {
               mapurl = "https://mol.carto.com/api/v1/map/named/completeness-grid-taxa";
             }
