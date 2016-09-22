@@ -70,11 +70,11 @@
              <h4>Country</h4>
              <b>{{ model.regionHover.region_name || 'Hover over the map' }}</b>
              <br />
-             <b>{{ model.regionHover.inventory_completeness }}</b>
+             <b>{{ model.regionHover.inventory_completeness * 100 | number:2}}% complete (avg)</b>
            </div>
            <hr />
            <div class="layer-info">
-               <h4>Select a view:</h4>
+               <h4>Select map type:</h4>
                <select
                   class="form-control selectpicker"
                   ng-model="model.selectedMapType"
@@ -83,7 +83,7 @@
            </div>
            <hr />
            <div class="taxa-info">
-               <h4>Select a taxa:</h4>
+               <h4>Select taxonomic group:</h4>
                <select
                   class="form-control selectpicker"
                   ng-model="model.selectedMapTaxa"
