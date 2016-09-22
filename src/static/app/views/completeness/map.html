@@ -33,9 +33,30 @@
     color: rgb(86, 86, 86);
     background: white;
   }
-  .region-info {
-    height:80px;
+  .btn-default.active {
+    background-image: linear-gradient(to bottom,#8cbf44 0,#7bae33 100%);
   }
+  .row-layout {
+    width: 100%;
+  }
+
+
+  /** start animations **/
+  /* start ng-if animations */
+  .animate-if.ng-enter, .animate-if.ng-leave {
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+  }
+
+  .animate-if.ng-enter,
+  .animate-if.ng-leave.ng-leave-active {
+    opacity:0;
+  }
+
+  .animate-if.ng-leave,
+  .animate-if.ng-enter.ng-enter-active {
+    opacity:1;
+  }
+  /* end ng-if animations */
 </style>
 <ui-gmap-google-map
     class="google-map"
@@ -59,30 +80,61 @@
 
       <ui-gmap-map-control position="top-right" index="10000">
        <div class="info-boxes">
-           <div class="region-info">
-             <h4>Country</h4>
-             <b>{{ model.regionHover.region_name || 'Hover over the map' }}</b>
-             <br />
-             <b ng-show="model.regionHover.inventory_completeness">
-               {{(model.regionHover.inventory_completeness * 100 | number:2) + "% complete (avg)"}}</b>
-           </div>
-           <hr />
-           <div class="layer-info">
-               <h4>Select map type:</h4>
-               <select
-                  class="form-control selectpicker"
+          <div class="global-info">
+            <h3>Global view</h3>
+          </div>
+          <hr />
+
+          <div class="layer-info">
+              <h4>Map type:</h4>
+              <div>
+                <div class="btn-group row-layout">
+                  <!--
+                  <button type="button" class="btn btn-default btn-sm"
+                  ng-repeat="dtype in model.mapDisplayTypes track by dtype.type"
                   ng-model="model.selectedMapType"
-                  ng-options="dtype.title for dtype in model.mapDisplayTypes track by dtype.type">
-                </select>
-           </div>
-           <hr />
-           <div ng-if="model.availableTaxa" class="taxa-info">
-               <h4>Select taxonomic group:</h4>
-               <select
-                  class="form-control selectpicker"
-                  ng-model="model.selectedMapTaxa"
-                  ng-options="taxa.title group by taxa.groupby for taxa in model.availableTaxa track by taxa.taxa"></select>
-           </div>
+                  uib-btn-radio="dtype" uncheckable>{{ dtype.type }}</button>
+                  -->
+                  <button type="button" class="btn btn-default btn-sm col-sm-6"
+                  ng-model="model.selectedMapType"
+                  uib-btn-radio="model.mapDisplayTypes[0]" uncheckable>{{ model.mapDisplayTypes[0].title }}</button>
+                  <button type="button" class="btn btn-default btn-sm col-sm-6"
+                  ng-model="model.selectedMapType"
+                  uib-btn-radio="model.mapDisplayTypes[1]" uncheckable>{{ model.mapDisplayTypes[1].title }}</button>
+                </div>
+              </div>
+          </div>
+          <hr />
+
+          <div ng-show="!model.availableTaxa">
+            Loading available taxonomic groups...
+          </div>
+
+          <div class="animate-if" ng-if="model.availableTaxa">
+            <div class="taxa-info">
+                <h4>Taxonomic groups:</h4>
+                <select
+                   class="form-control selectpicker"
+                   ng-model="model.selectedMapTaxa"
+                   ng-options="taxa.title group by taxa.groupby for taxa in model.availableTaxa track by taxa.taxa"></select>
+            </div>
+            <hr />
+
+            <div class="region-info" ng-show="model.selectedMapType.type == 'countries'">
+              <div class="row-layout">
+                <h4>Country</h4>
+                <span>{{ model.regionHover.region_name || 'Hover over the map' }}</span>
+              </div>
+              <hr />
+            </div>
+            <div class="row-layout" ng-show="model.regionHover.inventory_completeness != undefined">
+              <h4>Proportion completed</h4>
+              <span ng-show="model.regionHover.inventory_completeness > 0.0009">{{ (model.regionHover.inventory_completeness | number:3) }}</span>
+              <span ng-show="model.regionHover.inventory_completeness < 0.0009">0</span>
+            </div>
+
+          </div>
+
        </div>
      </ui-gmap-map-control>
 </ui-gmap-google-map>

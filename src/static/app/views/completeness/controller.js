@@ -32,6 +32,8 @@ angular.module('mol.controllers')
             });
 
             $scope.getAvailableTaxaForRegion = function(updateMap) {
+              $scope.model.availableTaxa = undefined;
+              $scope.model.selectedMapTaxa = undefined;
               if ($scope.model.selectedMapType) {
                 var params = {"region_display": $scope.model.selectedMapType.type};
                 availableTaxa(params).then(
