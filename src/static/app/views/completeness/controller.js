@@ -8,7 +8,10 @@ angular.module('mol.controllers')
             $scope.model.mapDisplayTypes = mapDisplayTypes;
             $scope.model.selectedMapType = mapDisplayTypes[0];
 
-            $scope.model.availableTaxa = availableTaxa;
+            $scope.model.availableTaxa = [];
+            availableTaxa(regionType).then(
+              function(taxa) {$scope.model.availableTaxa = taxa;}
+            );
             $scope.model.selectedMapTaxa = availableTaxa[0];
 
             $scope.$watch("model.regionType", function(n,o) {

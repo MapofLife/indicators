@@ -131,15 +131,6 @@ angular.module('mol.indicators', [
                     return type.type.toLowerCase() === defaultType
                   });
               },
-              availableTaxa: function(regionType, molApi, $stateParams) {
-                  return molApi({
-                    "service": "indicators/availabletaxa",
-                    "loading": true
-                  }).then(
-                    function(response) {
-                      return (response.data || regionType);
-                  });
-              },
               mapDisplayTypes: function() {
                   return[{
                     "type": "countries",
@@ -159,49 +150,6 @@ angular.module('mol.indicators', [
               'left-sidebar@indicators.completeness': {
                 templateUrl: 'static/app/views/completeness/chart/main.html',
                 controller: 'molIndicatorsCompletenessChartCtrl'
-              }
-            },
-            resolve: {
-              region: function(regionType, molApi, $stateParams) {
-                if (regionType.dataset_id && $stateParams.region &&
-                  !$stateParams.regionid) {
-                  return molApi({
-                    "service": "spatial/regions/list",
-                    "loading": true,
-                    "params": {
-                      "dataset_id": regionType.dataset_id
-                    }
-                  }).then(
-                    function(response) {
-                      return (response.data.find(function(region) {
-                        return region.name === $stateParams.region;
-                      }) || regionType);
-
-                    })
-                } else if ($stateParams.regionid && $stateParams.region) {
-                  return {
-                    region_id: $stateParams.regionid,
-                    name: $stateParams.region,
-                    bnds: $stateParams.bounds
-                  }
-                } else {
-                  return regionType
-                };
-              },
-              completenessData : function(molApi, region) {
-                return molApi({
-                    service: "indicators/completeness",
-                    params: {
-                      indicator: "gbif",
-                      region_id: region.region_id
-                    }
-                }).then(function(result) {
-                  var completenessData = undefined;
-                  if (result.data.length > 0) {
-                      completenessData = result.data[0];
-                  }
-                  return(completenessData);
-                });
               }
             }
           }

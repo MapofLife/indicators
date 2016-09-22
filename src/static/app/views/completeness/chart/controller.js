@@ -1,7 +1,6 @@
 angular.module('mol.controllers').controller(
-  'molIndicatorsCompletenessChartCtrl', [ '$scope', 'region', 'completenessData',
-        function($scope, region, completenessData) {
-            $scope.model.region = region;
+  'molIndicatorsCompletenessChartCtrl', [ '$scope', 'regionType', 'region', 'completenessData',
+        function($scope, regionType, region, completenessData) {
 
             $scope.renderChart = function (completenessData) {
 
@@ -94,6 +93,11 @@ angular.module('mol.controllers').controller(
                 }
             }
 
-           $scope.renderChart(completenessData);
+            region(regionType)
+              .then(function(r) {
+                $scope.model.region = r;
+                completenessData(r).then($scope.renderChart)
+              }
+            );
         }
 ]);
