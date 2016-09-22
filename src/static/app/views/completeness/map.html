@@ -33,15 +33,8 @@
     color: rgb(86, 86, 86);
     background: white;
   }
-  .chart-view {
-    position: relative;
-    padding: 10px;
-    height:300px;
-    min-width: 400px;
-    width:100%;
-  }
-  .modal-lg {
-    width: 80%;
+  .region-info {
+    height:80px;
   }
 </style>
 <ui-gmap-google-map
@@ -70,7 +63,8 @@
              <h4>Country</h4>
              <b>{{ model.regionHover.region_name || 'Hover over the map' }}</b>
              <br />
-             <b>{{ model.regionHover.inventory_completeness * 100 | number:2}}% complete (avg)</b>
+             <b ng-show="model.regionHover.inventory_completeness">
+               {{(model.regionHover.inventory_completeness * 100 | number:2) + "% complete (avg)"}}</b>
            </div>
            <hr />
            <div class="layer-info">
@@ -82,12 +76,13 @@
                 </select>
            </div>
            <hr />
-           <div class="taxa-info">
+           <div ng-if="model.availableTaxa" class="taxa-info">
                <h4>Select taxonomic group:</h4>
                <select
                   class="form-control selectpicker"
                   ng-model="model.selectedMapTaxa"
                   ng-options="taxa.title for taxa in model.availableTaxa track by taxa.taxa">
+                  <option value="">Select Option</option>
                 </select>
            </div>
        </div>

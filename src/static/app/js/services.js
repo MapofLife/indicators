@@ -114,4 +114,48 @@ molServices.factory(
       });
     }
   }]
-);
+)
+.factory(
+  'lineChart',
+  [function() {
+    return {
+        type: "LineChart",
+        displayed: false,
+        options: {
+            title: "Species coverage in GBIF (Average +/- Std Err)",
+            isStacked: "true",
+            legend: 'none',
+            pointSize: 5,
+            fill: 20,
+            displayExactValues: true,
+            animation:{
+                duration: 1000,
+                easing: 'out',
+            },
+            hAxis: {
+                title: 'Year',
+                gridlines: {
+                    color: '#333',
+                    count: 10
+                }
+            },
+            vAxis: {
+                title: 'Species observed / expected',
+                gridlines: {
+                    count: 5
+                }
+            },
+            tooltip: {
+                isHtml: false
+            },
+            intervals: {style: "bars"},
+            interval: {
+                'i0': { 'color': '#bdc3c7', 'style':'bars', 'barWidth':0, 'lineWidth':2, 'pointSize':0},
+                'i1': { 'color': '#bdc3c7', 'style':'bars', 'barWidth':0, 'lineWidth':2, 'pointSize':0}
+            },
+        },
+        formatters: {},
+        view: {}
+    };
+  }]
+)

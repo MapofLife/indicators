@@ -1,4 +1,38 @@
-<div ng-if="model.selectedTaxa">
+<style>
+
+  .close {
+    padding:10px;
+  }
+
+  .completeness-charts {
+    width:600px;
+    transition:1s linear width;
+  }
+  .completeness-charts.ng-enter {
+    width:0;
+      transition:1s linear width;
+  }
+
+  /* The finishing CSS styles for the enter animation */
+  .completeness-charts.ng-enter.ng-enter-active {
+    width:600px;
+      transition:1s linear width;
+  }
+
+  .completeness-charts.ng-leave {
+    width:600px;
+      transition:1s linear width;
+  }
+  .completeness-charts.ng-leave.ng-leave-active {
+    width:0;
+      transition:1s linear width;
+  }
+
+
+
+</style>
+<div class="completeness-charts" ng-if="model.region">
+  <i ui-sref="indicators.completeness" class="close fa fa-close pull-right"></i>
   <div class="modal-header">
     <div class="pull-right">
       <select
@@ -10,12 +44,8 @@
     <h3 class="modal-title" id="modal-title">Statistics for {{model.region.name}}</h3>
   </div>
   <div class="modal-body" id="modal-body">
-    <div class="row center-block" ng-if="!model.selectedTaxa">
-    There is no data available for {{ model.region.name }}.
-    <br />
-    <!--<a class="btn btn-link" type="button" ng-click="$ctrl.reset()">Pick another country</a>-->
-    </div>
-    <div class="row" ng-if="model.selectedTaxa">
+
+    <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
       <div google-chart chart="model.chartObject" class="chart-view"></div>
     </div>
   </div>

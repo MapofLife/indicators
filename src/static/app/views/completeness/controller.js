@@ -8,7 +8,7 @@ angular.module('mol.controllers')
             $scope.model.mapDisplayTypes = mapDisplayTypes;
             $scope.model.selectedMapType = mapDisplayTypes[0];
 
-            $scope.model.availableTaxa = [];
+            $scope.model.availableTaxa = undefined;
             availableTaxa(regionType).then(
               function(taxa) {$scope.model.availableTaxa = taxa;}
             );
@@ -84,7 +84,8 @@ angular.module('mol.controllers')
                                         if ($scope.model.selectedMapType.type=='countries') {
                                             $state.transitionTo(
                                                 'indicators.completeness.region',
-                                                {"region":data.region_name},{"inherit":true});
+                                                {"region":data.region_name},{
+                                                  "inherit":true,"reload":false});
                                         }
                                         break;
                                     case 'mousemove':

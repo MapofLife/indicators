@@ -1,59 +1,23 @@
 angular.module('mol.controllers').controller(
-  'molIndicatorsCompletenessChartCtrl', [ '$scope', 'regionType', 'region', 'completenessData',
-        function($scope, regionType, region, completenessData) {
+  'molIndicatorsCompletenessChartCtrl', [
+                '$scope','regionType','region','completenessData','$timeout',
+                  'lineChart','$uibModal',
+        function($scope,  regionType,  region,  completenessData,  $timeout,
+                   lineChart,  $uibModal) {
+
+
+            $scope.model.chartObject = lineChart;
+
 
             $scope.renderChart = function (completenessData) {
 
                 if (completenessData !== undefined) {
                     $scope.model.taxaList = completenessData.groups;
                     $scope.model.selectedTaxa = $scope.model.taxaList[0];
-
-                    $scope.model.chartObject = {
-                        type: "LineChart",
-                        displayed: false,
-                        options: {
-                            title: "Species coverage in GBIF (Average +/- Std Err)",
-                            isStacked: "true",
-                            legend: 'none',
-                            pointSize: 5,
-                            fill: 20,
-                            displayExactValues: true,
-                            animation:{
-                                duration: 1000,
-                                easing: 'out',
-                            },
-                            hAxis: {
-                                title: 'Year',
-                                gridlines: {
-                                    color: '#333',
-                                    count: 10
-                                }
-                            },
-                            vAxis: {
-                                title: 'Species observed / expected',
-                                gridlines: {
-                                    count: 5
-                                }
-                            },
-                            tooltip: {
-                                isHtml: false
-                            },
-                            intervals: {style: "bars"},
-                            interval: {
-                                'i0': { 'color': '#bdc3c7', 'style':'bars', 'barWidth':0, 'lineWidth':2, 'pointSize':0},
-                                'i1': { 'color': '#bdc3c7', 'style':'bars', 'barWidth':0, 'lineWidth':2, 'pointSize':0}
-                            },
-                        },
-                        formatters: {},
-                        view: {}
-                    };
-
                     // Start the process
                     $scope.processDataForRegionTaxa();
                 }
             };
-
-
 
             $scope.processDataForRegionTaxa = function () {
                 var groupdata = $scope.model.taxaList.filter(function(r) {
@@ -93,11 +57,78 @@ angular.module('mol.controllers').controller(
                 }
             }
 
-            region(regionType)
-              .then(function(r) {
-                $scope.model.region = r;
-                completenessData(r).then($scope.renderChart)
+            $scope.showModal = function() {
+              $uibModal.open({
+                  animation: true,
+                  ariaLabelledBy: 'modal-title',
+                  ariaDescribedBy: 'modal-body',
+                  templateUrl: 'static/app/views/completeness/chart/main.html',
+                  controller: 'molIndicatorsCompletenessChartCtrl',
+                  size: 'lg',
+                  resolve: {
+                    $scope:$scope,
+                    regionType: regionType,
+                    region:region,
+                    completenessData: completenessData,
+                    $timeout:$timeout,
+                    lineChart:lineChart,  $uibModal:null}
+              });
+            }
+
+
+            function diddleStats() {
+              try {
+                angular.forEach(
+                $scope.model.chartObject.data.rows,
+                function(row) {
+                  row.c[1].v+=row.c[1].v*(((Math.random()<0.5)? -1: 1)* Math.random()*0.20);
+                  row.c[2].v=row.c[1].v-Math.random()*0.001;
+                  row.c[3].v=row.c[1].v+Math.random()*0.001;
+                }
+              );} catch(e) {}
+            }
+
+            function chartDiddler() {
+              if($scope.diddleChart) {
+                  diddleStats();
+                  $timeout(80).then(function(){chartDiddler()});
               }
-            );
+            }
+            function startDiddling() {
+              $scope.diddleChart = true;
+              $scope.model.chartObject.options.animation.duration=75;
+              $scope.model.chartObject.options.vAxis = {
+                  title: '',
+                  gridlines: {
+                      count: 0
+                  }
+              }
+              chartDiddler();
+            }
+            function stopDiddling() {
+              $scope.diddleChart = false;
+              $scope.model.chartObject.options.animation.duration=1000;
+               $scope.model.chartObject.options.vAxis = {
+                   title: 'Species observed / expected',
+                   gridlines: {
+                       count: 5
+                   }
+               }
+            }
+
+          function updateRegion() {
+              //startDiddling();
+              region(regionType)
+                  .then(function(r) {
+                    $scope.model.region = r;
+                    completenessData(r).then(
+                      function(d){
+                        //stopDiddling()
+                        $scope.renderChart(d);
+                      });
+                  }
+                );
+          }
+          updateRegion();
         }
 ]);
