@@ -104,13 +104,14 @@ molServices.factory(
   'availableTaxa',
   [ 'molApi', '$stateParams',
   function( molApi, $stateParams) {
-    return function(regionType) {
+    return function(params) {
       return molApi({
         "service": "indicators/availabletaxa",
-        "loading": true
+        "loading": true,
+        "params": params
       }).then(
         function(response) {
-          return (response.data || regionType);
+          return (response.data || params);
       });
     }
   }]

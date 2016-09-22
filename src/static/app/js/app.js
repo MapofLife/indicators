@@ -23,7 +23,7 @@ angular.module('mol.indicators', [
   .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
     cfpLoadingBarProvider.includeBar = false;
-    cfpLoadingBarProvider.latencyThreshold = 500;
+    cfpLoadingBarProvider.latencyThreshold = 50;
   }])
   .config(['uiGmapGoogleMapApiProvider',
     function(uiGmapGoogleMapApiProvider) {

@@ -9,10 +9,7 @@ angular.module('mol.controllers')
             $scope.model.selectedMapType = mapDisplayTypes[0];
 
             $scope.model.availableTaxa = undefined;
-            availableTaxa(regionType).then(
-              function(taxa) {$scope.model.availableTaxa = taxa;}
-            );
-            $scope.model.selectedMapTaxa = availableTaxa[0];
+            $scope.model.selectedMapTaxa = undefined;
 
             $scope.$watch("model.regionType", function(n,o) {
                 if (n.region_id) {
@@ -25,21 +22,7 @@ angular.module('mol.controllers')
 
             $scope.$watch("model.selectedMapType", function(n,o) {
                 if(n && !angular.equals(n,o)) {
-                    return molApi({
-                      "service": "indicators/availabletaxa",
-                      "loading": true,
-                      "params": {
-                        "region_display": n.type
-                      }
-                    }).then(
-                      function(response) {
-                        var refreshMap = ($scope.model.selectedMapTaxa != response.data[0]);
-                        $scope.model.availableTaxa = response.data;
-                        $scope.model.selectedMapTaxa = response.data[0];
-                        if (refreshMap) {
-                          $scope.renderMapForTaxa();
-                        }
-                    });
+                  $scope.getAvailableTaxaForRegion(true);
                 }
             });
             $scope.$watch("model.selectedMapTaxa", function(n,o) {
@@ -47,6 +30,22 @@ angular.module('mol.controllers')
                     $scope.renderMapForTaxa();
                 }
             });
+
+            $scope.getAvailableTaxaForRegion = function(updateMap) {
+              if ($scope.model.selectedMapType) {
+                var params = {"region_display": $scope.model.selectedMapType.type};
+                availableTaxa(params).then(
+                  function(taxa) {
+                    $scope.model.availableTaxa = taxa;
+                    $scope.model.selectedMapTaxa = taxa[0];
+                    var refreshMap = (updateMap || $scope.model.selectedMapTaxa != taxa[0]);
+                    if (refreshMap) {
+                      $scope.renderMapForTaxa();
+                    }
+                  }
+                );
+              }
+            };
 
             $scope.renderMapForTaxa = function() {
                 var params = angular.extend(regionType, {
@@ -106,7 +105,7 @@ angular.module('mol.controllers')
                 }
             }
 
-            $scope.setRegionType($scope.model.regionType);
+            $scope.getAvailableTaxaForRegion();
 
 
         }

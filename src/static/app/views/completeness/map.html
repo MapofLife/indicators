@@ -81,9 +81,7 @@
                <select
                   class="form-control selectpicker"
                   ng-model="model.selectedMapTaxa"
-                  ng-options="taxa.title for taxa in model.availableTaxa track by taxa.taxa">
-                  <option value="">Select Option</option>
-                </select>
+                  ng-options="taxa.title group by taxa.groupby for taxa in model.availableTaxa track by taxa.taxa"></select>
            </div>
        </div>
      </ui-gmap-map-control>
