@@ -34,22 +34,28 @@
 
 
 </style>
-<div class="completeness-charts" ng-if="model.region">
+<div class="completeness-charts" ng-if="model.region && model.selectedMapTaxa">
   <i ui-sref="indicators.completeness" class="close fa fa-close pull-right"></i>
   <div class="modal-header">
-    <div class="pull-right">
-      <select
-        class="form-control"
-        ng-model="model.selectedTaxa"
-        ng-change="processDataForRegionTaxa()"
-        ng-options="taxa.title for taxa in model.taxaList track by taxa.taxa"></select>
-    </div>
-    <h3 class="modal-title" id="modal-title">Statistics for {{model.region.name}}</h3>
+    <h3 class="modal-title" id="modal-title">Statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h3>
   </div>
   <div class="modal-body" id="modal-body">
 
-    <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
-      <div google-chart chart="model.chartObject" class="chart-view"></div>
+    <div ng-if="model.showChart == 0">
+       <uib-progressbar class="progress-striped active" value="dynamic">
+         Loading statistics. Please wait...
+       </uib-progressbar>
+    </div>
+
+    <div ng-if="model.showChart == 2">
+       <h4>No statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h4>
+       <p>Please select a different country or taxonomic group.</p>
+    </div>
+
+    <div ng-if="model.showChart == 1">
+      <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
+        <div google-chart chart="model.chartObject" class="chart-view"></div>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
