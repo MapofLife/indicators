@@ -30,8 +30,8 @@
 }
 .slide.ng-enter,
 .slide.ng-leave {
-    -webkit-transition: all 1s ease;
-    transition: all 1s ease;
+    -webkit-transition: all 500ms ease;
+    transition: all 500ms ease;
 }
 .slide.ng-enter {
     left: 100%;
@@ -89,8 +89,8 @@
 }
 .fade.ng-enter,
 .fade.ng-leave {
-    -webkit-transition: all 1s ease;
-    transition: all 1s ease;
+    -webkit-transition: all 500ms ease;
+    transition: all 500ms ease;
 }
 .fade.ng-enter {
     opacity: 0;

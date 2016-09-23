@@ -104,6 +104,7 @@ angular.module('mol.indicators', [
         .state(
           'indicators.completeness', {
             title: 'Inventory Completeness',
+            sticky: true,
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/map-with-sidebars.html'

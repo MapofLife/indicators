@@ -21,11 +21,11 @@
 
   .completeness-charts.ng-leave {
     width:600px;
-    transition:200ms linear width;
+    transition:1s linear width;
   }
   .completeness-charts.ng-leave.ng-leave-active {
     width:0;
-    transition:200ms linear width;
+    transition:1s linear width;
   }
 
 .chart-view {
