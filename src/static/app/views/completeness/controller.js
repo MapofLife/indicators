@@ -76,14 +76,7 @@ angular.module('mol.controllers')
                             } else {
                                 $scope.model.map.setOverlay({index:0},0);
                             }
-                            if(r.bnds) {
-                                $scope.model.map.bounds = {
-                                    southwest: {latitude: r.bnds[1],longitude: r.bnds[0]},
-                                    northeast: {latitude: r.bnds[3],longitude: r.bnds[2]}
-                                };
-                            } else {
-                                $scope.model.map.zoom = 2;
-                            }
+
 
                             isMapLoading = false;
                         });

@@ -112,8 +112,10 @@
             </div>
             <div class="row-layout" ng-show="model.regionHover.inventory_completeness != undefined">
               <h4>Proportion completed</h4>
-              <span ng-show="model.regionHover.inventory_completeness > 0.0009">{{ (model.regionHover.inventory_completeness | number:3) }}</span>
-              <span ng-show="model.regionHover.inventory_completeness < 0.0009">0</span>
+              <span>{{
+                (model.regionHover.inventory_completeness > 0.0009) ?
+                    (model.regionHover.inventory_completeness | number:3)
+                : '0' }}</span>
             </div>
 
           </div>

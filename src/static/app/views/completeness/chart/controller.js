@@ -18,6 +18,20 @@ angular.module('mol.controllers').controller(
                 }
             });
 
+            $scope.$watch("model.region",
+            function(r){
+              if(r && r.bnds && r.bnds.length>=3) {
+                google.maps.event.trigger('resize');
+                $timeout(2000).then(function(){
+
+                  $scope.model.map.bounds = {
+                      southwest: {latitude: r.bnds[1],longitude: r.bnds[0]},
+                      northeast: {latitude: r.bnds[3],longitude: r.bnds[2]}
+                  };
+                });
+              }
+            });
+
             $scope.renderChart = function (completenessData) {
 
                 if (completenessData !== undefined) {
