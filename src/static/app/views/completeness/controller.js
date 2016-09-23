@@ -11,7 +11,7 @@ angular.module('mol.controllers')
             $scope.model.availableTaxa = undefined;
             $scope.model.selectedMapTaxa = undefined;
 
-            isMapLoading = false;
+            var isMapLoading = false;
 
             $scope.$watch("model.regionType", function(n,o) {
                 if (n.region_id) {

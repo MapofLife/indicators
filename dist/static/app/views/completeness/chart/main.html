@@ -31,6 +31,34 @@
 .chart-view {
   height: 300px;
 }
+.chart-holder {
+  position: relative;
+  min-height: 300px;
+  min-width: 500px;
+}
+.progress-striped {
+  width: 300px !important;
+}
+
+.modal-body .row { margin-bottom: 20px; }
+.region-data-holder { position: relaive; min-height: 400px; height: 100%; }
+.placeholder {
+  text-align: center;
+}
+.metric-value {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  color: #fff;
+  text-align: center;
+  padding-top: 40px;
+  margin: 0 auto;
+}
+.metric-value-avi { background-color: #e74c3c; }
+.metric-value-tsc { background-color: #2ecc71; }
+.metric-value-tgc { background-color: #3498db; }
+.metric-value-rank { background-color: #34495e; }
+
 
 
 </style>
@@ -41,22 +69,67 @@
   </div>
   <div class="modal-body" id="modal-body">
 
-    <div ng-if="model.showChart == 0">
-       <uib-progressbar class="progress-striped active" value="dynamic">
-         Loading statistics. Please wait...
-       </uib-progressbar>
-    </div>
+    <div class="region-data-holder">
 
-    <div ng-if="model.showChart == 2">
-       <h4>No statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h4>
-       <p>Please select a different country or taxonomic group.</p>
-    </div>
+        <div class="metrics-holder slide" ng-if="model.chartMode == 1">
 
-    <div ng-if="model.showChart == 1">
-      <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
-        <div google-chart chart="model.chartObject" class="chart-view"></div>
-      </div>
-    </div>
+          <div class="row">
+
+            <div class="col-xs-12 col-sm-6 placeholder">
+              <div class="metric-value metric-value-avi">0.027</div>
+              <h4>Average Indicator Value</h4>
+              <span class="text-muted">More info</span>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 placeholder">
+              <div class="metric-value metric-value-tsc">20</div>
+              <h4>Total Species Count</h4>
+              <span class="text-muted">More info</span>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-xs-12 col-sm-6 placeholder">
+              <div class="metric-value metric-value-tgc">800</div>
+              <h4>Total GridCell Count</h4>
+              <span class="text-muted">More info</span>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 placeholder">
+              <div class="metric-value metric-value-rank">10</div>
+              <h4>Rank</h4>
+              <span class="text-muted">More info</span>
+            </div>
+
+          </div>
+
+
+              <div class="chart-holder">
+                <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
+                  <div google-chart chart="model.chartObject" class="chart-view"></div>
+                </div>
+              </div> <!-- chart-holder -->
+
+
+        </div> <!-- metrics-holder -->
+
+
+        <div class="slide" ng-if="model.chartMode == 0">
+           <uib-progressbar class="progress-striped active" value="dynamic">
+             Loading statistics. Please wait...
+           </uib-progressbar>
+        </div>
+
+        <div class="slide" ng-if="model.chartMode == 2">
+           <h4>No statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h4>
+           <p>Please select a different country or taxonomic group.</p>
+        </div>
+
+
+    </div> <!-- region-data-holder -->
+
+
   </div>
   <div class="modal-footer">
     <!--
