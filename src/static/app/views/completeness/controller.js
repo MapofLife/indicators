@@ -11,6 +11,8 @@ angular.module('mol.controllers')
             $scope.model.availableTaxa = undefined;
             $scope.model.selectedMapTaxa = undefined;
 
+            isMapLoading = false;
+
             $scope.$watch("model.regionType", function(n,o) {
                 if (n.region_id) {
                     $scope.model.regionHover = n;
@@ -22,6 +24,9 @@ angular.module('mol.controllers')
 
             $scope.$watch("model.selectedMapType", function(n,o) {
                 if(n && !angular.equals(n,o)) {
+                  if ($state.current.name == 'indicators.completeness.region') {
+                      $state.go('^');
+                  }
                   $scope.getAvailableTaxaForRegion(true);
                 }
             });
@@ -38,9 +43,9 @@ angular.module('mol.controllers')
                 var params = {"region_display": $scope.model.selectedMapType.type};
                 availableTaxa(params).then(
                   function(taxa) {
+                    var refreshMap = (updateMap || $scope.model.selectedMapTaxa != taxa[0]);
                     $scope.model.availableTaxa = taxa;
                     $scope.model.selectedMapTaxa = taxa[0];
-                    var refreshMap = (updateMap || $scope.model.selectedMapTaxa != taxa[0]);
                     if (refreshMap) {
                       $scope.renderMapForTaxa();
                     }
@@ -50,6 +55,10 @@ angular.module('mol.controllers')
             };
 
             $scope.renderMapForTaxa = function() {
+
+                if (isMapLoading) return;
+
+                isMapLoading = true;
                 var params = angular.extend(regionType, {
                   "taxa": $scope.model.selectedMapTaxa.taxa,
                   "display_type": $scope.model.selectedMapType.type
@@ -75,6 +84,8 @@ angular.module('mol.controllers')
                             } else {
                                 $scope.model.map.zoom = 2;
                             }
+
+                            isMapLoading = false;
                         });
 
                         //Get metadata for features on the map

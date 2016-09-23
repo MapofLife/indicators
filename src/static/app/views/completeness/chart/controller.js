@@ -8,7 +8,7 @@ angular.module('mol.controllers').controller(
 
             $scope.model.chartObject = lineChart;
             var chartRendered = false;
-            $scope.model.showChartMode = 0;
+            $scope.model.chartMode = 0;
 
             $scope.$watch("model.selectedMapTaxa", function(n,o) {
                 if(n && !angular.equals(n,o)) {
@@ -35,12 +35,11 @@ angular.module('mol.controllers').controller(
                         return (r.taxa == $scope.model.selectedMapTaxa.taxa);
                     });
                     if (groupdata.length > 0) {
-                        $scope.model.showChart = 1;
+                        $scope.model.chartMode = 1;
                         processStatistics(groupdata[0].statistics);
                     } else {
-                        $scope.model.showChart = 2;
-                        // $state.transitionTo(
-                        //     'indicators.completeness',{},{"inherit":false,"reload":false});
+                        $scope.model.chartMode = 2;
+                        // $state.go('^');
                     }
                 }
             };

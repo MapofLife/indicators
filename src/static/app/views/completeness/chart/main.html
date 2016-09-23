@@ -31,6 +31,12 @@
 .chart-view {
   height: 300px;
 }
+.chart-holder {
+  position: relative;
+}
+.progress-striped {
+  width: 300px !important;
+}
 
 
 </style>
@@ -41,22 +47,26 @@
   </div>
   <div class="modal-body" id="modal-body">
 
-    <div ng-if="model.showChart == 0">
-       <uib-progressbar class="progress-striped active" value="dynamic">
-         Loading statistics. Please wait...
-       </uib-progressbar>
-    </div>
+    <div class="chart-holder">
+      <div class="slide" ng-if="model.chartMode == 1">
+        <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
+          <div google-chart chart="model.chartObject" class="chart-view"></div>
+        </div>
+      </div>
 
-    <div ng-if="model.showChart == 2">
-       <h4>No statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h4>
-       <p>Please select a different country or taxonomic group.</p>
-    </div>
+      <div class="slide" ng-if="model.chartMode == 0">
+         <uib-progressbar class="progress-striped active" value="dynamic">
+           Loading statistics. Please wait...
+         </uib-progressbar>
+      </div>
 
-    <div ng-if="model.showChart == 1">
-      <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
-        <div google-chart chart="model.chartObject" class="chart-view"></div>
+      <div class="slide" ng-if="model.chartMode == 2">
+         <h4>No statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h4>
+         <p>Please select a different country or taxonomic group.</p>
       </div>
     </div>
+
+
   </div>
   <div class="modal-footer">
     <!--
