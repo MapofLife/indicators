@@ -5,61 +5,62 @@
   }
 
   .completeness-charts {
-    width:600px;
-    transition:1s linear width;
+    width:350px;
+    transition:500ms linear width;
   }
   .completeness-charts.ng-enter {
     width:0;
-    transition:1s linear width;
+    transition:500ms linear width;
   }
 
   /* The finishing CSS styles for the enter animation */
   .completeness-charts.ng-enter.ng-enter-active {
-    width:600px;
+    width:350px;
     transition:1s linear width;
   }
 
   .completeness-charts.ng-leave {
-    width:600px;
-    transition:1s linear width;
+    width:350px;
+    transition:200ms linear width;
   }
   .completeness-charts.ng-leave.ng-leave-active {
     width:0;
-    transition:1s linear width;
+    transition:200ms linear width;
   }
 
-.chart-view {
-  height: 300px;
-}
+.chart-view { height: 200px; }
 .chart-holder {
   position: relative;
-  min-height: 300px;
-  min-width: 500px;
-}
-.progress-striped {
-  width: 300px !important;
+  width: 100%;
+  min-height: 200px;
 }
 
-.modal-body .row { margin-bottom: 20px; }
-.region-data-holder { position: relaive; min-height: 400px; height: 100%; }
-.placeholder {
-  text-align: center;
-}
+.modal-body .row { margin: 0 0 20px 0; }
+.region-data-holder { position: relative; min-height: 400px; height: 100%; }
+.metric { position: relative; text-align: center; }
 .metric-value {
+  position: relative;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   color: #fff;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 25px;
   margin: 0 auto;
 }
+.metric-value.slideup { position: relative; }
 .metric-value-avi { background-color: #e74c3c; }
 .metric-value-tsc { background-color: #2ecc71; }
 .metric-value-tgc { background-color: #3498db; }
 .metric-value-rank { background-color: #34495e; }
 
-
+.map-colour-1 { background-color: #d73027; color: #fff; }
+.map-colour-2 { background-color: #f79272; color: #fff; }
+.map-colour-3 { background-color: #fed6b0; color: #fff; }
+.map-colour-4 { background-color: #fff2cc; color: #666; }
+.map-colour-5 { background-color: #d2ecb4; color: #666; }
+.map-colour-6 { background-color: #8cce8a; color: #fff; }
+.map-colour-7 { background-color: #1a9850; color: #fff; }
 
 </style>
 <div class="completeness-charts" ng-if="model.region && model.selectedMapTaxa">
@@ -75,41 +76,36 @@
 
           <div class="row">
 
-            <div class="col-xs-12 col-sm-6 placeholder">
-              <div class="metric-value metric-value-avi">0.027</div>
-              <h4>Average Indicator Value</h4>
+            <div class="col-xs-12 col-sm-4 metric">
+              <div class="metric-value metric-value-avi">{{ model.metrics[0] }}</div>
+              <h5>Average Completeness Value</h5>
               <span class="text-muted">More info</span>
             </div>
 
-            <div class="col-xs-12 col-sm-6 placeholder">
-              <div class="metric-value metric-value-tsc">20</div>
-              <h4>Total Species Count</h4>
+            <div class="col-xs-12 col-sm-4 metric">
+              <div class="metric-value metric-value-tsc">{{ model.metrics[1] }}</div>
+              <h5>Species Count</h5>
               <span class="text-muted">More info</span>
             </div>
 
-          </div>
-          <div class="row">
-
-            <div class="col-xs-12 col-sm-6 placeholder">
-              <div class="metric-value metric-value-tgc">800</div>
-              <h4>Total GridCell Count</h4>
-              <span class="text-muted">More info</span>
-            </div>
-
-            <div class="col-xs-12 col-sm-6 placeholder">
-              <div class="metric-value metric-value-rank">10</div>
-              <h4>Rank</h4>
+            <div class="col-xs-12 col-sm-4 metric">
+              <div class="metric-value metric-value-rank">{{ model.metrics[3] + " / " + model.metrics[4] }}</div>
+              <h5>Rank</h5>
               <span class="text-muted">More info</span>
             </div>
 
           </div>
 
 
-              <div class="chart-holder">
-                <div ng-click="showModal()" class="row" ng-if="model.chartObject.data">
-                  <div google-chart chart="model.chartObject" class="chart-view"></div>
-                </div>
-              </div> <!-- chart-holder -->
+          <div class="chart-holder">
+            <div class="row" ng-if="model.chartObject.data">
+              <div google-chart chart="model.chartObject" class="chart-view"></div>
+            </div>
+          </div> <!-- chart-holder -->
+
+          <div class="pull-right">
+            <a class="small" href="#" ng-click="showModal()">View larger</a>
+          </div>
 
 
         </div> <!-- metrics-holder -->
