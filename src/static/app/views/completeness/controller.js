@@ -11,6 +11,17 @@ angular.module('mol.controllers')
             $scope.model.availableTaxa = undefined;
             $scope.model.selectedMapTaxa = undefined;
 
+            $scope.model.map_colour_classes = [
+              "map-colour-1",
+              "map-colour-2",
+              "map-colour-3",
+              "map-colour-4",
+              "map-colour-5",
+              "map-colour-6",
+              "map-colour-7"
+            ];
+            $scope.model.map_colour = $scope.model.map_colour_classes[0];
+
             var isMapLoading = false;
 
             $scope.$watch("model.regionType", function(n,o) {
@@ -95,6 +106,7 @@ angular.module('mol.controllers')
                                         break;
                                     case 'mousemove':
                                         $scope.model.regionHover = data;
+                                        $scope.model.map_colour = $scope.model.map_colour_classes[data.map_color];
                                         break;
                                     default:
                                         $scope.infowindowPromise.resolve({show:false});

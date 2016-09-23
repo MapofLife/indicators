@@ -1,0 +1,26 @@
+<style>
+
+    .chart-view-large {
+        position: relative;
+        padding: 10px;
+        height: 400px;
+        width: 100%;
+    }
+
+</style>
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Species coverage for
+            {{ $ctrl.the_taxa.title }}
+            in
+            {{ $ctrl.the_region.name }}</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+
+        <div google-chart chart="$ctrl.the_chartObject" class="chart-view-large fade slow"></div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">Close</button>
+    </div>
+</div>

@@ -36,7 +36,6 @@ angular.module('mol.controllers').controller(
 
                 if (completenessData !== undefined) {
                     $scope.model.taxaList = completenessData.groups;
-                    $scope.model.selectedTaxa = $scope.model.taxaList[0];
                     // Start the process
                     $scope.processDataForRegionTaxa();
                     chartRendered = true;
@@ -50,7 +49,8 @@ angular.module('mol.controllers').controller(
                     });
                     if (groupdata.length > 0) {
                         $scope.model.chartMode = 1;
-                        processStatistics(groupdata[0].statistics);
+                        $scope.model.metrics = groupdata[0].metrics;
+                        processStatistics(groupdata[0].values);
                     } else {
                         $scope.model.chartMode = 2;
                         // $state.go('^');
@@ -67,15 +67,17 @@ angular.module('mol.controllers').controller(
                     {id: "i1", type: "number", role:"interval"}
                 ];
                 the_data.rows = [];
-                angular.forEach(stats, function(values, key) {
+                angular.forEach(stats, function(yearly_values) {
                     the_data.rows.push({c: [
-                        {v: values.year},
-                        {v: values.average},
-                        {v: getErrorValue(values.average, values.stddev, true)},
-                        {v: getErrorValue(values.average, values.stddev, false)}
+                        {v: yearly_values[0]},
+                        {v: yearly_values[1]},
+                        {v: getErrorValue(yearly_values[1], yearly_values[2], true)},
+                        {v: getErrorValue(yearly_values[1], yearly_values[2], false)}
                     ]});
                 });
-                $scope.model.chartObject.data = the_data;
+                $timeout(100).then(function(){
+                  $scope.model.chartObject.data = the_data;
+                });
             }
 
             function getErrorValue(val, err, isMin) {
@@ -92,16 +94,13 @@ angular.module('mol.controllers').controller(
                   animation: true,
                   ariaLabelledBy: 'modal-title',
                   ariaDescribedBy: 'modal-body',
-                  templateUrl: 'static/app/views/completeness/chart/main.html',
-                  controller: 'molIndicatorsCompletenessChartCtrl',
+                  templateUrl: 'static/app/views/completeness/chart/main-modal.html',
+                  controller: 'ModalInstanceCtrl',
+                  controllerAs: '$ctrl',
                   size: 'lg',
                   resolve: {
-                    $scope:$scope,
-                    regionType: regionType,
-                    region:region,
-                    completenessData: completenessData,
-                    $timeout:$timeout,
-                    lineChart:lineChart,  $uibModal:null}
+                    $scope:$scope
+                  }
               });
             }
 
@@ -160,5 +159,20 @@ angular.module('mol.controllers').controller(
                 );
           }
           updateRegion();
+        }
+]);
+angular.module('mol.controllers').controller('ModalInstanceCtrl', ['$uibModalInstance', '$scope','$timeout',
+        function($uibModalInstance, $scope, $timeout) {
+            var $ctrl = this;
+
+              $ctrl.the_region = $scope.model.region;
+              $ctrl.the_taxa = $scope.model.selectedMapTaxa;
+              $timeout(100).then(function(){
+                $ctrl.the_chartObject = $scope.model.chartObject;
+              });
+
+             $ctrl.close = function() {
+               $uibModalInstance.dismiss('cancel');
+             }
         }
 ]);

@@ -39,6 +39,10 @@
   .row-layout {
     width: 100%;
   }
+  .invcomp_value {
+    padding: 10px 0;
+    font-size: large;
+  }
 
 </style>
 <ui-gmap-google-map
@@ -112,10 +116,7 @@
             </div>
             <div class="row-layout" ng-show="model.regionHover.inventory_completeness != undefined">
               <h4>Proportion completed</h4>
-              <span>{{
-                (model.regionHover.inventory_completeness > 0.0009) ?
-                    (model.regionHover.inventory_completeness | number:3)
-                : '0' }}</span>
+              <div class="invcomp_value" ng-class="model.map_colour">{{ model.regionHover.inventory_completeness || '0' }}</div>
             </div>
 
           </div>

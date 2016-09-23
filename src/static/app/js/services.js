@@ -123,7 +123,7 @@ molServices.factory(
         type: "LineChart",
         displayed: false,
         options: {
-            title: "Species coverage in GBIF (Average +/- Std Err)",
+            title: "Species coverage in GBIF \n (Average +/- Std Err)",
             isStacked: "true",
             legend: 'none',
             pointSize: 5,
@@ -131,7 +131,7 @@ molServices.factory(
             displayExactValues: true,
             animation:{
                 duration: 1000,
-                easing: 'out',
+                easing: 'out'
             },
             hAxis: {
                 title: 'Year',
