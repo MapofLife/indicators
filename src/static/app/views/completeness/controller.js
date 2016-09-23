@@ -9,10 +9,9 @@ angular.module('mol.controllers')
             $scope.model.selectedMapType = mapDisplayTypes[0];
 
             $scope.model.availableTaxa = undefined;
-            availableTaxa(regionType).then(
-              function(taxa) {$scope.model.availableTaxa = taxa;}
-            );
-            $scope.model.selectedMapTaxa = availableTaxa[0];
+            $scope.model.selectedMapTaxa = undefined;
+
+            isMapLoading = false;
 
             $scope.$watch("model.regionType", function(n,o) {
                 if (n.region_id) {
@@ -25,21 +24,10 @@ angular.module('mol.controllers')
 
             $scope.$watch("model.selectedMapType", function(n,o) {
                 if(n && !angular.equals(n,o)) {
-                    return molApi({
-                      "service": "indicators/availabletaxa",
-                      "loading": true,
-                      "params": {
-                        "region_display": n.type
-                      }
-                    }).then(
-                      function(response) {
-                        var refreshMap = ($scope.model.selectedMapTaxa != response.data[0]);
-                        $scope.model.availableTaxa = response.data;
-                        $scope.model.selectedMapTaxa = response.data[0];
-                        if (refreshMap) {
-                          $scope.renderMapForTaxa();
-                        }
-                    });
+                  if ($state.current.name == 'indicators.completeness.region') {
+                      $state.go('^');
+                  }
+                  $scope.getAvailableTaxaForRegion(true);
                 }
             });
             $scope.$watch("model.selectedMapTaxa", function(n,o) {
@@ -48,7 +36,29 @@ angular.module('mol.controllers')
                 }
             });
 
+            $scope.getAvailableTaxaForRegion = function(updateMap) {
+              $scope.model.availableTaxa = undefined;
+              $scope.model.selectedMapTaxa = undefined;
+              if ($scope.model.selectedMapType) {
+                var params = {"region_display": $scope.model.selectedMapType.type};
+                availableTaxa(params).then(
+                  function(taxa) {
+                    var refreshMap = (updateMap || $scope.model.selectedMapTaxa != taxa[0]);
+                    $scope.model.availableTaxa = taxa;
+                    $scope.model.selectedMapTaxa = taxa[0];
+                    if (refreshMap) {
+                      $scope.renderMapForTaxa();
+                    }
+                  }
+                );
+              }
+            };
+
             $scope.renderMapForTaxa = function() {
+
+                if (isMapLoading) return;
+
+                isMapLoading = true;
                 var params = angular.extend(regionType, {
                   "taxa": $scope.model.selectedMapTaxa.taxa,
                   "display_type": $scope.model.selectedMapType.type
@@ -74,6 +84,8 @@ angular.module('mol.controllers')
                             } else {
                                 $scope.model.map.zoom = 2;
                             }
+
+                            isMapLoading = false;
                         });
 
                         //Get metadata for features on the map
@@ -106,7 +118,7 @@ angular.module('mol.controllers')
                 }
             }
 
-            $scope.setRegionType($scope.model.regionType);
+            $scope.getAvailableTaxaForRegion();
 
 
         }

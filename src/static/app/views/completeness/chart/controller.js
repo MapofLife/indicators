@@ -1,13 +1,22 @@
 angular.module('mol.controllers').controller(
   'molIndicatorsCompletenessChartCtrl', [
-                '$scope','regionType','region','completenessData','$timeout',
+                '$state','$scope','regionType','region','completenessData','$timeout',
                   'lineChart','$uibModal',
-        function($scope,  regionType,  region,  completenessData,  $timeout,
+        function($state, $scope,  regionType,  region,  completenessData,  $timeout,
                    lineChart,  $uibModal) {
 
 
             $scope.model.chartObject = lineChart;
+            var chartRendered = false;
+            $scope.model.chartMode = 0;
 
+            $scope.$watch("model.selectedMapTaxa", function(n,o) {
+                if(n && !angular.equals(n,o)) {
+                    if (chartRendered) {
+                        $scope.processDataForRegionTaxa();
+                    }
+                }
+            });
 
             $scope.renderChart = function (completenessData) {
 
@@ -16,15 +25,22 @@ angular.module('mol.controllers').controller(
                     $scope.model.selectedTaxa = $scope.model.taxaList[0];
                     // Start the process
                     $scope.processDataForRegionTaxa();
+                    chartRendered = true;
                 }
             };
 
             $scope.processDataForRegionTaxa = function () {
-                var groupdata = $scope.model.taxaList.filter(function(r) {
-                    return (r.taxa == $scope.model.selectedTaxa.taxa);
-                });
-                if (groupdata.length > 0) {
-                    processStatistics(groupdata[0].statistics);
+                if ($scope.model.taxaList && $scope.model.selectedMapTaxa) {
+                    var groupdata = $scope.model.taxaList.filter(function(r) {
+                        return (r.taxa == $scope.model.selectedMapTaxa.taxa);
+                    });
+                    if (groupdata.length > 0) {
+                        $scope.model.chartMode = 1;
+                        processStatistics(groupdata[0].statistics);
+                    } else {
+                        $scope.model.chartMode = 2;
+                        // $state.go('^');
+                    }
                 }
             };
 
