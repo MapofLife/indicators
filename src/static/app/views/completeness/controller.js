@@ -12,6 +12,7 @@ angular.module('mol.controllers')
             $scope.model.selectedMapTaxa = undefined;
 
             $scope.model.map_colour_classes = [
+              "map-colour-0",
               "map-colour-1",
               "map-colour-2",
               "map-colour-3",
@@ -20,6 +21,7 @@ angular.module('mol.controllers')
               "map-colour-6",
               "map-colour-7"
             ];
+            $scope.model.selected_map_colour = $scope.model.map_colour_classes[0];
             $scope.model.map_colour = $scope.model.map_colour_classes[0];
 
             var isMapLoading = false;
@@ -98,6 +100,7 @@ angular.module('mol.controllers')
                                 switch(eventName) {
                                     case 'click':
                                         if ($scope.model.selectedMapType.type=='countries') {
+                                            $scope.model.selected_map_colour = $scope.model.map_colour_classes[data.map_color];
                                             $state.transitionTo(
                                                 'indicators.completeness.region',
                                                 {"region":data.region_name},{

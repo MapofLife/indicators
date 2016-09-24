@@ -54,14 +54,6 @@
 .metric-value-tgc { background-color: #3498db; }
 .metric-value-rank { background-color: #34495e; }
 
-.map-colour-1 { background-color: #d73027; color: #fff; }
-.map-colour-2 { background-color: #f79272; color: #fff; }
-.map-colour-3 { background-color: #fed6b0; color: #fff; }
-.map-colour-4 { background-color: #fff2cc; color: #666; }
-.map-colour-5 { background-color: #d2ecb4; color: #666; }
-.map-colour-6 { background-color: #8cce8a; color: #fff; }
-.map-colour-7 { background-color: #1a9850; color: #fff; }
-
 </style>
 <div class="completeness-charts" ng-if="model.region && model.selectedMapTaxa">
   <i ui-sref="indicators.completeness" class="close fa fa-close pull-right"></i>
@@ -77,7 +69,7 @@
           <div class="row">
 
             <div class="col-xs-12 col-sm-4 metric">
-              <div class="metric-value metric-value-avi">{{ model.metrics[0] }}</div>
+              <div class="metric-value metric-value-avi" ng-class="model.selected_map_colour">{{ model.metrics[0] }}</div>
               <h5>Average Completeness Value</h5>
               <span class="text-muted">More info</span>
             </div>
@@ -104,7 +96,7 @@
           </div> <!-- chart-holder -->
 
           <div class="pull-right">
-            <a class="small" href="#" ng-click="showModal()">View larger</a>
+            <a class="btn btn-info btn-xs" href="#" ng-click="showModal()">View larger chart</a>
           </div>
 
 
