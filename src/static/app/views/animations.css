@@ -1,8 +1,12 @@
 /** start animations **/
 /* start ng-if animations */
-.animate-if.ng-enter, .animate-if.ng-leave {
+/*.animate-if.ng-enter, .animate-if.ng-leave {
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
   transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s;
+}*/
+.animate-if.ng-enter, .animate-if.ng-leave {
+  -webkit-transition:all ease-in-out 500ms;
+  transition:all ease-in-out 500ms;
 }
 
 .animate-if.ng-enter,
@@ -27,8 +31,8 @@
 }
 .slide.ng-enter,
 .slide.ng-leave {
-    -webkit-transition: all 500ms ease;
-    transition: all 500ms ease;
+    -webkit-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
 }
 .slide.ng-enter {
     left: 100%;

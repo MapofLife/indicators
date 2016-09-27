@@ -69,6 +69,8 @@
   display: flex;
   overflow-y: scroll;
   border-right: 2pt solid gray;
+  max-width: 400px;
+  min-width: 400px;
 }
 .location-container .region-filters {
   flex: 1;

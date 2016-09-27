@@ -57,11 +57,11 @@ body {
     margin: 10px;
 }
 
-.info-boxes {
+.info-boxes-small {
   position: absolute;
   top: 0;
   right: 0;
-  width: 230px;
+  width: 200px;
   padding: 0 6px 8px;
   background: rgba(255,255,255,0.8);
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -71,13 +71,22 @@ body {
   font: 14px/18px Arial, Helvetica, sans-serif;
   text-align: center;
 }
+.info-boxes {
+  position: relative;
+  min-width: 350px;
+  width: 100%;
+  padding: 0 6px;
+
+  font: 14px/18px Arial, Helvetica, sans-serif;
+  text-align: center;
+}
 .info-boxes h4 {
   font-size: 1.1em;
   font-weight: 600;
 }
-.info-boxes hr {
+.info-boxes hr, .region-data-holder hr {
   margin: 15px 0;
-  border-top: 1px solid #000;
+  border-top: 1px solid #aaa;
 }
 .info-boxes select.form-control {
   max-width: 100%;

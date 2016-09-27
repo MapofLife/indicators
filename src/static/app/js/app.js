@@ -113,6 +113,9 @@ angular.module('mol.indicators', [
                 templateUrl: 'static/app/views/completeness/controls.html',
                 controller: 'molIndicatorsCompletenessCtrl'
               },*/
+              'right-sidebar@indicators.completeness': {
+                templateUrl: 'static/app/views/completeness/chart/main.html'
+              },
               'map@indicators.completeness': {
                 templateUrl: 'static/app/views/completeness/map.html',
                 controller: 'molIndicatorsCompletenessCtrl'
@@ -148,7 +151,7 @@ angular.module('mol.indicators', [
           'indicators.completeness.region', {
             url: '/{region}',
             views: {
-              'left-sidebar@indicators.completeness': {
+              'right-sidebar@indicators.completeness': {
                 templateUrl: 'static/app/views/completeness/chart/main.html',
                 controller: 'molIndicatorsCompletenessChartCtrl'
               }
