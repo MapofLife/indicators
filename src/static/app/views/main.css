@@ -1,9 +1,9 @@
 html {
-  height: auto;
+  min-width: 785px;
+  min-height: 580px;
 }
 
 body {
-  min-height: 100vh;
   height: 100vh;
   display: -webkit-flex;
   display: flex;

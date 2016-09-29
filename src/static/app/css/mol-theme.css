@@ -26,10 +26,6 @@ header {
 body, caption, th, td, input, textarea, select, option, legend, fieldset {
 	font-family: "Fira Sans","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
-.logo {
-	margin: 0.5em;
-	width: 10em
-}
 
 
 
@@ -43,15 +39,7 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
 	}
 }
 
-.gmba_logo img {
-    height: 50px;
-    margin: 10px;
-}
-.mol_logo img {
-    float: right;
-    height: 50px;
-    margin: 10px;
-}
+
 @media (min-width: 740px) {
 	nav {
 		/*position: absolute;
