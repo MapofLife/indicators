@@ -217,7 +217,7 @@ angular.module('mol.controllers').controller('ModalInstanceCtrl', ['$uibModalIns
 
     $ctrl.the_region = $scope.model.region;
     $ctrl.the_taxa = $scope.model.selectedMapTaxa;
-    $timeout(100).then(function() {
+    $timeout(500).then(function() {
       $ctrl.the_chartObject = $scope.model.chartObject;
     });
 

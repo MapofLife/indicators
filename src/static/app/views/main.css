@@ -57,6 +57,10 @@ body {
     margin: 10px;
 }
 
+.padded-bottom {
+  padding-bottom: 80px;
+}
+
 .info-boxes-small {
   position: absolute;
   top: 0;
