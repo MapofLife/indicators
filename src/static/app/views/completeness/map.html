@@ -49,43 +49,43 @@
     color: #555 !important;
   }
   .map-color-1 {
-    background-color: rgba(0, 128, 255, 0.8) !important;
+    background-color: rgba(13, 71, 161, 0.5) !important;
     color: #fff !important;
   }
   .map-color-2 {
-    background-color: rgba(64, 160, 255, 0.8) !important;
+    background-color: rgba(25, 118, 210, 0.5) !important;
     color: #fff !important;
   }
   .map-color-3 {
-    background-color: rgba(127, 191, 255, 0.8) !important;
+    background-color: rgba(100, 181, 246, 0.5) !important;
     color: #666 !important;
   }
   .map-color-4 {
-    background-color: rgba(255, 242, 204, 0.8) !important;
+    background-color: rgba(187, 222, 251, 0.5) !important;
     color: #666 !important;
   }
   .map-color-5 {
-    background-color: rgba(1, 39, 0, 0.8) !important;
-    color: #fff !important;
+    background-color: rgba(255, 249, 196, 0.5) !important;
+    color: #666 !important;
   }
   .map-color-6 {
-    background-color: rgba(34, 154, 0, 0.8) !important;
-    color: #fff !important;
+    background-color: rgba(255, 241, 118, 0.5) !important;
+    color: #666 !important;
   }
   .map-color-7 {
-    background-color: rgba(19, 100, 0, 0.8) !important;
-    color: #fff !important;
+    background-color: rgba(255, 214, 0, 0.5) !important;
+    color: #666 !important;
   }
   .map-color-8 {
-    background-color: rgba(255, 166, 166, 0.8) !important;
+    background-color: rgba(255, 138, 128, 0.5) !important;
     color: #666 !important;
   }
   .map-color-9 {
-    background-color: rgba(255, 122, 122, 0.8) !important;
+    background-color: rgba(244, 67, 54, 0.5) !important;
     color: #fff !important;
   }
   .map-color-10 {
-    background-color: rgba(255, 77, 77, 0.8) !important;
+    background-color: rgba(183, 28, 28, 0.5) !important;
     color: #fff !important;
   }
 
@@ -115,13 +115,14 @@
 
             <div class="region-info" ng-show="model.selectedMapType.type == 'countries'">
               <div class="row-layout">
-                <h4>Country</h4>
-                <span>{{ model.regionHover.region_name || 'Hover over the map' }}</span>
+                <h4>{{ model.regionHover.region_name || 'Hover over the map' }}</h4>
               </div>
             </div>
             <div class="row-layout" ng-show="model.regionHover.inventory_completeness != undefined">
-              <h4>Proportion completed</h4>
-              <div class="invcomp_value" ng-class="model.map_color">{{ model.regionHover.inventory_completeness || '0' }}</div>
+              <div>Avg. Coverage</div>
+              <div class="invcomp_value" ng-class="model.map_color">
+                {{ (model.regionHover.inventory_completeness * 100) | numberEx:2 || '0' }}%
+              </div>
             </div>
 
        </div>

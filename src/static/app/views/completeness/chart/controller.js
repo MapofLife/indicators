@@ -112,11 +112,11 @@ angular.module('mol.controllers').controller(
             c: [{
               v: yearly_values[0]
             }, {
-              v: yearly_values[1]
+              v: (yearly_values[1] * 100)
             }, {
-              v: getErrorValue(yearly_values[1], yearly_values[2], true)
+              v: getErrorValue( (yearly_values[1] * 100), (yearly_values[2] * 100), true)
             }, {
-              v: getErrorValue(yearly_values[1], yearly_values[2], false)
+              v: getErrorValue( (yearly_values[1] * 100), (yearly_values[2] * 100), false)
             }]
           });
         });
