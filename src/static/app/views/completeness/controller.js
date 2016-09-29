@@ -1,230 +1,180 @@
 angular.module('mol.controllers')
-    .controller('molIndicatorsCompletenessCtrl', ['$scope', '$state', '$rootScope', '$filter', '$uibModal', 'uiGmapGoogleMapApi', 'molApi', 'molRegionOverlay', 'region', 'regionType', 
-        function($scope, $state, $rootScope, $filter, $uibModal, uiGmapGoogleMapApi, molApi, molRegionOverlay, region, regionType) {
+  .controller('molIndicatorsCompletenessCtrl', [
+    '$scope', '$state', '$window', '$timeout', 'molApi', 'molCompletenessOverlay', 'regionType', 'availableTaxa', 'mapDisplayTypes',
+    function($scope, $state, $window, $timeout, molApi, molCompletenessOverlay, regionType, availableTaxa, mapDisplayTypes) {
 
-            $scope.model.region = region;
-            $scope.model.regionType = regionType;
+      $scope.model.regionType = regionType;
 
-            $scope.$watch("model.region", function(n,o) {
-                console.log(n);
-                if (n.region_id) {
-                    $scope.model.regionHover = n;
-                    loadModalForRegion(n);
-                }
-                if(n && !angular.equals(n,o)) {
-                    $scope.setRegion(n);
-                }
-            },true);
+      $scope.model.mapDisplayTypes = mapDisplayTypes;
+      $scope.model.selectedMapType = mapDisplayTypes[0];
+
+      $scope.model.availableTaxa = undefined;
+      $scope.model.selectedMapTaxa = undefined;
+
+      $scope.model.map_color_classes = [
+        "map-color-1",
+        "map-color-1",
+        "map-color-2",
+        "map-color-3",
+        "map-color-4",
+        "map-color-5",
+        "map-color-6",
+        "map-color-7",
+        "map-color-8",
+        "map-color-9",
+        "map-color-10"
+      ];
+      $scope.model.selected_map_color = $scope.model.map_color_classes[0];
+      $scope.model.map_color = $scope.model.map_color_classes[0];
+
+      var isMapLoading = false;
+
+      $scope.$watch("model.regionType", function(n, o) {
+        if (n.region_id) {
+          $scope.model.regionHover = n;
+        }
+        if (n && !angular.equals(n, o)) {
+          $scope.setRegionType(n);
+        }
+      }, true);
+
+      $scope.$watch("model.selectedMapType", function(n, o) {
+        if (n && !angular.equals(n, o)) {
+          // if ($state.current.name == 'indicators.completeness.region') {
+          //     $state.go('^');
+          // }
+          // $scope.getAvailableTaxaForRegion(true);
+          $scope.renderMapForTaxa();
+        }
+      });
+      $scope.$watch("model.selectedMapTaxa", function(n, o) {
+        if (n && !angular.equals(n, o)) {
+          $scope.renderMapForTaxa();
+        }
+      });
+      $scope.$watch("model.activeIndicator", function(n, o) {
+        if (n && !angular.equals(n, o)) {
+          var params = angular.extend(regionType, {
+            "taxa": $scope.model.selectedMapTaxa.taxa,
+            "display_type": $scope.model.selectedMapType.type,
+            "indicator": $scope.model.activeIndicator
+          });
+          $scope.setRegionType(params);
+        }
+      });
+
+      $scope.getAvailableTaxaForRegion = function(updateMap) {
+        $scope.model.availableTaxa = undefined;
+        $scope.model.selectedMapTaxa = undefined;
+        if ($scope.model.selectedMapType) {
+          var params = {
+            "region_display": $scope.model.selectedMapType.type
+          };
+          availableTaxa(params).then(
+            function(taxa) {
+              var refreshMap = (updateMap || $scope.model.selectedMapTaxa != taxa[0]);
+              $scope.model.availableTaxa = taxa;
+              $scope.model.selectedMapTaxa = taxa[0];
+              if (refreshMap) {
+                $scope.renderMapForTaxa();
+              }
+            }
+          );
+        }
+      };
+
+      $scope.renderMapForTaxa = function() {
+
+        if (isMapLoading) return;
+
+        isMapLoading = true;
+        var params = angular.extend(regionType, {
+          "taxa": $scope.model.selectedMapTaxa.taxa,
+          "display_type": $scope.model.selectedMapType.type,
+          "indicator": $scope.model.activeIndicator
+        });
+        $scope.setRegionType(params);
+      };
 
 
-            $scope.setRegion = function(r) {
-                if(r) {
-                    molRegionOverlay(r).then(
-                        function(overlay) {
-                            if(overlay) {
-                                $scope.model.map.setOverlay(angular.extend(overlay,{index:0}),0);
-                            } else {
-                                $scope.model.map.setOverlay({index:0},0);
-                            }
-                            if(r.bnds) {
-                                $scope.model.map.bounds = {
-                                    southwest: {latitude: r.bnds[1],longitude: r.bnds[0]},
-                                    northeast: {latitude: r.bnds[3],longitude: r.bnds[2]}
-                                };
-                            } else {
-                                $scope.model.map.zoom = 2;
-                            }
-                        });
+      $scope.setRegionType = function(r) {
+        if (r) {
+          molCompletenessOverlay(r).then(
+            function(overlay) {
+              if (overlay) {
+                $scope.model.map.setOverlay(angular.extend(overlay, {
+                  index: 0
+                }), 0);
+              } else {
+                $scope.model.map.setOverlay({
+                  index: 0
+                }, 0);
+              }
 
-                        //Get metdata for features on the map
-                        $scope.model.map.getInfoWindowModel = function(map, eventName, latLng, data) {
-                            if(data) {
-                                switch(eventName) {
-                                    case 'click':
-                                        var bnds = data.bnds = data.bnds.split(',')
-                                            .map(function(n){return parseFloat(n);});
+              isMapLoading = false;
+            });
 
-                                        if(bnds) {
-                                            $scope.model.map.bounds = {
-                                                southwest: {latitude: bnds[1],longitude: bnds[0]},
-                                                northeast: {latitude: bnds[3],longitude: bnds[2]}
-                                            };
-                                        }
-
-                                        $state.transitionTo(
-                                            $state.current.name,
-                                            {"region":data.name},
-                                            {"inherit":true, "relative": $state.current, "notify": false});
-
-                                        loadModalForRegion(data);
-
-                                        //$scope.region = data;
-                                        //$scope.infowindowPromise.resolve({show:false});
-                                        //$scope.infowindowPromise = $q.defer();
-                                        break;
-                                    case 'mousemove':
-                                        $scope.model.regionHover = data;
-                                        break;
-                                    default:
-                                        $scope.infowindowPromise.resolve({show:false});
-                                        $scope.infowindowPromise = $q.defer()
-                                }
-                            } else {
-                                $scope.infowindowPromise.resolve({show: false});
-                                $scope.infowindowPromise = $q.defer() ;
-                            }
-                            
-                            return $scope.infowindowPromise.promise;
-                        }
-
-                }
+          //Get metadata for features on the map
+          $scope.model.map.getInfoWindowModel = function(map, eventName, latLng, data) {
+            if (data) {
+              switch (eventName) {
+                case 'click':
+                  if ($scope.model.selectedMapType.type == 'countries') {
+                    $scope.model.selected_map_color = $scope.model.map_color_classes[data.map_color];
+                    $state.transitionTo(
+                      'indicators.completeness.region', {
+                        "region": data.region_name
+                      }, {
+                        "inherit": true,
+                        "reload": false
+                      });
+                  }
+                  break;
+                case 'mousemove':
+                  $scope.model.regionHover = data;
+                  $scope.model.map_color = $scope.model.map_color_classes[data.map_color];
+                  break;
+                default:
+                  $scope.infowindowPromise.resolve({
+                    show: false
+                  });
+                  $scope.infowindowPromise = $q.defer()
+              }
+            } else {
+              $scope.infowindowPromise.resolve({
+                show: false
+              });
+              $scope.infowindowPromise = $q.defer();
             }
 
-            $scope.setRegion($scope.model.region); 
-
-            function loadModalForRegion(region) {
-                return molApi({
-                  service: "indicators/completeness",
-                  params: {
-                    indicator: "gbif",
-                    region_id: region.region_id
-                }
-                }).then(function(result) {
-                    // return result.data.filter(function(r){return r});
-
-                    var completenessData = undefined;
-                    if (result.data.length > 0) {
-                        completenessData = result.data[0];
-                    }
-
-                    var modalInstance = $uibModal.open({
-                      animation: true,
-                      ariaLabelledBy: 'modal-title',
-                      ariaDescribedBy: 'modal-body',
-                      templateUrl: 'statsModalContent.html',
-                      controller: 'ModalInstanceCtrl',
-                      controllerAs: '$ctrl',
-                      size: 'lg',
-                      resolve: {
-                        $scope: $scope,
-                        region: region,
-                        completenessData: completenessData
-                      }
-                    });
-                    modalInstance.result.then(function () {
-                            // empty CLOSE block
-                        }, function () {
-                            // we do all the work in the DISMISS block
-                            console.log('Reloading regions');
-                            $state.go($state.current.name, {}, {"inherit":false});
-                        });
-
-                });
-            }
+            return $scope.infowindowPromise.promise;
+          }
 
         }
-    ])
-.controller('ModalInstanceCtrl', ['$uibModalInstance', '$scope', 'region', 'completenessData', 
-        function($uibModalInstance, $scope, region, completenessData) {
-            var $ctrl = this;
+      }
 
-            $ctrl.taxalist = undefined;
-            $ctrl.selectedtaxa = undefined;
+      $scope.getAvailableTaxaForRegion();
 
-            $ctrl.init = function () {
-                $ctrl.region = region;
-                if (completenessData !== undefined) {
-                    $ctrl.taxalist = completenessData.groups;
-                    $ctrl.selectedtaxa = $ctrl.taxalist[0];
+      // Let's do some magic.
+      $timeout(500).then(function() {
 
-                    $ctrl.chartObject = {
-                        type: "LineChart",
-                        displayed: false,
-                        options: {
-                            title: "Species coverage in GBIF (Average +/- Std Err)",
-                            isStacked: "true",
-                            legend: 'none',
-                            pointSize: 5,
-                            fill: 20,
-                            displayExactValues: true,
-                            animation:{
-                                duration: 1000,
-                                easing: 'out',
-                            },
-                            hAxis: {
-                                title: 'Year',
-                                slantedText: 'false',
-                                gridlines: {
-                                    color: '#333',
-                                    count: 10
-                                }
-                            },
-                            vAxis: {
-                                title: 'Species observed / expected',
-                                gridlines: {
-                                    count: 5
-                                }
-                            },
-                            tooltip: {
-                                isHtml: false
-                            },
-                            intervals: {style: "bars"},
-                            interval: {
-                                'i0': { 'color': '#bdc3c7', 'style':'bars', 'barWidth':0, 'lineWidth':2, 'pointSize':0},
-                                'i1': { 'color': '#bdc3c7', 'style':'bars', 'barWidth':0, 'lineWidth':2, 'pointSize':0}
-                            },
-                        },
-                        formatters: {},
-                        view: {}
-                    };
+        // set some default bounds so
+        // we can see the whole world. Kinda.
+        $scope.model.map.bounds = {
+          southwest: {
+            latitude: -50,
+            longitude: -165
+          },
+          northeast: {
+            latitude: 50,
+            longitude: 180
+          }
+        };
 
-                    // Start the process
-                    $ctrl.processDataForRegionTaxa();
-                }
-            };
+        // trigger a window resize,
+        // which in-turn triggers the map resize
+        $window.dispatchEvent(new Event('resize'));
+      });
 
-            $ctrl.reset = function () {
-                $uibModalInstance.dismiss('reset');
-            };
-
-            $ctrl.processDataForRegionTaxa = function () {
-                var groupdata = $ctrl.taxalist.filter(function(r) {
-                    return (r.taxa == $ctrl.selectedtaxa.taxa);
-                });
-                if (groupdata.length > 0) {
-                    processStatistics(groupdata[0].statistics);
-                }
-            };
-
-            function processStatistics(stats) {
-                var the_data = {};
-                the_data.cols = [
-                    {id: "year", label: "Year", type: "string"},
-                    {id: "average", label: "Average", type: "number"},
-                    {id: "i0", type: "number", role:"interval"},
-                    {id: "i1", type: "number", role:"interval"}
-                ];
-                the_data.rows = [];
-                angular.forEach(stats, function(values, key) {
-                    the_data.rows.push({c: [
-                        {v: values.year}, 
-                        {v: values.average},
-                        {v: getErrorValue(values.average, values.stddev, true)},
-                        {v: getErrorValue(values.average, values.stddev, false)}
-                    ]});
-                });
-                $ctrl.chartObject.data = the_data;
-            }
-
-            function getErrorValue(val, err, isMin) {
-                if (isMin) {
-                    var ret = (val - err);
-                    return (ret < 0) ? 0 : ret;
-                } else {
-                    return (val + err);
-                }
-            }
-
-            $ctrl.init();
-        }
-]);
+    }
+  ])

@@ -1,9 +1,9 @@
 html {
-  height: auto;
+  min-width: 640px;
+  min-height: 480px;
 }
 
 body {
-  min-height: 100vh;
   height: 100vh;
   display: -webkit-flex;
   display: flex;
@@ -50,85 +50,44 @@ body {
   background-color: #fff;
 }
 
-.layouts-sidebar {
-  -webkit-flex: 1 1 auto;
-  flex: 1 1 auto;
-  display: -webkit-flex;
-  display: flex;
+
+
+.partner_logo img {
+    height: 50px;
+    margin: 10px;
+}
+
+.info-boxes-small {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  padding: 0 6px 8px;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 0 0 0 5px;
+  z-index: 9999;
+
+  font: 14px/18px Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+.info-boxes {
   position: relative;
-  align-items: stretch;
-  padding-bottom: 20px;
-}
+  min-width: 350px;
+  width: 100%;
+  padding: 0 20px;
 
-.sidebar-container {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex: 1;
-    flex: 1;
+  font: 14px/18px Arial, Helvetica, sans-serif;
+  text-align: center;
 }
-
-.sidebar-scroll-container {
-  position: relative;
-  max-width: 90%;
-  width: 90%;
-  border: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  transition: all 0.7s ease;
+.info-boxes h4 {
+  font-size: 1.1em;
+  font-weight: 600;
 }
-
-.sidebar-scroll-container.closed {
-  min-width: 0;
-  max-width: 0;
-  padding: 0;
-  transition: all 0.7s ease;
-  overflow: hidden;
+.info-boxes hr, .region-data-holder hr {
+  margin: 15px 0;
+  border-top: 1px solid #aaa;
 }
-
-.sidebar-toggle {
-  position: fixed;
-  top: 50vh;
-  left: 278px;
-  z-index:  1000;
-  width: 40px;
-  height: 40px;
-  margin: auto;
-  padding:10px;
-  color: #555555;
-  background-color: white;
-  border-bottom: 1pt solid grey;
-  border-top: 1pt solid grey;
-  border-right: 1pt solid grey;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  transition: all 0.7s ease;
-}
-
-.sidebar-toggle.toggle-closed {
-  left: 0;
-  transition: all 0.7s ease;
-}
-
-.sidebar {
-  position: relative;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right:0px;
-  background-color: white;
-  font-size: 10pt;
-  padding: 15px;
+.info-boxes select.form-control {
   max-width: 100%;
-  max-width: 280px;
-  min-width: 280px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  border-right: 2pt solid gray;
-}
-
-.layouts-sidebar .map-container {
-  display: flex;
-  display: -webkit-flex;
-  flex: 1;
-  -webkit-flex: 1;
 }

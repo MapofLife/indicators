@@ -1,11 +1,11 @@
 <style type="text/css">
-  .angular-google-map-container { 
+  .angular-google-map-container {
     height: 77%;
     width: 100%;
-    position: absolute; 
+    position: absolute;
   }
-  .map-link { 
-    margin: 5px; 
+  .map-link {
+    margin: 5px;
     background-color:none;
   }
   a.map-link:hover {background-color:inherit;}
@@ -19,9 +19,9 @@
     background: white;
   }
   .chart-view {
-    position: relative; 
-    padding: 10px; 
-    height:300px; 
+    position: relative;
+    padding: 10px;
+    height:300px;
     width:100%;
   }
   .modal-lg {
@@ -31,9 +31,9 @@
 <script type="text/ng-template" id="statsModalContent.html">
         <div class="modal-header">
             <div class="pull-right">
-              <select 
-                class="form-control" 
-                ng-model="$ctrl.selectedtaxa" 
+              <select
+                class="form-control"
+                ng-model="$ctrl.selectedtaxa"
                 ng-change="$ctrl.processDataForRegionTaxa()"
                 ng-options="taxa.title for taxa in $ctrl.taxalist track by taxa.taxa"></select>
             </div>
@@ -41,7 +41,7 @@
         </div>
         <div class="modal-body" id="modal-body">
           <div class="row center-block" ng-if="!$ctrl.selectedtaxa">
-            There is no data available for {{ $ctrl.region.name }}. 
+            There is no data available for {{ $ctrl.region.name }}.
             <br />
             <a class="btn btn-link" type="button" ng-click="$ctrl.reset()">Pick another country</a>
           </div>
@@ -68,13 +68,35 @@
         show="mt.show"
         refresh="mt.refresh"
         ng-repeat="mt in model.map.overlayMapTypes"></ui-gmap-map-type>
-      <ui-gmap-map-control position="left-top" index="10000">
-        <div class="map-control-item"><b>Region:</b> {{ model.regionHover.name || 'Hover over the map' }}</div>
-      </ui-gmap-map-control>
       <ui-gmap-map-control position="bottom-left" index="10000">
         <a class="map-link" href="https://mol.org/" target="_blank">
           <img src="static/app/img/logo.png">
         </a>
+      </ui-gmap-map-control>
+
+      <ui-gmap-map-control position="top-right" index="10000">
+        <div class="info-boxes">
+            <div class="region-info">
+              <h4>Country</h4>
+              <b>{{ model.regionHover.name || 'Hover over the map' }}</b>
+            </div>
+            <hr />
+            <div class="layer-info">
+                <h4>Select a view:</h4>
+                <select class="form-control selectpicker">
+                    <option value="countries">Countries</option>
+                    <option value="grid">Grid</option>
+                </select>
+            </div>
+            <hr />
+            <div class="taxa-info">
+                <h4>Select a taxa:</h4>
+                <select class="form-control selectpicker">
+                    <option value="amphibians">Amphibians</option>
+                    <option value="dragonflies">Dragonflies</option>
+                </select>
+            </div>
+        </div>
       </ui-gmap-map-control>
 
     </ui-gmap-google-map>

@@ -1,0 +1,275 @@
+
+/* force the menu to not stack */
+@media (max-width: 1150px) {
+  .navbar-nav>li {
+      float: left;
+  }
+}
+@media (max-width: 525px) {
+  .navbar-nav>li {
+      float: none;
+  }
+}
+
+
+.mol-view-container {
+  position: absolute;
+  top: 0; left:0; right:0; bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+  min-height: 100vh;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.location-container {
+  position:relative;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-flex;
+  display: flex;
+  align-items: stretch  ;
+}
+.location-container .stale {
+  background-color: orange;
+}
+
+.location-container .old {
+ opacity: 0.6;
+}
+
+.location-container .angular-leaflet-map {
+  -webkit-flex: 5;
+  flex: 5;
+}
+
+.location-container .mol-location-map {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex: 2 1;
+  flex: 2 1;
+  border-right: 2pt solid gray;
+}
+
+.location-container .left-sidebar {
+  display: -webkit-flex;
+  position: relative;
+  display: flex;
+  max-width: 320px;
+  min-width: 320px;
+  -webkit-flex: 1 0 auto;
+  flex: 1 0 auto;
+
+  border-right: 2pt solid gray;
+}
+.location-container .right-sidebar {
+  display: -webkit-flex;
+  position:relative;
+  display: flex;
+  overflow-y: scroll;
+  border-right: 2pt solid gray;
+  max-width: 400px;
+  min-width: 400px;
+}
+.location-container .region-filters {
+  flex: 1;
+  -webkit-flex: 1;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color:white;
+  font-size: 10pt;
+  padding: 5px;
+
+  width: 310px;
+
+}
+
+.location-container .drawer  {
+
+  display: -webkit-flex;
+  display: flex;
+  flex: 0 1 auto;
+  -webkit-flex: 1 0 auto;
+  flex-direction: row;
+  overflow-y:scroll;
+  overflow-x:visible;
+  min-width: 300px;
+  max-height: 70vh;
+
+  /*max-width: 500px;*/
+}
+
+.location-container .drawer .column {
+  min-height: -webkit-min-content;
+  flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+  flex-direction: row;
+  width: 300px;
+  padding: 15px;
+  max-height: 100vh;
+
+}
+
+.location-container .row {
+
+  padding: 10px;
+}
+
+.location-container .drawer .container {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.location-container footer {
+  /*flex: 0 1 40px;*/
+}
+
+.location-container .panel-body-table  {
+
+}
+.location-container .desc  {
+
+}
+.location-container mol-loading-indicator {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  z-index: 100;
+}
+
+.location-container .btn {
+
+  border: 0.75pt solid grey !important;
+}
+
+
+
+.location-container .region-thumbs {
+  display: flex;
+  display: -webkit-flex;
+  overflow:hidden;
+
+  border-radius: 5px;
+  border: 1.25pt solid gray;
+}
+
+.location-container .region-thumbs div{
+  height: 25px;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto
+}
+.location-container .flex-row {
+  display: flex;
+  display: -webkit-flex;
+  padding: 1px 5px 1px 5px;
+}
+.location-container input {
+  padding: 5px;
+}
+.location-container .flex-col-1 {
+  -webkit-flex: 1;
+  flex: 1;
+  padding:2px;
+  margin: auto;
+  white-space: nowrap;
+}
+.location-container .flex-col-2 {
+  flex: 2;
+  -webkit-flex: 2;
+  margin: auto;
+  padding:2px;
+}
+.location-container .flex-col-3 {
+  margin: auto;
+  padding:2px;
+}
+.location-container .flex-col-4 {
+  margin: auto;
+  padding:2px;
+}
+.location-container .slider {
+  width: 110px;
+}
+.location-container .slider-label {
+  font-size: 8pt;
+}
+.location-container .tvz {min-width:120px; max-width:120px;display: flex;}
+.location-container .tvz .btn {
+  flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+  padding: 4px 6px;}
+
+.location-container .tvz label { color:black; opacity: 0.3;}
+.location-container .tvz .active {opacity:1 !important;}
+.location-container .tvz .hover {opacity:1 !important;}
+
+.location-container .tvz1 {background-color:#FFFFFF;}
+.location-container .tvz2 {background-color:#00B1D7;}
+.location-container .tvz3 {background-color:#4D35A1;}
+.location-container .tvz4 {background-color:#00AF4A;}
+.location-container .tvz5 {background-color:#00823E;}
+.location-container .tvz6 {background-color:#FDDE16;}
+.location-container .tvz7 {background-color:#FF8A11;}
+
+.location-container .treeline div {border: 0.5pt solid black !important;}
+.location-container .treeline label {border: 0.5pt solid black; color:black; opacity: 0.3;}
+.location-container .treeline .active {opacity:1 !important;}
+
+.location-container .treeline .above {background-color:#e0dbbc;}
+.location-container .treeline .below {background-color:#5f9b41;}
+
+.location-container .ruggedness label { border: 0.5pt solid black; color:white; opacity: 0.3;}
+.location-container .ruggedness .active {opacity:1 !important;}
+
+.location-container .ruggedness .high {background-color:#444444;}
+.location-container .ruggedness .low {color: black;background-color:#eeeeee;}
+
+/* start of info box on the overview page */
+.info-boxes {
+  position: absolute;
+  top: 0;
+  right: 150px;
+  width: 230px;
+  padding: 0 6px 8px;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 0 0 5px 5px;
+  z-index: 9999;
+
+  font: 14px/18px Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+.info-boxes h4 {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.info-boxes hr {
+  margin: 15px 0;
+  border-top: 1px solid #000;
+}
+#thermal-belt-palette, .download-info .row {padding: 15px 20px;}
+#thermal-belt-palette .row {
+  padding: 5px 0 0;
+}
+.tbp-color {
+  height: 10px;
+}
+.tbp-label {
+  text-align: left;
+  font: 12px/16px Arial, Helvetica, sans-serif;
+}
+.row-button {
+  width: 90%;
+}
+/* end of info box on the overview page */
+
+
+.partner_logo img {
+    height: 50px;
+    margin: 10px;
+}

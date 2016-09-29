@@ -4,16 +4,22 @@
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{$state.current.title}}</title>
+    <meta name="author" content="Ajay Ranipeta, ajay@mol.org">
+    <title>Map of Life - Biodiversity Indicators</title>
     <link rel="icon" href="https://mol.org/static/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="//mol.org/static/css/mol-basic.css">
-    <link rel="stylesheet" href="//mol.org/static/css/mol-header.css">
-    <link rel="stylesheet" href="//mol.org/static/css/mol-footer.css">
+    <link rel="stylesheet" href="//mol.org/static/css/mol-navbar.css">
     <!--App layouts -->
 
+    <!-- <link class="dev" rel="stylesheet" href="static/app/css/main-layout.css"/></link> -->
+
+    <!-- <link class="dev" rel="stylesheet" href="static/app/css/layouts.css"/></link> -->
     
+    
+    
+
     
     
     
@@ -58,7 +64,6 @@
     
     
     
-    
 
     
     
@@ -69,5 +74,6 @@
 
 
   <base href="//mapoflife.github.io/indicators/"><link href="static/app.min.css" rel="stylesheet"><script src="static/app.min.js"></script></head>
-  <body ui-view="" state="{{ $state.current.name }}"></body>
+  <body class="mol-view-container" ui-view="" state="{{ $state.current.name }}">
+  </body>
 </html>
