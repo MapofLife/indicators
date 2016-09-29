@@ -121,7 +121,6 @@ molServices.factory(
         type: "LineChart",
         displayed: false,
         options: {
-          title: "Species coverage in GBIF \n (Average +/- Std Err)",
           isStacked: "true",
           legend: 'none',
           pointSize: 5,
@@ -139,7 +138,7 @@ molServices.factory(
             }
           },
           vAxis: {
-            title: 'Species observed / expected',
+            title: 'Coverage (Percent +/- SE)',
             gridlines: {
               count: 5
             }

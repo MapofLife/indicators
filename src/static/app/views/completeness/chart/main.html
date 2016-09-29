@@ -9,9 +9,10 @@
     /*width:350px;*/
     padding: 0 6px 8px;
   }
-  .completeness-charts h3 {
+  .completeness-charts h4 {
     margin: 8px 0;
     text-align: left;
+    padding: 0 6px 8px;
   }
 
 .chart-view { height: 200px; }
@@ -62,7 +63,7 @@
      <div class="animate-if" ng-if="model.availableTaxa">
 
        <div class="taxa-info">
-           <h4>Taxonomic groups:</h4>
+           <h4>Species groups:</h4>
            <select
               class="form-control selectpicker"
               ng-model="model.selectedMapTaxa"
@@ -72,6 +73,7 @@
 
        <!-- indicator selector -->
        <div>
+         <h4>Coverage level</h4>
          <uib-tabset justified="true">
            <uib-tab index="0" heading="Species" select="model.activeIndicator = 'species'">
 
@@ -85,7 +87,7 @@
                <div class="completeness-charts animate-if" ng-if="model.activeIndicator == 'species' && model.selectedMapType.type == 'countries' && model.region && model.selectedMapTaxa">
                    <!--<i ui-sref="indicators.completeness" ui-sref-options="{inherit:false,reload:true}" class="close fa fa-close pull-right"></i>-->
                    <a class="btn btn-danger btn-xs pull-right" ng-click="resetView()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
-                   <h4>Statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h4>
+                   <h4>{{model.region.name}}</h4>
 
                    <div class="region-data-holder">
 
@@ -94,8 +96,8 @@
                          <div class="row">
 
                            <div class="col-xs-12 col-sm-4 metric">
-                             <div class="metric-value {{ model.selected_map_color }}">{{ model.metrics[0] }}</div>
-                             <h5>Average Completeness Value</h5>
+                             <div class="metric-value {{ model.selected_map_color }}">{{ (model.metrics[0] * 100) | numberEx:2 }}%</div>
+                             <h5>Avg. Coverage</h5>
                            </div>
 
                            <div class="col-xs-12 col-sm-4 metric">
@@ -147,11 +149,11 @@
 
 
           </uib-tab> <!-- sp.indicator -->
-          <uib-tab index="1" heading="Richness" select="model.activeIndicator = 'richness'">
+          <uib-tab index="1" heading="Assemblage" select="model.activeIndicator = 'richness'">
 
             <!-- layer type selector -->
             <div class="layer-info">
-                <h4>Map view:</h4>
+                <h4>Map:</h4>
                 <div>
                   <div class="btn-group row-layout">
                     <button type="button" class="btn btn-default btn-sm col-sm-6"
@@ -176,7 +178,7 @@
              <div class="completeness-charts animate-if" ng-if="model.activeIndicator == 'richness' && model.region && model.selectedMapTaxa">
                  <!--<i ui-sref="indicators.completeness" ui-sref-options="{inherit:false,reload:true}" class="close fa fa-close pull-right"></i>-->
                  <a class="btn btn-danger btn-xs pull-right" ng-click="resetView()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
-                 <h3>Statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h3>
+                 <h4>{{model.region.name}}</h4>
 
                  <div class="region-data-holder">
 
@@ -185,8 +187,8 @@
                        <div class="row">
 
                          <div class="col-xs-12 col-sm-6 metric">
-                           <div class="metric-value {{ model.selected_map_color }}">{{ model.metrics[0] }}</div>
-                           <h5>Average Richness</h5>
+                           <div class="metric-value {{ model.selected_map_color }}">{{ (model.metrics[0] * 100) | numberEx:2 }}%</div>
+                           <h5>Avg. Coverage</h5>
                          </div>
 
                          <div class="col-xs-12 col-sm-6 metric">
