@@ -1,9 +1,6 @@
 <style>
 
-  .side-wrapper {
-    min-width:370px;
-    padding-right: 20px;
-  }
+
   .close {
     padding:10px;
   }
@@ -81,14 +78,14 @@
 
 
               <div class="completeness-charts animate-if" ng-if="!(model.activeIndicator == 'species' && model.selectedMapType.type == 'countries' && model.region && model.selectedMapTaxa)">
-                <h3>Select a country to view it's metrics</h3>
+                <h4>Select a country to view it's metrics</h4>
               </div>
 
                <!-- region metrics -->
                <div class="completeness-charts animate-if" ng-if="model.activeIndicator == 'species' && model.selectedMapType.type == 'countries' && model.region && model.selectedMapTaxa">
                    <!--<i ui-sref="indicators.completeness" ui-sref-options="{inherit:false,reload:true}" class="close fa fa-close pull-right"></i>-->
                    <a class="btn btn-danger btn-xs pull-right" ng-click="resetView()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
-                   <h3>Statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h3>
+                   <h4>Statistics for {{ model.selectedMapTaxa.title }} in {{model.region.name}}</h4>
 
                    <div class="region-data-holder">
 
