@@ -44,6 +44,8 @@
 .metric-value-tgc { background-color: rgba(149, 165, 166, 0.5); color: #555; }
 .metric-value-rank { background-color: rgba(149, 165, 166, 0.5); color: #555; }
 
+.nav-tabs > .uib-tab.active > div, .nav-tabs > .uib-tab.active > div:focus, .nav-tabs > .uib-tab.active > div:hover
+
 </style>
 
 
@@ -181,12 +183,12 @@
 
                        <div class="row">
 
-                         <div class="col-xs-12 col-sm-4 metric">
+                         <div class="col-xs-12 col-sm-6 metric">
                            <div class="metric-value {{ model.selected_map_color }}">{{ model.metrics[0] }}</div>
                            <h5>Average Richness</h5>
                          </div>
 
-                         <div class="col-xs-12 col-sm-4 metric">
+                         <div class="col-xs-12 col-sm-6 metric">
                            <div class="metric-value">{{ model.metrics[1] + " / " + model.metrics[2] }}</div>
                            <h5>Rank</h5>
                          </div>
