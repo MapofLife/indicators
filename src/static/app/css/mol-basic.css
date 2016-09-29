@@ -29,9 +29,7 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
   display: block;
   height:60px;
 }
-.logo img {
-  width: 160px;
-}
+
 @media (min-width: 1800px) {
   nav {
     position: absolute;
