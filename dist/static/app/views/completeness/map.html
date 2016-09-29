@@ -44,14 +44,50 @@
     font-size: large;
   }
 
-  .map-colour-0 { background-color: rgba(187, 187, 187, 0.5); color: #555; }
-  .map-colour-1 { background-color: rgba(215, 48, 39, 0.5); color: #fff; }
-  .map-colour-2 { background-color: rgba(247, 146, 114, 0.5); color: #fff; }
-  .map-colour-3 { background-color: rgba(254, 214, 176, 0.5); color: #666; }
-  .map-colour-4 { background-color: rgba(255, 242, 204, 0.5); color: #666; }
-  .map-colour-5 { background-color: rgba(210, 236, 180, 0.5); color: #666; }
-  .map-colour-6 { background-color: rgba(140, 206, 138, 0.5); color: #fff; }
-  .map-colour-7 { background-color: rgba(26, 152, 80, 0.5); color: #fff; }
+  .map-color-0 {
+    background-color: rgba(187, 187, 187, 0.5) !important;
+    color: #555 !important;
+  }
+  .map-color-1 {
+    background-color: rgba(0, 128, 255, 0.8) !important;
+    color: #fff !important;
+  }
+  .map-color-2 {
+    background-color: rgba(64, 160, 255, 0.8) !important;
+    color: #fff !important;
+  }
+  .map-color-3 {
+    background-color: rgba(127, 191, 255, 0.8) !important;
+    color: #666 !important;
+  }
+  .map-color-4 {
+    background-color: rgba(255, 242, 204, 0.8) !important;
+    color: #666 !important;
+  }
+  .map-color-5 {
+    background-color: rgba(1, 39, 0, 0.8) !important;
+    color: #fff !important;
+  }
+  .map-color-6 {
+    background-color: rgba(34, 154, 0, 0.8) !important;
+    color: #fff !important;
+  }
+  .map-color-7 {
+    background-color: rgba(19, 100, 0, 0.8) !important;
+    color: #fff !important;
+  }
+  .map-color-8 {
+    background-color: rgba(255, 166, 166, 0.8) !important;
+    color: #666 !important;
+  }
+  .map-color-9 {
+    background-color: rgba(255, 122, 122, 0.8) !important;
+    color: #fff !important;
+  }
+  .map-color-10 {
+    background-color: rgba(255, 77, 77, 0.8) !important;
+    color: #fff !important;
+  }
 
 </style>
 <ui-gmap-google-map
@@ -85,7 +121,7 @@
             </div>
             <div class="row-layout" ng-show="model.regionHover.inventory_completeness != undefined">
               <h4>Proportion completed</h4>
-              <div class="invcomp_value" ng-class="model.map_colour">{{ model.regionHover.inventory_completeness || '0' }}</div>
+              <div class="invcomp_value" ng-class="model.map_color">{{ model.regionHover.inventory_completeness || '0' }}</div>
             </div>
 
        </div>

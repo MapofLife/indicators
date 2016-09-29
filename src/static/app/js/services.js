@@ -12,9 +12,11 @@ molServices.factory(
       function($http, $q) {
         return function(params) {
           if (params) {
-            var mapurl = "https://mol.carto.com/api/v1/map/named/completeness-region-taxa";
-            if (params.display_type == 'geohash') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/completeness-grid-taxa";
+            var mapurl = "https://mol.carto.com/api/v1/map/named/species-indicator-region-taxa";
+            if (params.indicator == 'richness' && params.display_type == 'geohash') {
+              mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-grid-taxa";
+            } else if (params.indicator == 'richness' && params.display_type == 'countries') {
+              mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-region-taxa";
             }
             return $http({
               "withCredentials": false,
@@ -55,7 +57,8 @@ molServices.factory(
         return molApi({
           service: "indicators/completeness",
           params: {
-            indicator: "gbif",
+            source: "gbif",
+            indicator: region.indicator,
             region_id: region.region_id
           }
         }).then(function(result) {

@@ -11,18 +11,21 @@ angular.module('mol.controllers')
       $scope.model.availableTaxa = undefined;
       $scope.model.selectedMapTaxa = undefined;
 
-      $scope.model.map_colour_classes = [
-        "map-colour-0",
-        "map-colour-1",
-        "map-colour-2",
-        "map-colour-3",
-        "map-colour-4",
-        "map-colour-5",
-        "map-colour-6",
-        "map-colour-7"
+      $scope.model.map_color_classes = [
+        "map-color-1",
+        "map-color-1",
+        "map-color-2",
+        "map-color-3",
+        "map-color-4",
+        "map-color-5",
+        "map-color-6",
+        "map-color-7",
+        "map-color-8",
+        "map-color-9",
+        "map-color-10"
       ];
-      $scope.model.selected_map_colour = $scope.model.map_colour_classes[0];
-      $scope.model.map_colour = $scope.model.map_colour_classes[0];
+      $scope.model.selected_map_color = $scope.model.map_color_classes[0];
+      $scope.model.map_color = $scope.model.map_color_classes[0];
 
       var isMapLoading = false;
 
@@ -40,12 +43,23 @@ angular.module('mol.controllers')
           // if ($state.current.name == 'indicators.completeness.region') {
           //     $state.go('^');
           // }
-          $scope.getAvailableTaxaForRegion(true);
+          // $scope.getAvailableTaxaForRegion(true);
+          $scope.renderMapForTaxa();
         }
       });
       $scope.$watch("model.selectedMapTaxa", function(n, o) {
         if (n && !angular.equals(n, o)) {
           $scope.renderMapForTaxa();
+        }
+      });
+      $scope.$watch("model.activeIndicator", function(n, o) {
+        if (n && !angular.equals(n, o)) {
+          var params = angular.extend(regionType, {
+            "taxa": $scope.model.selectedMapTaxa.taxa,
+            "display_type": $scope.model.selectedMapType.type,
+            "indicator": $scope.model.activeIndicator
+          });
+          $scope.setRegionType(params);
         }
       });
 
@@ -76,7 +90,8 @@ angular.module('mol.controllers')
         isMapLoading = true;
         var params = angular.extend(regionType, {
           "taxa": $scope.model.selectedMapTaxa.taxa,
-          "display_type": $scope.model.selectedMapType.type
+          "display_type": $scope.model.selectedMapType.type,
+          "indicator": $scope.model.activeIndicator
         });
         $scope.setRegionType(params);
       };
@@ -105,7 +120,7 @@ angular.module('mol.controllers')
               switch (eventName) {
                 case 'click':
                   if ($scope.model.selectedMapType.type == 'countries') {
-                    $scope.model.selected_map_colour = $scope.model.map_colour_classes[data.map_color];
+                    $scope.model.selected_map_color = $scope.model.map_color_classes[data.map_color];
                     $state.transitionTo(
                       'indicators.completeness.region', {
                         "region": data.region_name
@@ -117,7 +132,7 @@ angular.module('mol.controllers')
                   break;
                 case 'mousemove':
                   $scope.model.regionHover = data;
-                  $scope.model.map_colour = $scope.model.map_colour_classes[data.map_color];
+                  $scope.model.map_color = $scope.model.map_color_classes[data.map_color];
                   break;
                 default:
                   $scope.infowindowPromise.resolve({

@@ -74,17 +74,31 @@ angular.module('mol.indicators', [
           }
         )
         .state(
-          'indicators.about', {
-            title: 'About - Biodiversity Indicators',
+          'indicators.faq', {
+            title: 'FAQ - Biodiversity Indicators',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
               },
-              'content@indicators.about': {
-                templateUrl: 'static/app/views/about/main.html'
+              'content@indicators.faq': {
+                templateUrl: 'static/app/views/faq/main.html'
               }
             },
-            url: 'about'
+            url: 'faq'
+          }
+        )
+        .state(
+          'indicators.sources', {
+            title: 'Sources - Biodiversity Indicators',
+            views: {
+              '@indicators': {
+                templateUrl: 'static/app/layouts/basic.html'
+              },
+              'content@indicators.sources': {
+                templateUrl: 'static/app/views/sources/main.html'
+              }
+            },
+            url: 'sources'
           }
         )
         .state(

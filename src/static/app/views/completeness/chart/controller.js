@@ -17,6 +17,11 @@ angular.module('mol.controllers').controller(
           }
         }
       });
+      $scope.$watch("model.activeIndicator", function(n, o) {
+        if (n && !angular.equals(n, o)) {
+          try {updateRegion();} catch (e) {}
+        }
+      });
 
       $scope.$watch("model.region",
         function(r) {
@@ -73,7 +78,7 @@ angular.module('mol.controllers').controller(
           if (groupdata.length > 0) {
             $scope.model.chartMode = 1;
             $scope.model.metrics = groupdata[0].metrics;
-            $scope.model.selected_map_colour = $scope.model.map_colour_classes[groupdata[0].map_color];
+            $scope.model.selected_map_color = $scope.model.map_color_classes[groupdata[0].map_color];
             processStatistics(groupdata[0].values);
           } else {
             $scope.model.chartMode = 2;
@@ -195,6 +200,7 @@ angular.module('mol.controllers').controller(
         region(regionType)
           .then(function(r) {
             $scope.model.region = r;
+            r.indicator = $scope.model.activeIndicator;
             completenessData(r).then(
               function(d) {
                 //stopDiddling()
@@ -202,9 +208,7 @@ angular.module('mol.controllers').controller(
               });
           });
       }
-      try {
-        updateRegion();
-      } catch (e) {}
+      try {updateRegion();} catch (e) {}
     }
   ]);
 angular.module('mol.controllers').controller('ModalInstanceCtrl', ['$uibModalInstance', '$scope', '$timeout',
