@@ -57,7 +57,7 @@ angular.module('mol.indicators', [
       $stateProvider
         .state(
           'indicators', {
-            title: "Biodiversity Indicators",
+            title: "GBIF Coverage Assessment",
             views: {
               '': {
                 templateUrl: 'static/app/layouts/base.html',
@@ -75,7 +75,7 @@ angular.module('mol.indicators', [
         )
         .state(
           'indicators.faq', {
-            title: 'FAQ - Biodiversity Indicators',
+            title: 'FAQ - GBIF Coverage Assessment',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
@@ -89,7 +89,7 @@ angular.module('mol.indicators', [
         )
         .state(
           'indicators.sources', {
-            title: 'Sources - Biodiversity Indicators',
+            title: 'Sources - GBIF Coverage Assessment',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
@@ -102,22 +102,22 @@ angular.module('mol.indicators', [
           }
         )
         .state(
-          'indicators.contact', {
-            title: 'Contact - Biodiversity Indicators',
+          'indicators.team', {
+            title: 'Team - GBIF Coverage Assessment',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
               },
-              'content@indicators.contact': {
+              'content@indicators.team': {
                 templateUrl: 'static/app/views/contact/main.html'
               }
             },
-            url: 'contact'
+            url: 'team'
           }
         )
         .state(
           'indicators.completeness', {
-            title: 'Inventory Completeness',
+            title: 'Data Coverage - GBIF Coverage Assessment',
             sticky: true,
             views: {
               '@indicators': {
