@@ -1,0 +1,53 @@
+<style>
+.navbar .partner_logo {
+    display:none;
+}
+.navbar .indicator-logo {
+    display:none;
+}
+@media screen and (max-height: 480px), screen and (max-width:850px) {
+  .navbar .partner_logo {
+      display:inherit;
+  }
+  .navbar .indicator-logo {
+      display:inherit;
+
+  }
+
+  .navbar img {
+    height:25px;
+    margin-right: 3px;
+    margin-left: 3px;
+  }
+
+  .navbar {
+    font-size: 14px;
+  }
+
+  .nav_button, .navbar-default .navbar-nav>li>a{
+    padding: 0px 2px;
+  }
+}
+</style>
+<div class="navigation container-fluid dataset-navigation">
+  <nav class="navbar navbar-default">
+    <a class="partner_logo pull-right" href="http://www.gbif.org/">
+        <img class="logo" src="static/app/img/GBIF-2015.png" alt="GBIF"/></a>
+    <a class="partner_logo pull-right" href="https://mol.org/">
+        <img class="logo" src="static/app/img/logo.png" alt="Map of Life"/></a>
+    <ul class="nav navbar-nav">
+      <li ui-sref-options="{inherit:false}" ui-sref-opts='{reload:true, notify:true}' ui-sref-active-eq="active">
+        <a ui-sref="indicators">Background</a>
+      </li>
+      <li ui-sref-options="{inherit:false}" ui-sref-opts='{reload:true, notify:true}' ui-sref-active="active">
+        <a ui-sref="indicators.completeness">Data Coverage</a>
+      </li>
+      <li ui-sref-options="{inherit:false}" ui-sref-opts='{reload:true, notify:true}' ui-sref-active-eq="active">
+        <a ui-sref="indicators.sources">Sources</a>
+      </li>
+      <li ui-sref-options="{inherit:true}" ui-sref-opts='{reload:true, notify:true}' ui-sref-active-eq="active">
+        <a ui-sref="indicators.contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
+</div>

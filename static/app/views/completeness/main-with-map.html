@@ -1,0 +1,103 @@
+<style type="text/css">
+  .angular-google-map-container {
+    height: 77%;
+    width: 100%;
+    position: absolute;
+  }
+  .map-link {
+    margin: 5px;
+    background-color:none;
+  }
+  a.map-link:hover {background-color:inherit;}
+  .map-link img {height: 26px;}
+  .map-control-item {
+    margin: 5px 10px;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+    border-radius: 2px;
+    color: rgb(86, 86, 86);
+    background: white;
+  }
+  .chart-view {
+    position: relative;
+    padding: 10px;
+    height:300px;
+    width:100%;
+  }
+  .modal-lg {
+    width: 80%;
+  }
+</style>
+<script type="text/ng-template" id="statsModalContent.html">
+        <div class="modal-header">
+            <div class="pull-right">
+              <select
+                class="form-control"
+                ng-model="$ctrl.selectedtaxa"
+                ng-change="$ctrl.processDataForRegionTaxa()"
+                ng-options="taxa.title for taxa in $ctrl.taxalist track by taxa.taxa"></select>
+            </div>
+            <h3 class="modal-title" id="modal-title">Statistics for {{ $ctrl.region.name }}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <div class="row center-block" ng-if="!$ctrl.selectedtaxa">
+            There is no data available for {{ $ctrl.region.name }}.
+            <br />
+            <a class="btn btn-link" type="button" ng-click="$ctrl.reset()">Pick another country</a>
+          </div>
+          <div class="row" ng-if="$ctrl.selectedtaxa">
+            <div google-chart chart="$ctrl.chartObject" class="chart-view"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.reset()">Pick another country</button>
+        </div>
+  </script>
+<div id="map_canvas" class="map-container">
+    <ui-gmap-google-map
+    class="partials-map"
+    center="model.map.center"
+    zoom="model.map.zoom"
+    bounds="model.map.bounds"
+    events="model.map.events"
+    options="model.map.options"
+    control="model.map.control"
+    pan="true">
+      <ui-gmap-map-type
+        options="mt"
+        show="mt.show"
+        refresh="mt.refresh"
+        ng-repeat="mt in model.map.overlayMapTypes"></ui-gmap-map-type>
+      <ui-gmap-map-control position="bottom-left" index="10000">
+        <a class="map-link" href="https://mol.org/" target="_blank">
+          <img src="static/app/img/logo.png">
+        </a>
+      </ui-gmap-map-control>
+
+      <ui-gmap-map-control position="top-right" index="10000">
+        <div class="info-boxes">
+            <div class="region-info">
+              <h4>Country</h4>
+              <b>{{ model.regionHover.name || 'Hover over the map' }}</b>
+            </div>
+            <hr />
+            <div class="layer-info">
+                <h4>Select a view:</h4>
+                <select class="form-control selectpicker">
+                    <option value="countries">Countries</option>
+                    <option value="grid">Grid</option>
+                </select>
+            </div>
+            <hr />
+            <div class="taxa-info">
+                <h4>Select a taxa:</h4>
+                <select class="form-control selectpicker">
+                    <option value="amphibians">Amphibians</option>
+                    <option value="dragonflies">Dragonflies</option>
+                </select>
+            </div>
+        </div>
+      </ui-gmap-map-control>
+
+    </ui-gmap-google-map>
+</div>

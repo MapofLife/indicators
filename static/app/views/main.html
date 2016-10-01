@@ -1,0 +1,42 @@
+<div class="container padded-bottom">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="col-md-12 well">
+        <h1>GBIF Coverage Assessment</h1>
+      </div>
+
+      <hr>
+
+      <h2>Inspiration</h2>
+      <p>
+      Primary species occurrence records as mediated through GBIF are essential for a detailed understanding of the distribution of biodiversity in space and time. Yet, despite an impressive recent growth and now hundreds of millions of accessible records, the ability of this vast information to represent biodiversity and its change has remained largely unquantified. In the case of a relatively small and species-poor region, a small number of records may effectively characterize the distribution of species or composition of assemblages year after year. In contrast, in the case of a large and hyperdiverse region, even a large number of records may poorly represent biodiversity, especially if data is repeatedly coming from just a small portion of species, locations, or years.
+      </p>
+      <p>
+      Consequently, assessment of how well GBIF-mediated data represent species ranges or assemblage make-up over time, or how well-suited those data are for associated modeling and inference, requires information about an expectation: How well are mobilized data actually representing expected taxonomic, spatial, and temporal variation in biodiversity? Recent research by members of our team developed the use of expert-based information for this purpose (<a href="http://www.nature.com/ncomms/2015/150907/ncomms9221/full/ncomms9221.html">Meyer, C., H. Kreft, R. Guralnick, and W. Jetz. 2015. Global priorities for an effective information basis of biodiversity distributions. Nature communications 6: 8221</a>).
+      </p>
+      <p>
+      For the Ebbe Nielsen Challenge, we, over the past couple of months, developed a suite of novel informatics tools and services that build on these concepts and report on spatial and temporal data gaps and biases among countries. The concepts behind our metrics have been have been endorsed as sound quantification of species occurrence data gaps (“Species Status Information Index”) by <a href="http://geobon.org/geo-bon-presents-a-new-generation-of-biodiversity-indicators-at-cbd-ahteg">GEO BON</a>, and recently IPBES and the <a href="https://www.cbd.int/doc/strategic-plan/strategic-plan-indicators-en.pdf">CBD</a>. After initial offline explorations for just a few taxa and continental resolution, it was over the summer, triggered by the  Ebbie Nielsen competition, that we decided to take the metrics to country scale and annual resolution, extend them flexibly to many more taxa, and build interactive visualizations and embeddable components and services.
+      We designed these tools with components embeddable in partner websites and with the potential of automated country reports that in collaboration with GBIF could be built out to update near-real-time.
+    </p>
+    <p>
+      Information about gaps and biases in this GBIF-mediated data coverage, and how successful countries and their institutions are in addressing them is vital. It can help identify priority targets for data collection and mobilization, inform about the suitability of data for modeling and inference.
+    </p>
+
+      <h2> What it does</h2>
+    <p>
+      The GBIF Coverage Assessment Tools characterize coverage of data mobilized for a given species group, country and year by setting it in relation to expert expectation across a standardized grid. Two metrics are calculated:
+    </p>
+    <p>
+      <strong><em>Species-level Coverage</em></strong> measures how well, on average, GBIF-mediated data characterize the broad distributions of species. Specifically, it is the proportion of grid cells expectedly occupied by a species with records in a given year, averaged across all species in a country. In a given year, a value of 1.00 would suggest that at least one record is available for every range cell of all species occurring in a country, i.e. a complete species distribution coverage for this spatial resolution.
+    </p>
+    <p>
+      <strong><em>Assemblage-level Coverage</em></strong> measures how well, on average, GBIF-mediated data characterize the makeup of grid cell assemblages. Specifically, it is the proportion of species expected to occur in a cell that have been recorded in a given year, averaged across all cells in a country. In a given year, a value of 100% would suggest that at least one record is available for all species expected in each of a country’s grid cells, i.e. complete assemblage structure coverage for this spatial resolution. This metric can be shown as country average or for individual cells to identify within-country data gaps and biases that may inform future sampling and mobilization.
+    </p>
+    <p>
+      The two metrics in the GBIF Coverage Assessment Tools convey distinct messages. The magnitude and temporal trends in a country’s Species-level Coverage inform about how well its mobilized data may be suited for characterizing species distributions and their changes over time for a given species group (directly, or through modeling). In contrast, the ‘Assemblage-level Coverage’ measure would relate questions about the status and changes in the makeup of communities, and their associated aggregate functions.
+    </p>
+    <p>
+      Calculations are performed over a standardized global grid of ca. 150-km resolution at the equator for which expert expectations are deemed broadly reliable (see <a href="http://www.pnas.org/content/104/33/13384.full">Hurlbert, A. H., and W. Jetz. 2007. Species richness, hotspots, and the scale dependence of range maps in ecology and conservation. PNAS 104:13384-13389</a>). Expert expectation information is provided by Map of Life, where the sources used are assumed to be broadly characteristic for the past 35 years. We carefully developed synonym lists to match species names in GBIF-mediated data to names used for the expert information. We note, however, several caveats: expert maps may suffer from errors of omission and commission that even at this coarse spatial resolution may slightly affect metric values; the currently used grid is not equal-area; taxonomic mismatches may remain in the data. In future updates, we plan to replace expert maps with increasingly sophisticated multi-source, modeled maps, move to an equal area grid, and further improve the synonym match-up.
+    </p>
+
+</div>

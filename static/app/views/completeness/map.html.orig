@@ -1,0 +1,123 @@
+<style type="text/css">
+  .google-map {
+    display: flex;
+    display: -webkit-flex;
+    flex:1;
+    -webkit-flex:1;
+  }
+
+  .angular-google-map {
+    display: flex;
+    display: -webkit-flex;
+    flex:1;
+    -webkit-flex:1;
+  }
+
+  .angular-google-map-container {
+    display: flex;
+    display: -webkit-flex;
+    flex:1;
+    -webkit-flex:1;
+  }
+  .map-link {
+    margin: 5px;
+    background-color:none;
+  }
+  a.map-link:hover {background-color:inherit;}
+  .map-link img {height: 26px;}
+  .map-control-item {
+    margin: 5px 10px;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+    border-radius: 2px;
+    color: rgb(86, 86, 86);
+    background: white;
+  }
+  .btn-default.active {
+    background-image: linear-gradient(to bottom,#8cbf44 0,#7bae33 100%);
+  }
+  .row-layout {
+    width: 100%;
+  }
+
+</style>
+<ui-gmap-google-map
+    class="google-map"
+    center="model.map.center"
+    zoom="model.map.zoom"
+    bounds="model.map.bounds"
+    events="model.map.events"
+    options="model.map.options"
+    control="model.map.control"
+    pan="true">
+      <ui-gmap-map-type
+        options="mt"
+        show="mt.show"
+        refresh="mt.refresh"
+        ng-repeat="mt in model.map.overlayMapTypes"></ui-gmap-map-type>
+      <ui-gmap-map-control position="bottom-left" index="10000">
+        <a class="map-link" href="https://mol.org/" target="_blank">
+          <img src="static/app/img/logo.png">
+        </a>
+      </ui-gmap-map-control>
+
+      <ui-gmap-map-control position="top-right" index="10000">
+       <div class="info-boxes">
+          <div class="global-info">
+            <h3>Global view</h3>
+          </div>
+          <hr />
+
+          <div class="layer-info">
+              <h4>Map type:</h4>
+              <div>
+                <div class="btn-group row-layout">
+                  <!--
+                  <button type="button" class="btn btn-default btn-sm"
+                  ng-repeat="dtype in model.mapDisplayTypes track by dtype.type"
+                  ng-model="model.selectedMapType"
+                  uib-btn-radio="dtype" uncheckable>{{ dtype.type }}</button>
+                  -->
+                  <button type="button" class="btn btn-default btn-sm col-sm-6"
+                  ng-model="model.selectedMapType"
+                  uib-btn-radio="model.mapDisplayTypes[0]" uncheckable>{{ model.mapDisplayTypes[0].title }}</button>
+                  <button type="button" class="btn btn-default btn-sm col-sm-6"
+                  ng-model="model.selectedMapType"
+                  uib-btn-radio="model.mapDisplayTypes[1]" uncheckable>{{ model.mapDisplayTypes[1].title }}</button>
+                </div>
+              </div>
+          </div>
+          <hr />
+
+          <div ng-show="!model.availableTaxa">
+            Loading available taxonomic groups...
+          </div>
+
+          <div class="animate-if" ng-if="model.availableTaxa">
+            <div class="taxa-info">
+                <h4>Taxonomic groups:</h4>
+                <select
+                   class="form-control selectpicker"
+                   ng-model="model.selectedMapTaxa"
+                   ng-options="taxa.title group by taxa.groupby for taxa in model.availableTaxa track by taxa.taxa"></select>
+            </div>
+            <hr />
+
+            <div class="region-info" ng-show="model.selectedMapType.type == 'countries'">
+              <div class="row-layout">
+                <h4>Country</h4>
+                <span>{{ model.regionHover.region_name || 'Hover over the map' }}</span>
+              </div>
+              <hr />
+            </div>
+            <div class="row-layout" ng-show="model.regionHover.inventory_completeness != undefined">
+              <h4>Proportion completed</h4>
+              <span ng-show="model.regionHover.inventory_completeness > 0.0009">{{ (model.regionHover.inventory_completeness | number:3) }}</span>
+              <span ng-show="model.regionHover.inventory_completeness < 0.0009">0</span>
+            </div>
+
+          </div>
+
+       </div>
+     </ui-gmap-map-control>
+</ui-gmap-google-map>
