@@ -27,8 +27,6 @@ angular.module('mol.controllers')
       $scope.model.selected_map_color = $scope.model.map_color_classes[0];
       $scope.model.map_color = $scope.model.map_color_classes[0];
 
-      var isMapLoading = false;
-
       $scope.$watch("model.regionType", function(n, o) {
         if (n.region_id) {
           $scope.model.regionHover = n;
@@ -85,9 +83,6 @@ angular.module('mol.controllers')
 
       $scope.renderMapForTaxa = function() {
 
-        if (isMapLoading) return;
-
-        isMapLoading = true;
         var params = angular.extend(regionType, {
           "taxa": $scope.model.selectedMapTaxa.taxa,
           "display_type": $scope.model.selectedMapType.type,
@@ -99,6 +94,10 @@ angular.module('mol.controllers')
 
       $scope.setRegionType = function(r) {
         if (r) {
+
+          // Let's remove the current overlay first.
+          $scope.model.map.removeOverlay(0);
+
           molCompletenessOverlay(r).then(
             function(overlay) {
               if (overlay) {
@@ -110,8 +109,6 @@ angular.module('mol.controllers')
                   index: 0
                 }, 0);
               }
-
-              isMapLoading = false;
             });
 
           //Get metadata for features on the map
