@@ -109,7 +109,7 @@ angular.module('mol.indicators', [
                 templateUrl: 'static/app/layouts/basic.html'
               },
               'content@indicators.team': {
-                templateUrl: 'static/app/views/contact/main.html'
+                templateUrl: 'static/app/views/team/main.html'
               }
             },
             url: 'team'
