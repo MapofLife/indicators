@@ -102,17 +102,17 @@ angular.module('mol.indicators', [
           }
         )
         .state(
-          'indicators.team', {
-            title: 'Team - GBIF Coverage Assessment',
+          'indicators.contact', {
+            title: 'Contact - GBIF Coverage Assessment',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
               },
-              'content@indicators.team': {
-                templateUrl: 'static/app/views/team/main.html'
+              'content@indicators.contact': {
+                templateUrl: 'static/app/views/contact/main.html'
               }
             },
-            url: 'team'
+            url: 'contact'
           }
         )
         .state(
