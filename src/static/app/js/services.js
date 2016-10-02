@@ -134,17 +134,17 @@ molServices.factory(
             title: 'Year',
             gridlines: {
               color: '#333',
-              count: 10
+              count: 5
             }
           },
           vAxis: {
-            title: 'Coverage (Percent +/- SE)',
+            title: 'Coverage (Percent \u00B1 SE)',
             gridlines: {
               count: 5
             }
           },
           tooltip: {
-            isHtml: false
+            isHtml: true
           },
           intervals: {
             style: "bars"

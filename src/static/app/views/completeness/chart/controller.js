@@ -1,8 +1,8 @@
 angular.module('mol.controllers').controller(
   'molIndicatorsCompletenessChartCtrl', [
-    '$state', '$scope', 'regionType', 'region', 'completenessData', '$timeout',
+    '$state', '$scope', '$filter', 'regionType', 'region', 'completenessData', '$timeout',
     'lineChart', '$uibModal',
-    function($state, $scope, regionType, region, completenessData, $timeout,
+    function($state, $scope, $filter, regionType, region, completenessData, $timeout,
       lineChart, $uibModal) {
 
 
@@ -92,7 +92,7 @@ angular.module('mol.controllers').controller(
         the_data.cols = [{
           id: "year",
           label: "Year",
-          type: "string"
+          type: "date"
         }, {
           id: "average",
           label: "Average",
@@ -105,18 +105,29 @@ angular.module('mol.controllers').controller(
           id: "i1",
           type: "number",
           role: "interval"
+        }, {
+          id: "tt",
+          type: "string",
+          role: "tooltip",
+          p: {'html': true}
         }];
         the_data.rows = [];
+        stats.sort(function(a, b) {
+          var dateA=new Date(a[0], '0'), dateB=new Date(b[0], '0');
+          return dateA-dateB;
+        });
         angular.forEach(stats, function(yearly_values) {
           the_data.rows.push({
             c: [{
-              v: yearly_values[0]
+              v: new Date(yearly_values[0], "0")
             }, {
               v: (yearly_values[1] * 100)
             }, {
               v: getErrorValue( (yearly_values[1] * 100), (yearly_values[2] * 100), true)
             }, {
               v: getErrorValue( (yearly_values[1] * 100), (yearly_values[2] * 100), false)
+            }, {
+              v: getChartTooltip(yearly_values[0], (yearly_values[1] * 100), (yearly_values[2] * 100))
             }]
           });
         });
@@ -134,8 +145,20 @@ angular.module('mol.controllers').controller(
         }
       }
 
+      function getChartTooltip(year, val, err) {
+        var ttstr = "";
+        ttstr += "<div style='text-align: left; padding: 10px;font-size: bigger;'>";
+        ttstr += "<strong>Year: </strong>" + year;
+        ttstr += "<br />";
+        ttstr += "<strong>Average: </strong>: " + $filter('numberEx')(val, 2) + "% ";
+        ttstr += " ( &#x00B1;" + $filter('numberEx')(err, 2) + " ) &nbsp;" ;
+        ttstr += "</div>";
+
+        return ttstr;
+      }
+
       $scope.showModal = function() {
-        $uibModal.open({
+        var chartModal = $uibModal.open({
           animation: true,
           ariaLabelledBy: 'modal-title',
           ariaDescribedBy: 'modal-body',
@@ -146,6 +169,10 @@ angular.module('mol.controllers').controller(
           resolve: {
             $scope: $scope
           }
+        });
+        chartModal.result.then(function() {}, function() {
+          // reset the hAxis count
+          $scope.model.chartObject.options.hAxis.gridlines.count = 5;
         });
       }
 
@@ -218,7 +245,9 @@ angular.module('mol.controllers').controller('ModalInstanceCtrl', ['$uibModalIns
     $ctrl.the_region = $scope.model.region;
     $ctrl.the_taxa = $scope.model.selectedMapTaxa;
     $timeout(500).then(function() {
+      // expand the hAxis count so looks better when wider
       $ctrl.the_chartObject = $scope.model.chartObject;
+      $ctrl.the_chartObject.options.hAxis.gridlines.count = 15;
     });
 
     $ctrl.close = function() {
