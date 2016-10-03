@@ -22,7 +22,8 @@ angular.module('mol.controllers')
         "map-color-7",
         "map-color-8",
         "map-color-9",
-        "map-color-10"
+        "map-color-10",
+        "map-color-11"
       ];
       $scope.model.selected_map_color = $scope.model.map_color_classes[0];
       $scope.model.map_color = $scope.model.map_color_classes[0];
