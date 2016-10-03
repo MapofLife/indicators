@@ -116,7 +116,9 @@ angular.module('mol.controllers')
             if (data) {
               switch (eventName) {
                 case 'click':
-                  if ($scope.model.selectedMapType.type == 'countries') {
+                  if ( ($scope.model.activeIndicator == 'species') ||
+                        ($scope.model.activeIndicator == 'richness' &&
+                          $scope.model.selectedMapType.type == 'countries') ) {
                     $scope.model.selected_map_color = $scope.model.map_color_classes[data.map_color];
                     $state.transitionTo(
                       'indicators.completeness.region', {
