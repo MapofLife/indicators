@@ -37,7 +37,7 @@
   background-color: rgba(149, 165, 166, 0.5);
   color: #555;
   text-align: center;
-  padding-top: 25px;
+  padding-top: 28px;
   margin: 0 auto;
 }
 .metric-value.slideup { position: relative; }
@@ -87,7 +87,9 @@
 
                <!-- region metrics -->
                <div class="completeness-charts animate-if" ng-if="model.activeIndicator == 'species' && model.region && model.selectedMapTaxa">
-                   <!--<i ui-sref="indicators.completeness" ui-sref-options="{inherit:false,reload:true}" class="close fa fa-close pull-right"></i>-->
+
+                  <hr />
+
                    <a class="btn btn-danger btn-xs pull-right" ng-click="resetView()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
                    <h3>{{model.region.name}}</h3>
 
