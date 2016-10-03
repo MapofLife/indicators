@@ -72,7 +72,7 @@ body {
   border-radius: 0 0 0 5px;
   z-index: 9999;
 
-  font: 14px/18px Arial, Helvetica, sans-serif;
+  font: 14px/18px 'Fira Sans', Arial, Helvetica, sans-serif;
   text-align: center;
 }
 .info-boxes {
@@ -81,7 +81,7 @@ body {
   width: 100%;
   padding: 0 20px;
 
-  font: 14px/18px Arial, Helvetica, sans-serif;
+  font: 14px/18px 'Fira Sans', Arial, Helvetica, sans-serif;
   text-align: center;
 }
 .info-boxes h4 {
@@ -95,3 +95,53 @@ body {
 .info-boxes select.form-control {
   max-width: 100%;
 }
+.info-boxes .taxa-info, .info-boxes .layer-info {
+  margin: 20px 0 0;
+}
+.info-boxes .taxa-info.form-horizontal .form-group, .info-boxes .layer-info.form-horizontal .form-group {
+  margin: 0;
+}
+
+/** tab styles for angular-ui bootstrap v1.0 **/
+.nav-tabs.nav-justified {
+  border-bottom: 1px solid #ddd;
+}
+.nav-tabs > li > div {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid #eee;
+  border-radius: 4px 4px 0 0;
+}
+
+.nav-tabs > li > div:hover {
+  border-color: #eee #eee #ddd;
+}
+
+.nav-tabs > li.active > div, .nav-tabs > li.active > div:hover,
+.nav-tabs > .uib-tab.active > div,
+.nav-tabs > .uib-tab.active > div:focus, 
+.nav-tabs > .uib-tab.active > div:hover {
+  /*color: #555;
+  background-color: #f8f8f8;*/
+  color: #fff;
+  background-image: linear-gradient(to bottom,#8cbf44 0,#7bae33 100%);
+  cursor: default;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+
+.nav > li > div {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+
+.nav > li > div:hover {
+  background-color: #eee;
+}
+
+.uib-tab > div {
+  color: #337ab7;
+  cursor: pointer;
+}
+/** end tab styles **/
