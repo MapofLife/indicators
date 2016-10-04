@@ -28,14 +28,17 @@ angular.module('mol.controllers')
       $scope.model.selected_map_color = $scope.model.map_color_classes[0];
       $scope.model.map_color = $scope.model.map_color_classes[0];
 
-      $scope.$watch("model.regionType", function(n, o) {
-        if (n.region_id) {
-          $scope.model.regionHover = n;
-        }
-        if (n && !angular.equals(n, o)) {
-          $scope.setRegionType(n);
-        }
-      }, true);
+      // $scope.$watch("model.regionType", function(n, o) {
+      //   if (n.region_id) {
+      //     $scope.model.regionHover = n;
+      //   }
+      //   if (n && !angular.equals(n, o)) {
+      //     console.log('1.setRegion');
+      //     console.log(o);
+      //     console.log(n);
+      //     $scope.setRegionType(n);
+      //   }
+      // }, true);
 
       $scope.$watch("model.selectedMapType", function(n, o) {
         if (n && !angular.equals(n, o)) {
@@ -71,11 +74,18 @@ angular.module('mol.controllers')
           };
           availableTaxa(params).then(
             function(taxa) {
-              var refreshMap = (updateMap || $scope.model.selectedMapTaxa != taxa[0]);
-              $scope.model.availableTaxa = taxa;
-              $scope.model.selectedMapTaxa = taxa[0];
-              if (refreshMap) {
-                $scope.renderMapForTaxa();
+              if (taxa === null) {
+                $scope.model.alerts.push({
+                  type: 'danger',
+                  msg: 'Unable to get available species groups. <br /> <br />Please refresh the page or contact us if the problem persists.'
+                });
+              } else {
+                var refreshMap = (updateMap || $scope.model.selectedMapTaxa != taxa[0]);
+                $scope.model.availableTaxa = taxa;
+                $scope.model.selectedMapTaxa = taxa[0];
+                // if (refreshMap) {
+                //   $scope.renderMapForTaxa();
+                // }
               }
             }
           );
@@ -95,6 +105,12 @@ angular.module('mol.controllers')
 
       $scope.setRegionType = function(r) {
         if (r) {
+
+          // add a timestamp to the overlay to make it really fresh.
+          // this is so the cached map layers don't show through
+          var params = angular.extend(r, {
+            "tz": Date.now().toString()
+          });
 
           // Let's remove the current overlay first.
           $scope.model.map.removeOverlay(0);

@@ -5,7 +5,8 @@ angular.module('mol.controllers')
       $scope.model = {
         map: new molUiMap(),
         regionHover: undefined,
-        activeIndicator: 'species'
+        activeIndicator: 'species',
+        alerts: []
       };
 
       $scope.model.map.options.minZoom = 2;

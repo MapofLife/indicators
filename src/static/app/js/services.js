@@ -125,7 +125,11 @@ molServices.factory(
             }
           }).then(
             function(response) {
+              // success response
               return (response.data || params);
+            }, function(errResponse) {
+              // error response
+              return null;
             });
         }
       }

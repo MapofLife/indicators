@@ -54,9 +54,18 @@
 
   <div class="info-boxes">
 
-     <div ng-show="!model.availableTaxa">
+     <div ng-show="!model.availableTaxa && (model.alerts.length == 0 )">
        <h4><i class="fa fa-refresh fa-spin fa-fw"></i> Loading available species groups...</h4>
      </div>
+
+
+     <!-- system messages -->
+     <div style="text-align: left">
+       <uib-alert ng-repeat="alert in model.alerts"
+        type="{{alert.type}}" ng-bind-html="alert.msg"></uib-alert>
+     </div>
+     <!-- end system messages -->
+
 
      <div class="animate-if" ng-if="model.availableTaxa">
 
