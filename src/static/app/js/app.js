@@ -159,11 +159,11 @@ angular.module('mol.indicators', [
                   }];
               }
             },
-            url: 'completeness'
+            url: 'completeness?devmode&plants'
           }
         ).state(
           'indicators.completeness.region', {
-            url: '/{region}',
+            url: '/{region}?devmode&plants',
             views: {
               'right-sidebar@indicators.completeness': {
                 templateUrl: 'static/app/views/completeness/chart/main.html',
