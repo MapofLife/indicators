@@ -12,19 +12,20 @@ molServices.factory(
       function($http, $q, $stateParams) {
         return function(params) {
           if (params) {
-            var mapurl = "https://mol.carto.com/api/v1/map/named/species-indicator-region-taxa";
+            var mapurl = "";
+            mapurl = "https://mol.carto.com/api/v1/map/named/indicator-species-region-taxa";
             if (params.indicator == 'richness' && params.display_type == 'geohash') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-grid-taxa";
+              mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-grid-taxa";
             } else if (params.indicator == 'richness' && params.display_type == 'countries') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-region-taxa";
+              mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-region-taxa";
             }
 
             if ($stateParams.devmode == 'true') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/indicator-species-region-taxa";
+              mapurl = "https://mol.carto.com/api/v1/map/named/species-indicator-region-taxa";
               if (params.indicator == 'richness' && params.display_type == 'geohash') {
-                mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-grid-taxa";
+                mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-grid-taxa";
               } else if (params.indicator == 'richness' && params.display_type == 'countries') {
-                mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-region-taxa";
+                mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-region-taxa";
               }
             }
 
@@ -65,15 +66,13 @@ molServices.factory(
     'completenessData', ['molApi', '$stateParams', function(molApi, $stateParams) {
       return function(region) {
         var devmode = ($stateParams.devmode == 'true')?true:false;
-        var showplants = ($stateParams.plants == 'true')?true:false;
         return molApi({
           service: "indicators/completeness",
           params: {
             source: "gbif",
             indicator: region.indicator,
             region_id: region.region_id,
-            devmode: devmode,
-            plants: showplants
+            devmode: devmode
           }
         }).then(function(result) {
           var completenessData = undefined;
@@ -117,14 +116,12 @@ molServices.factory(
     'availableTaxa', ['molApi', '$stateParams',
       function(molApi, $stateParams) {
         var devmode = ($stateParams.devmode == 'true')?true:false;
-        var showplants = ($stateParams.plants == 'true')?true:false;
         return function(params) {
           return molApi({
             "service": "indicators/availabletaxa",
             "loading": true,
             "params": {
-              devmode: devmode,
-              plants: showplants
+              devmode: devmode
             }
           }).then(
             function(response) {

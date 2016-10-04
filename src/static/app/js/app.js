@@ -159,7 +159,7 @@ angular.module('mol.indicators', [
                   }];
               }
             },
-            url: 'completeness?devmode&plants'
+            url: 'completeness?devmode'
           }
         ).state(
           'indicators.completeness.region', {
