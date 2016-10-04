@@ -163,7 +163,7 @@ angular.module('mol.indicators', [
           }
         ).state(
           'indicators.completeness.region', {
-            url: '/{region}?devmode&plants',
+            url: '/{region}',
             views: {
               'right-sidebar@indicators.completeness': {
                 templateUrl: 'static/app/views/completeness/chart/main.html',
