@@ -11,6 +11,10 @@ angular.module('mol.controllers')
       $scope.model.availableTaxa = undefined;
       $scope.model.selectedMapTaxa = undefined;
 
+      if ($state.params.devmode !== undefined) {
+        $scope.model.devmode = $state.params.devmode;
+      }
+
       $scope.model.map_color_classes = [
         "map-color-1",
         "map-color-1",
