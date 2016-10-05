@@ -50,7 +50,15 @@ body {
   background-color: #fff;
 }
 
-
+.video-container {
+    position: relative;
+    padding-top: 1.5625em;
+    padding-bottom: 35%;
+    height: 0;
+    margin-bottom: 1em;
+    overflow: hidden;
+    text-align: center;
+}
 
 .partner_logo img {
     height: 50px;
@@ -119,7 +127,7 @@ body {
 
 .nav-tabs > li.active > div, .nav-tabs > li.active > div:hover,
 .nav-tabs > .uib-tab.active > div,
-.nav-tabs > .uib-tab.active > div:focus, 
+.nav-tabs > .uib-tab.active > div:focus,
 .nav-tabs > .uib-tab.active > div:hover {
   /*color: #555;
   background-color: #f8f8f8;*/
