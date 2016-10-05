@@ -86,9 +86,12 @@
        <div>
          <h3>Coverage</h3>
          <uib-tabset justified="true">
-           <uib-tab index="0" heading="Species level" select="model.activeIndicator = 'species'">
-
-
+           <uib-tab index="0" elect="model.activeIndicator = 'species'">
+             <uib-tab-heading>Species level
+               <i class="fa fa-question-circle" aria-hidden="true" ng-if="model.devmode"
+               tooltip-placement="bottom"
+               uib-tooltip="Average percent of species' expert-expected gridded range in a country with GBIF data in a given year. Maps show the annual average."></i>
+             </uib-tab-heading>
 
               <div class="completeness-charts animate-if" ng-if="!(model.activeIndicator == 'species' && model.region && model.selectedMapTaxa)">
                 <h4>Select a country to view it's metrics</h4>
@@ -165,7 +168,12 @@
 
 
           </uib-tab> <!-- sp.indicator -->
-          <uib-tab index="1" heading="Assemblage level" select="model.activeIndicator = 'richness'">
+          <uib-tab index="1" select="model.activeIndicator = 'richness'">
+            <uib-tab-heading>Assemblage level
+              <i class="fa fa-question-circle" aria-hidden="true" ng-if="model.devmode"
+                tooltip-placement="bottom"
+                uib-tooltip="Average percent of expert-expected grid cell species richness that is supported with GBIF data in a given year. Maps show the annual average for countries or individual grid cells."></i>
+            </uib-tab-heading>
 
             <!-- layer type selector -->
             <div class="form-horizontal layer-info">
