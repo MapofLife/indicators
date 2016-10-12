@@ -21,11 +21,11 @@ molServices.factory(
             }
 
             if ($stateParams.devmode == 'true') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/species-indicator-region-taxa";
+              mapurl = "https://mol.carto.com/api/v1/map/named/indicator-species-region-taxa-dev";
               if (params.indicator == 'richness' && params.display_type == 'geohash') {
-                mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-grid-taxa";
+                mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-grid-taxa-dev";
               } else if (params.indicator == 'richness' && params.display_type == 'countries') {
-                mapurl = "https://mol.carto.com/api/v1/map/named/richness-indicator-region-taxa";
+                mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-region-taxa-dev";
               }
             }
 
