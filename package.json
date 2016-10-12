@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "description": "Map of Life Indicators",
   "repository": "git@github.com:MapofLife/indicators.git",
-  "devRepository": "git@github.com:MapofLife/EbbeNielsen.git",
-  "url": "https://mapoflife.github.io/indicators/",
-  "base": "indicators",
+  "altRepository": "git@github.com:MapofLife/EbbeNielsen.git",
+  "url": "https://mapoflife.github.io/EbbeNielsen/",
+  "base": "EbbeNielsen",
   "license": "MIT",
   "directory": "static/components/",
   "devDependencies": {

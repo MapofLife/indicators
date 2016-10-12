@@ -65,14 +65,7 @@ module.exports = function(grunt) {
      },
      pages: {
        options: {
-         remote: pkg.repository,
-         force:true,
-         branch: 'gh-pages'
-       }
-     },
-     pagesAlt: {
-       options: {
-         remote: pkg.devRepository,
+         remote: pkg.altRepository,
          force:true,
          branch: 'gh-pages'
        }
@@ -108,6 +101,4 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['dom_munger','uglify','cssmin','copy']);
   grunt.registerTask('serve', ['express:dev', 'express-keepalive']);
   grunt.registerTask('deploy', ['buildcontrol:pages']);
-  grunt.registerTask('deployAlt', ['buildcontrol:pagesAlt']);
-
 };
