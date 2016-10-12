@@ -16,8 +16,9 @@ module.exports = function(grunt) {
             remove: ['.dev'],
             append: [
               {selector:'head',html:'<base href="//mapoflife.github.io/' + pkg.base + '/" />'},
+              {selector:'head',html:'<script>if (window.location.pathname.indexOf("indicators") > 0){window.location.href = window.location.href.replace("indicators", "EbbeNielsen");}</script>'},
               {selector:'head',html:'<link href="static/app.min.css" rel="stylesheet">'},
-              {selector:'head',html:'<script src="static/app.min.js"></script>'},
+              {selector:'head',html:'<script src="static/app.min.js"></script>'}
             ]
         },
         src: 'src/index.html',
@@ -64,6 +65,13 @@ module.exports = function(grunt) {
      },
      pages: {
        options: {
+         remote: pkg.repository,
+         force:true,
+         branch: 'gh-pages'
+       }
+     },
+     pagesAlt: {
+       options: {
          remote: pkg.devRepository,
          force:true,
          branch: 'gh-pages'
@@ -98,7 +106,8 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('build', ['dom_munger','uglify','cssmin','copy']);
-  grunt.registerTask('serve', ['express:dev', 'express-keepalive'])
+  grunt.registerTask('serve', ['express:dev', 'express-keepalive']);
   grunt.registerTask('deploy', ['buildcontrol:pages']);
+  grunt.registerTask('deployAlt', ['buildcontrol:pagesAlt']);
 
 };
