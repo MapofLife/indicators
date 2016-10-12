@@ -69,6 +69,10 @@ body {
   padding-bottom: 80px;
 }
 
+.section-divider {
+  margin: 40px 0;
+}
+
 .info-boxes-small {
   position: absolute;
   top: 0;

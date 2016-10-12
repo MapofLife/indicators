@@ -13,10 +13,11 @@
         </div>
     </div>
 
-    <hr>
+    <hr class="section-divider" />
 
     <div class="row">
         <div class="col-md-12">
+
             <h2>Inspiration</h2>
             <p>
                 Primary species occurrence records as mediated through GBIF are essential for a detailed understanding of the distribution of biodiversity in space and time. Yet, despite an impressive recent growth and now hundreds of millions of accessible records,
@@ -41,29 +42,26 @@
                 suitability of data for modeling and inference.
             </p>
 
-            <h2>
-                What it does</h2>
+            <hr class="section-divider" />
+
+            <h2>What it does</h2>
             <p>
                 The GBIF Coverage Assessment Tools characterize coverage of data mobilized for a given species group, country and year by setting it in relation to expert expectation across a standardized grid. Two metrics are calculated:
             </p>
             <p>
-                <strong>
-                    <em>Species-level Coverage</em>
-                </strong>
+                <strong><em>Species-level Coverage</em></strong>
                 measures how well, on average, GBIF-mediated data characterize the broad distributions of species. Specifically, it is the proportion of grid cells expectedly occupied by a species with records in a given year, averaged across all species in a
                 country. In a given year, a value of 100% would suggest that at least one record is available for every range cell of all species occurring in a country, i.e. a complete species distribution coverage for this spatial resolution.
             </p>
             <p>
-                <strong>
-                    <em>Assemblage-level Coverage</em>
-                </strong>
+                <strong><em>Assemblage-level Coverage</em></strong>
                 measures how well, on average, GBIF-mediated data characterize the makeup of grid cell assemblages. Specifically, it is the proportion of species expected to occur in a cell that have been recorded in a given year, averaged across all cells in a
                 country. In a given year, a value of 100% would suggest that at least one record is available for all species expected in each of a country’s grid cells, i.e. complete assemblage structure coverage for this spatial resolution. This metric can be
                 shown as country average or for individual cells to identify within-country data gaps and biases that may inform future sampling and mobilization.
             </p>
             <p>
                 The two metrics in the GBIF Coverage Assessment Tools convey distinct messages. The magnitude and temporal trends in a country’s Species-level Coverage inform about how well its mobilized data may be suited for characterizing species distributions
-                and their changes over time for a given species group (directly, or through modeling). In contrast, the ‘Assemblage-level Coverage’ measure would relate questions about the status and changes in the makeup of communities, and their associated
+                and their changes over time for a given species group (directly, or through modeling). In contrast, the ‘Assemblage-level Coverage’ measure would relate to questions about the status and changes in the makeup of communities, and their associated
                 aggregate functions.
             </p>
             <p>
@@ -73,6 +71,22 @@
                 however, several caveats: expert maps may suffer from errors of omission and commission that even at this coarse spatial resolution may slightly affect metric values; the currently used grid is not equal-area; taxonomic mismatches may remain in the
                 data. In future updates, we plan to replace expert maps with increasingly sophisticated multi-source, modeled maps, move to an equal area grid, and further improve the synonym match-up.
             </p>
+
+            <hr class="section-divider" />
+
+            <h2>Methods</h2>
+            <h3>Taxonomic harmonization</h3>
+            <p>
+              To prevent missing or double-counting species due to synonymy, all scientific names in GBIF and range map datasets are harmonized under common taxon concepts. For this purpose, we carefully developed synonym lists to match species names in GBIF-mediated data to names used for the expert information. For each major species group, we selected a well-curated taxonomic database as our ‘master taxonomy’, that defines accepted species delimitations. To each accepted species name, we linked additional scientific names that are fully or partly included in the respective taxon concept, including synonyms, subspecies, and typographical variants and spelling mistakes. To be able to interpret all scientific names in range map and GBIF datasets, we integrated our master taxonomies with various additional sources of scientific names. Any remaining non-matching names were matched using approximate string matching and afterwards individually validated. Due to the large number of taxa, the approach taken for land plants differs slightly (described in detail in Meyer et al. 2016). For an overview of the major species groups and regions for which the presented indicators are thus far available, as well as the respective taxonomic data sources used for name harmonization, see the tables below.
+            </p>
+
+            <h3>Integrated geographical validation and interpretation of ambiguous scientific names</h3>
+            <p>
+              The presented indicators refer to native biota only. To validate records geographically, we thus excluded any records that fell outside of the respective species’ known extents of native occurrence (as inferred from gridded range maps). A major problem with records in aggregative databases is that the originally intended taxon concepts behind ambiguous scientific names (such as many pro parte synonyms) are typically unknown. However, these can often be inferred indirectly from records’ geographical locations. Here, we do so by inferring taxonomic identities of ambiguously named records through spatial overlays with the range maps of all accepted species to which these names could potentially refer. In cases where ambiguously named records overlap with ranges of more than one ‘candidate’ accepted species, we assume that these names reflect the taxon concepts in our master taxonomy. If ambiguities still persist, we assume that all records of a given ambiguous name in a given grid cell refer to only one of the candidate accepted species, hence our completeness index may be slightly conservative in these cases.
+            </p>
+
+            <hr class="section-divider" />
+
         </div>
     </div>
 
