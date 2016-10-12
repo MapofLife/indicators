@@ -64,7 +64,7 @@ module.exports = function(grunt) {
      },
      pages: {
        options: {
-         remote: pkg.repository,
+         remote: pkg.devRepository,
          force:true,
          branch: 'gh-pages'
        }
