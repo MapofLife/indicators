@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             remove: ['.dev'],
             append: [
               {selector:'head',html:'<base href="//mapoflife.github.io/' + pkg.base + '/" />'},
-              {selector:'head',html:'<script>if (window.location.pathname.indexOf("indicators") > 0){window.location.href = window.location.href.replace("indicators", "EbbeNielsen");}</script>'},
+              {selector:'head',html:'<script>if (window.location.pathname.indexOf("EbbeNielsen") > 0){window.location.href = window.location.href.replace("EbbeNielsen", "indicators");}</script>'},
               {selector:'head',html:'<link href="static/app.min.css" rel="stylesheet">'},
               {selector:'head',html:'<script src="static/app.min.js"></script>'}
             ]
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
      },
      pages: {
        options: {
-         remote: pkg.altRepository,
+         remote: pkg.repository,
          force:true,
          branch: 'gh-pages'
        }
