@@ -5,6 +5,12 @@ angular.module('mol.controllers').controller(
     function($state, $scope, $filter, regionType, region, completenessData, $timeout,
       lineChart, $uibModal) {
 
+        $scope.model.currIndicator.richness = true;
+        $scope.model.currIndicator.species = false;
+        if ($scope.model.activeIndicator == 'species') {
+          $scope.model.currIndicator.richness = false;
+          $scope.model.currIndicator.species = true;
+        }
 
       $scope.model.chartObject = lineChart;
       var chartRendered = false;

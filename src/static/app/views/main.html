@@ -28,16 +28,12 @@
                 mobilized data actually representing expected taxonomic, spatial, and temporal variation in biodiversity? Recent research by members of our team developed the use of expert-based information for this purpose (Meyer et al (2015) <sup><a href="#cite_Meyer_2015">[2]</a></sup>).
             </p>
             <p>
-                For the Ebbe Nielsen Challenge, we, over the past couple of months, developed a suite of novel informatics tools and services that build on these concepts and report on spatial and temporal data gaps and biases among countries. The concepts behind
-                our metrics have been have been endorsed as sound quantification of species occurrence data gaps (“Species Status Information Index”) by
+                We present a suite of novel informatics tools and services that build on these concepts and report on spatial and temporal data gaps and biases among countries. The concepts behind our metrics have been have been endorsed as sound quantification of species occurrence data gaps (“Species Status Information Index”) by
                 <a class="external" href="http://geobon.org/geo-bon-presents-a-new-generation-of-biodiversity-indicators-at-cbd-ahteg">GEO BON</a>, and recently IPBES and the
-                <a class="external" href="https://www.cbd.int/doc/strategic-plan/strategic-plan-indicators-en.pdf">CBD</a>. After initial offline explorations for just a few taxa and continental resolution, it was over the summer, triggered by the Ebbie Nielsen competition, that we
-                decided to take the metrics to country scale and annual resolution, extend them flexibly to many more taxa, and build interactive visualizations and embeddable components and services. We designed these tools with components embeddable in partner
-                websites and with the potential of automated country reports that in collaboration with GBIF could be built out to update near-real-time.
+                <a class="external" href="https://www.cbd.int/doc/strategic-plan/strategic-plan-indicators-en.pdf">CBD</a>. We designed these tools with components embeddable in partner websites and with the potential of automated country reports that can be built out to update near-real-time.
             </p>
             <p>
-                Information about gaps and biases in this GBIF-mediated data coverage, and how successful countries and their institutions are in addressing them is vital. It can help identify priority targets for data collection and mobilization, inform about the
-                suitability of data for modeling and inference.
+                Information about gaps and biases in this GBIF-mediated data coverage, and how successful countries and their institutions are in addressing them is vital. It can help identify priority targets for data collection and mobilization. In gridded from, coverage maps inform about the reliability of available evidence for a species group and be used to account for spatial biodiversity ignorance in species distribution modeling and related applications.
             </p>
 
             <hr class="section-divider" />
@@ -47,15 +43,13 @@
                 The GBIF Coverage Assessment Tools characterize coverage of data mobilized for a given species group, country and year by setting it in relation to expert expectation across a standardized grid. Two metrics are calculated:
             </p>
             <p>
+                <strong><em>Assemblage-level Coverage</em></strong>
+                measures how well, on average, GBIF-mediated data characterize the makeup of grid cell assemblages. Specifically, it is the proportion of species expected to occur in a cell that have been recorded in a given year, averaged across all cells in a country. In a given year, a value of 100% would suggest that at least one record is available for all species expected in each of a country’s grid cells, i.e. complete assemblage structure coverage for this spatial resolution. This metric can be shown as country average or in gridded form. The gridded map informs about individual data gaps and biases (“ignorance”) that may inform future sampling and mobilization or be used by researchers to account for data biases in modeling.
+            </p>
+            <p>
                 <strong><em>Species-level Coverage</em></strong>
                 measures how well, on average, GBIF-mediated data characterize the broad distributions of species. Specifically, it is the proportion of grid cells expectedly occupied by a species with records in a given year, averaged across all species in a
                 country. In a given year, a value of 100% would suggest that at least one record is available for every range cell of all species occurring in a country, i.e. a complete species distribution coverage for this spatial resolution.
-            </p>
-            <p>
-                <strong><em>Assemblage-level Coverage</em></strong>
-                measures how well, on average, GBIF-mediated data characterize the makeup of grid cell assemblages. Specifically, it is the proportion of species expected to occur in a cell that have been recorded in a given year, averaged across all cells in a
-                country. In a given year, a value of 100% would suggest that at least one record is available for all species expected in each of a country’s grid cells, i.e. complete assemblage structure coverage for this spatial resolution. This metric can be
-                shown as country average or for individual cells to identify within-country data gaps and biases that may inform future sampling and mobilization.
             </p>
             <p>
                 The two metrics in the GBIF Coverage Assessment Tools convey distinct messages. The magnitude and temporal trends in a country’s Species-level Coverage inform about how well its mobilized data may be suited for characterizing species distributions

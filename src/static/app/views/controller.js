@@ -5,7 +5,7 @@ angular.module('mol.controllers')
       $scope.model = {
         map: new molUiMap(),
         regionHover: undefined,
-        activeIndicator: 'species',
+        activeIndicator: 'richness',
         alerts: [],
         devmode: false
       };
