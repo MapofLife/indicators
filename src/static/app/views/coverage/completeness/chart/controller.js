@@ -168,7 +168,7 @@ angular.module('mol.controllers').controller(
           animation: true,
           ariaLabelledBy: 'modal-title',
           ariaDescribedBy: 'modal-body',
-          templateUrl: 'static/app/views/completeness/chart/main-modal.html',
+          templateUrl: 'static/app/views/coverage/completeness/chart/main-modal.html',
           controller: 'ModalInstanceCtrl',
           controllerAs: '$ctrl',
           size: 'lg',

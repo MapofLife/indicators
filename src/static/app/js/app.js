@@ -57,7 +57,7 @@ angular.module('mol.indicators', [
       $stateProvider
         .state(
           'indicators', {
-            title: "GBIF Coverage Assessment",
+            title: "Indicators",
             views: {
               '': {
                 templateUrl: 'static/app/layouts/base.html',
@@ -65,6 +65,9 @@ angular.module('mol.indicators', [
               },
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
+              },
+              'nav@indicators': {
+                templateUrl: 'static/app/views/sub-nav-empty.html'
               },
               'content@indicators': {
                 templateUrl: 'static/app/views/main.html'
@@ -74,64 +77,76 @@ angular.module('mol.indicators', [
           }
         )
         .state(
-          'indicators.faq', {
-            title: 'FAQ - GBIF Coverage Assessment',
+          'indicators.coverage.background', {
+            title: 'Species Data Coverage',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
               },
-              'content@indicators.faq': {
-                templateUrl: 'static/app/views/faq/main.html'
+              'nav@indicators': {
+                templateUrl: 'static/app/views/coverage/sub-nav.html'
+              },
+              'content@indicators.coverage.background': {
+                templateUrl: 'static/app/views/coverage/background.html'
               }
             },
-            url: 'faq'
+            url: '/background'
           }
         )
         .state(
-          'indicators.sources', {
-            title: 'Sources - GBIF Coverage Assessment',
+          'indicators.coverage.sources', {
+            title: 'Species Data Coverage',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
               },
-              'content@indicators.sources': {
-                templateUrl: 'static/app/views/sources/main.html'
+              'nav@indicators': {
+                templateUrl: 'static/app/views/coverage/sub-nav.html'
+              },
+              'content@indicators.coverage.sources': {
+                templateUrl: 'static/app/views/coverage/sources.html'
               }
             },
-            url: 'sources'
+            url: '/sources'
           }
         )
         .state(
-          'indicators.contact', {
-            title: 'Contact - GBIF Coverage Assessment',
+          'indicators.coverage.team', {
+            title: 'Species Data Coverage',
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/basic.html'
               },
-              'content@indicators.contact': {
-                templateUrl: 'static/app/views/contact/main.html'
+              'nav@indicators': {
+                templateUrl: 'static/app/views/coverage/sub-nav.html'
+              },
+              'content@indicators.coverage.team': {
+                templateUrl: 'static/app/views/coverage/team.html'
               }
             },
-            url: 'contact'
+            url: '/team'
           }
         )
         .state(
-          'indicators.completeness', {
-            title: 'Data Coverage - GBIF Coverage Assessment',
+          'indicators.coverage', {
+            title: 'Species Data Coverage',
             sticky: true,
             views: {
               '@indicators': {
                 templateUrl: 'static/app/layouts/map-with-sidebars.html'
               },
-              /*'left_top_1@indicators.completeness': {
+              'nav@indicators': {
+                templateUrl: 'static/app/views/coverage/sub-nav.html'
+              },
+              /*'left_top_1@indicators.coverage': {
                 templateUrl: 'static/app/views/completeness/controls.html',
                 controller: 'molIndicatorsCompletenessCtrl'
               },*/
-              'right-sidebar@indicators.completeness': {
-                templateUrl: 'static/app/views/completeness/chart/main.html'
+              'right-sidebar@indicators.coverage': {
+                templateUrl: 'static/app/views/coverage/completeness/chart/main.html'
               },
-              'map@indicators.completeness': {
-                templateUrl: 'static/app/views/completeness/map.html',
+              'map@indicators.coverage': {
+                templateUrl: 'static/app/views/coverage/completeness/map.html',
                 controller: 'molIndicatorsCompletenessCtrl'
               }
             },
@@ -159,14 +174,14 @@ angular.module('mol.indicators', [
                   }];
               }
             },
-            url: 'completeness?devmode'
+            url: 'coverage?devmode'
           }
         ).state(
-          'indicators.completeness.region', {
+          'indicators.coverage.region', {
             url: '/{region}',
             views: {
-              'right-sidebar@indicators.completeness': {
-                templateUrl: 'static/app/views/completeness/chart/main.html',
+              'right-sidebar@indicators.coverage': {
+                templateUrl: 'static/app/views/coverage/completeness/chart/main.html',
                 controller: 'molIndicatorsCompletenessChartCtrl'
               }
             }

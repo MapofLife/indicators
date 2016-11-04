@@ -2,10 +2,13 @@ angular.module('mol.controllers')
   .controller('molIndicatorsCtrl', [
     '$scope', '$state', '$rootScope', 'molUiMap', '$timeout', '$q',
     function($scope, $state, $rootScope, molUiMap, $timeout, $q) {
+      
+      // set the page title
+      $rootScope.pagetitle = $state.current.title;
+
       $scope.model = {
         map: new molUiMap(),
         regionHover: undefined,
-        activeIndicator: 'richness',
         alerts: [],
         devmode: false
       };

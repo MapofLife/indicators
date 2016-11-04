@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Map of Life Indicators",
   "repository": "git@github.com:MapofLife/indicators.git",
-  "altRepository": "git@github.com:MapofLife/EbbeNielsen.git",
+  "altRepository": "git@github.com:MapofLife/indicators-dev.git",
   "url": "https://mapoflife.github.io/indicators/",
   "base": "indicators",
   "license": "MIT",

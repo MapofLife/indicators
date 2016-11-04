@@ -4,6 +4,8 @@ angular.module('mol.controllers')
     function($scope, $state, $window, $timeout, molApi, molCompletenessOverlay, regionType, availableTaxa, mapDisplayTypes) {
 
       $scope.model.regionType = regionType;
+      $scope.model.currIndicator = {};
+      $scope.model.activeIndicator = 'richness';
 
       $scope.model.mapDisplayTypes = mapDisplayTypes;
       $scope.model.selectedMapType = mapDisplayTypes[0];
@@ -142,7 +144,7 @@ angular.module('mol.controllers')
                           $scope.model.selectedMapType.type == 'countries') ) {
                     $scope.model.selected_map_color = $scope.model.map_color_classes[data.map_color];
                     $state.transitionTo(
-                      'indicators.completeness.region', {
+                      'indicators.coverage.region', {
                         "region": data.region_name
                       }, {
                         "inherit": true,
