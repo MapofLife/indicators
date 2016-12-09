@@ -186,6 +186,80 @@ angular.module('mol.indicators', [
               }
             }
           }
+        )
+        .state(
+          'indicators.reserves', {
+            title: 'Species Protection',
+            sticky: true,
+            views: {
+              '@indicators': {
+                templateUrl: 'static/app/layouts/map-with-sidebars.html'
+              },
+              'nav@indicators': {
+                templateUrl: 'static/app/views/reserves/sub-nav.html'
+              },
+              'right-sidebar@indicators.reserves': {
+                templateUrl: 'static/app/views/reserves/completeness/chart/main.html'
+              },
+              'map@indicators.reserves': {
+                templateUrl: 'static/app/views/reserves/completeness/map.html',
+                controller: 'molIndicatorsCompletenessCtrl'
+              }
+            },
+            resolve: {
+              regionType: function(molApi, $stateParams) {
+                var defaultType = ($stateParams.regiontype || 'countries');
+                return [{
+                    "dataset_id": "e9707baa-46e2-4ec4-99b6-86b1712e02de",
+                    "citation": "Global Administrative Areas. (2016). GADM database of Global Administrative Areas, version 2.8. http://www.gadm.org.",
+                    "type": "countries",
+                    "dataset_title": "Global Administrative Areas v 2.8",
+                    "title": "Political boundaries"
+                  }]
+                  .find(function(type) {
+                    return type.type.toLowerCase() === defaultType
+                  });
+              },
+              mapDisplayTypes: function() {
+                  return[{
+                    "type": "countries",
+                    "title": "Countries"
+                  }, {
+                    "type": "geohash",
+                    "title": "Grid"
+                  }];
+              }
+            },
+            url: 'reserves?devmode'
+          }
+        )
+        .state(
+          'indicators.reserves.background', {
+            title: 'Species Protection',
+            views: {
+              '@indicators': {
+                templateUrl: 'static/app/layouts/basic.html'
+              },
+              'nav@indicators': {
+                templateUrl: 'static/app/views/reserves/sub-nav.html'
+              },
+              'content@indicators.reserves.background': {
+                templateUrl: 'static/app/views/reserves/background.html'
+              }
+            },
+            url: '/background'
+          }
+        )
+        .state(
+          'indicators.reserves.region', {
+            url: '/{region}',
+            views: {
+              'right-sidebar@indicators.reserves': {
+                templateUrl: 'static/app/views/reserves/completeness/chart/main.html',
+                controller: 'molIndicatorsCompletenessChartCtrl'
+              }
+            }
+          }
         );
 
       $locationProvider.html5Mode(true);
