@@ -1,0 +1,170 @@
+<style>
+
+
+  .close {
+    padding:10px;
+  }
+
+  .completeness-charts {
+    /*width:350px;*/
+    padding: 0 6px 8px;
+  }
+  .completeness-charts h3, .completeness-charts h4 {
+    margin: 8px 0;
+    text-align: left;
+    padding: 0 6px 8px;
+  }
+
+.chart-view { height: 200px; }
+.chart-holder {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+}
+
+.modal-body .row { margin: 0 0 20px 0; }
+.region-data-holder {
+  position: relative;
+  min-height: 400px;
+  height: 100%;
+}
+.metric { position: relative; text-align: center; }
+.metric-value {
+  position: relative;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  background-color: rgba(149, 165, 166, 0.5);
+  color: #555;
+  text-align: center;
+  padding-top: 28px;
+  margin: 0 auto;
+}
+.metric-value.slideup { position: relative; }
+.metric-value-avi { background-color: rgba(149, 165, 166, 0.5); color: #555; }
+.metric-value-tsc { background-color: rgba(149, 165, 166, 0.5); color: #555; }
+.metric-value-tgc { background-color: rgba(149, 165, 166, 0.5); color: #555; }
+.metric-value-rank { background-color: rgba(149, 165, 166, 0.5); color: #555; }
+
+</style>
+
+
+<div class="side-wrapper">
+  <!-- global metrics -->
+
+  <div class="info-boxes">
+
+     <div ng-show="!model.availableTaxa && (model.alerts.length == 0 )">
+       <h4><i class="fa fa-refresh fa-spin fa-fw"></i> Loading available species groups...</h4>
+     </div>
+
+
+     <!-- system messages -->
+     <div style="text-align: left">
+       <uib-alert ng-repeat="alert in model.alerts"
+        type="{{alert.type}}" ng-bind-html="alert.msg"></uib-alert>
+     </div>
+     <!-- end system messages -->
+
+
+     <div class="animate-if" ng-if="model.availableTaxa">
+
+       <div class="form-horizontal taxa-info">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">Species groups: </div>
+            <select
+               class="form-control selectpicker"
+               ng-model="model.selectedMapTaxa"
+               ng-options="taxa.title group by taxa.groupby for taxa in model.availableTaxa track by taxa.taxa"></select>
+          </div>
+        </div>
+       </div>
+       <hr />
+
+       <!-- indicator selector -->
+       <div>
+
+         <div class="completeness-charts animate-if" ng-if="!(model.activeIndicator == 'species' && model.region && model.selectedMapTaxa)">
+           <h4>Select a country to view it's metrics</h4>
+         </div>
+
+          <!-- region metrics -->
+          <div class="completeness-charts animate-if" ng-if="model.region && model.selectedMapTaxa">
+
+             <hr />
+
+              <a class="btn btn-danger btn-xs pull-right" ng-click="resetView()" aria-label="Reset"><i class="fa fa-close" aria-hidden="true"></i></a>
+              <h3>{{model.region.name}}</h3>
+
+              <div class="region-data-holder">
+
+                  <div class="metrics-holder slide" ng-if="model.statisticsDisplayMode == 1">
+
+                    <div class="row">
+
+                      <div class="col-xs-12 col-sm-4 metric">
+                        <div class="metric-value {{ model.selected_map_color }}">{{ (model.metrics[0] * 100) | numberEx:2 }}%</div>
+                        <h5>Avg. Coverage</h5>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-4 metric">
+                        <div class="metric-value">{{ model.metrics[1] }}</div>
+                        <h5>Species Count</h5>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-4 metric">
+                        <div class="metric-value">{{ model.metrics[3] + " / " + model.metrics[4] }}</div>
+                        <h5>Rank</h5>
+                      </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="chart-holder">
+                      <div ng-if="model.chartObject.data">
+                        <div google-chart chart="model.chartObject" class="chart-view"></div>
+                      </div>
+                    </div> <!-- chart-holder -->
+
+                    <div class="pull-right">
+                      <a class="btn btn-info btn-xs" href="#" ng-click="showModal()">View larger chart</a>
+                    </div>
+
+
+                  </div> <!-- metrics-holder -->
+
+
+                  <div class="slide" ng-if="model.statisticsDisplayMode == 0">
+                     <uib-progressbar class="progress-striped active" value="dynamic">
+                       Loading statistics. Please wait...
+                     </uib-progressbar>
+                  </div>
+
+                  <div class="slide" ng-if="model.statisticsDisplayMode == 2">
+                    <h4>
+                      No statistics available for {{ model.selectedMapTaxa.title }}
+                      <br />
+                      <small>Please select a different country or species group.</small>
+                    </h4>
+                  </div>
+
+
+              </div> <!-- region-data-holder -->
+
+          </div>
+          <!-- end region metrics -->
+
+
+
+       </div>
+       <!-- indicator selector -->
+
+     </div> <!-- end-if model.availableTaxa -->
+
+  </div>
+
+  <!-- end global metrics -->
+
+</div>
