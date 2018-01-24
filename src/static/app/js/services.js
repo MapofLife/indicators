@@ -1,9 +1,9 @@
 var molServices = angular.module('mol.services', []);
 
 molServices.factory(
-    'molApiVersion', [
+    'molConfig', [
       function() {
-        return "0.x"
+        return {api: "0.x"}
       }
     ]
   )
