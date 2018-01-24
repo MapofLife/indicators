@@ -305,6 +305,16 @@ a.external:after {
 .tool-item .banner-preview, .tool-item .banner-soon {
   background-color:rgba(231,76,60,0.85);
 }
+.tool-item .tool-links p {
+  margin-top: 15px; 
+  padding-left: 10px;
+  text-align: left; 
+  font-size: 15px;
+  font-weight: 300;
+}
+.tool-item .tool-links p a {
+  vertical-align: text-bottom;
+}
 
 @media (max-width: 992px) {
   .layouts-basic .content-view .bg {

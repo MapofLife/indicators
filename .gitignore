@@ -5,6 +5,8 @@ logs/*
 tmp
 .DS_Store
 *.pyc
+package-lock.json
+.nvmrc
 .idea
 config.py
 privatekey.pem
