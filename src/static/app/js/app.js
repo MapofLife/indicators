@@ -29,7 +29,7 @@ angular.module('mol.indicators', [
     function(uiGmapGoogleMapApiProvider) {
       uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3.25', //defaults to latest 3.X anyhow
+        v: '3', //defaults to latest 3.X anyhow
         libraries: 'geometry,visualization,drawing',
         language: 'en'
 

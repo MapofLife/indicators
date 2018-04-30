@@ -107,7 +107,7 @@
     </ui-gmap-map-control>
 
     <ui-gmap-map-control position="top-right" index="10000">
-        <div class="info-boxes-small animate-if" ng-if="model.selectedMapTaxa">
+        <div class="info-boxes-small animate-if"> <!-- ng-if="model.selectedMapTaxa" -->
 
             <div class="region-info" ng-show="( (model.activeIndicator == 'species') || (model.activeIndicator == 'richness' && model.selectedMapType.type == 'countries') )">
                 <div class="row-layout">

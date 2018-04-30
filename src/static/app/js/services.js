@@ -3,7 +3,7 @@ var molServices = angular.module('mol.services', []);
 molServices.factory(
     'molConfig', [
       function() {
-        return {api: "0.x"}
+        return {api: "1.x"}
       }
     ]
   )
@@ -13,19 +13,19 @@ molServices.factory(
         return function(params) {
           if (params) {
             var mapurl = "";
-            mapurl = "https://mol.carto.com/api/v1/map/named/indicator-species-region-taxa";
+            mapurl = "https://carto.mol.org/user/mol/api/v1/map/named/indicator-species-region-taxa";
             if (params.indicator == 'richness' && params.display_type == 'geohash') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-grid-taxa";
+              mapurl = "https://carto.mol.org/user/mol/api/v1/map/named/indicator-assemblage-grid-taxa";
             } else if (params.indicator == 'richness' && params.display_type == 'countries') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-region-taxa";
+              mapurl = "https://carto.mol.org/user/mol/api/v1/map/named/indicator-assemblage-region-taxa";
             }
 
             if ($stateParams.devmode == 'true') {
-              mapurl = "https://mol.carto.com/api/v1/map/named/indicator-species-region-taxa-dev";
+              mapurl = "https://carto.mol.org/user/mol/api/v1/map/named/indicator-species-region-taxa-dev";
               if (params.indicator == 'richness' && params.display_type == 'geohash') {
-                mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-grid-taxa-dev";
+                mapurl = "https://carto.mol.org/user/mol/api/v1/map/named/indicator-assemblage-grid-taxa-dev";
               } else if (params.indicator == 'richness' && params.display_type == 'countries') {
-                mapurl = "https://mol.carto.com/api/v1/map/named/indicator-assemblage-region-taxa-dev";
+                mapurl = "https://carto.mol.org/user/mol/api/v1/map/named/indicator-assemblage-region-taxa-dev";
               }
             }
 
@@ -37,17 +37,15 @@ molServices.factory(
             }).then(function(result, status, headers, config) {
               return {
                 tile_url: "" +
-                  "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
+                  "https://carto.mol.org/user/mol/api/v1/map/{0}/{z}/{x}/{y}.png"
                   .format(
-                    result.data.cdn_url.https,
                     result.data.layergroupid),
                 grid_url: "" +
-                  "https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
+                  "https://carto.mol.org/user/mol/api/v1/map/{0}/0/{z}/{x}/{y}.grid.json"
                   .format(
-                    result.data.cdn_url.https,
                     result.data.layergroupid),
                 key: result.data.layergroupid,
-                attr: '©2016 Map of Life',
+                attr: '©2018 Map of Life',
                 name: 'region',
                 opacity: 1,
                 type: 'region'
