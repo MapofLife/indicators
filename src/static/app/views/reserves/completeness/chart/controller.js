@@ -1,5 +1,5 @@
 angular.module('mol.controllers').controller(
-  'molIndicatorsCompletenessChartCtrl', [
+  'molIndicatorsReservesChartCtrl', [
     '$state', '$scope', '$filter', 'regionType', 'region', 'completenessData', '$timeout',
     'lineChart', '$uibModal',
     function($state, $scope, $filter, regionType, region, completenessData, $timeout,

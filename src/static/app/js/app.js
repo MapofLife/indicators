@@ -203,7 +203,7 @@ angular.module('mol.indicators', [
               },
               'map@indicators.reserves': {
                 templateUrl: 'static/app/views/reserves/completeness/map.html',
-                controller: 'molIndicatorsCompletenessCtrl'
+                controller: 'molIndicatorsmolIndicatorsCtrl'
               }
             },
             resolve: {
@@ -256,7 +256,7 @@ angular.module('mol.indicators', [
             views: {
               'right-sidebar@indicators.reserves': {
                 templateUrl: 'static/app/views/reserves/completeness/chart/main.html',
-                controller: 'molIndicatorsCompletenessChartCtrl'
+                controller: 'molIndicatorsReservesChartCtrl'
               }
             }
           }

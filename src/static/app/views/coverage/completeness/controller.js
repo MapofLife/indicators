@@ -125,11 +125,17 @@ angular.module('mol.controllers')
             function(overlay) {
               if (overlay) {
                 $scope.model.map.setOverlay(angular.extend(overlay, {
-                  index: 0
+                  index: 0,
+                  name: 'detail',
+                  type: 'detail',
+                  opacity: 1
                 }), 0);
               } else {
                 $scope.model.map.setOverlay({
-                  index: 0
+                  index: 0,
+                  name: 'detail',
+                  type: 'detail',
+                  opacity: 1
                 }, 0);
               }
             });
