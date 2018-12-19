@@ -28,8 +28,8 @@ angular.module('mol.indicators', [
   .config(['uiGmapGoogleMapApiProvider',
     function(uiGmapGoogleMapApiProvider) {
       uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3', //defaults to latest 3.X anyhow
+        key: 'AIzaSyCOnD2Wo8hKmE52uuMJn6ZKcS6WfrNSo9w',
+        v: '3.33', //defaults to latest 3.X anyhow
         libraries: 'geometry,visualization,drawing',
         language: 'en'
 
