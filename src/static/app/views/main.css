@@ -182,7 +182,7 @@ a.external:after {
 .layouts-basic, .layouts-basic .content-view, .layouts-basic .content-view .bg { 
   position: relative;
   height: 100%;
-  min-height: 1000px;
+  min-height: 1400px;
 }
 .layouts-basic .content-view .bg {
   background: url('/indicators/static/app/img/tiles/bg.jpg') no-repeat top center fixed;
@@ -192,7 +192,7 @@ a.external:after {
   flex: 1;
   -webkit-flex: 1;
 }
-.page-title h1, .page-footer h4 {
+.page-title h1, .page-footer h4, .highlight-item h3 {
   font-weight: 400;
 
   color: #f3f3f3;
@@ -322,6 +322,7 @@ a.external:after {
     background-position: center;
     background-size: cover;
     height: 100%;
+    min-height: 3000px;
   }
   .layouts-basic .content-view .col-md-4 {
     width: 70%;
