@@ -273,12 +273,23 @@ a.external:after {
   background: rgba(232,110,29,0.75);
   border: 2px solid rgba(232,110,29,1.0);
 
+  margin-bottom: 8px;
+
   -webkit-transition:all 0.3s ease;
   transition:all 0.3s ease;
 }
 .tool-item .tool-start a:hover, .tool-item .tool-title h3 a:hover, .tool-item .tool-title:hover {
   text-decoration: none;
   background-color:#e86e1d;
+  -webkit-transition:all 0.3s ease;
+  transition:all 0.3s ease;
+}
+.tool-item .tool-start a.btn-info {
+  margin-right: -22px;
+  color: #000;
+  background: transparent;
+  border: transparent;
+
   -webkit-transition:all 0.3s ease;
   transition:all 0.3s ease;
 }
