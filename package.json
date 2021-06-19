@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.0.1",
   "description": "Map of Life Indicators",
-  "repository": "git@github.com:MapofLife/indicators.git",
+  "repository": "git@github.com:MapofLife/indicators-classic.git",
   "altRepository": "git@github.com:MapofLife/indicators-dev.git",
-  "url": "https://mapoflife.github.io/indicators/",
-  "base": "indicators",
+  "url": "https://mapoflife.github.io/indicators-classic/",
+  "base": "indicators-classic",
   "license": "MIT",
   "directory": "static/components/",
   "devDependencies": {
